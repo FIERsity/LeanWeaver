@@ -36,6 +36,10 @@ class ErrorCategory(str, Enum):
     SYNTAX_ERROR = "syntax_error"            # 语法错误（通用）
     INVALID_TARGET = "invalid_target"        # motive/归纳目标无效（依赖类型疑难）
     CALC_ERROR = "calc_error"                # calc 块错误
+    NOT_PROPOSITION = "not_proposition"      # theorem/example 的结论不是命题
+    INFER_FAILED = "infer_failed"            # 类型/定义推断失败（binder/let/definition）
+    SYNTHESIZE_IMPLICIT = "synthesize_implicit"  # 无法合成隐式参数/占位符
+    TACTIC_FAILED = "tactic_failed"          # tactic 执行失败
     UNKNOWN = "unknown"                      # 未识别
 
 
@@ -85,6 +89,21 @@ _RULES: list[tuple[str, ErrorCategory]] = [
     ("invalid 'calc' step", ErrorCategory.CALC_ERROR),
     ("invalid calc", ErrorCategory.CALC_ERROR),
     ("calc step", ErrorCategory.CALC_ERROR),
+    # 结论不是命题（theorem/example 声明类型不是 Prop）
+    ("not a proposition", ErrorCategory.NOT_PROPOSITION),
+    ("is not a proposition", ErrorCategory.NOT_PROPOSITION),
+    # 推断失败（binder/let/definition）
+    ("failed to infer type of binder", ErrorCategory.INFER_FAILED),
+    ("failed to infer `let` declaration type", ErrorCategory.INFER_FAILED),
+    ("failed to infer type of definition", ErrorCategory.INFER_FAILED),
+    ("failed to infer implicit target", ErrorCategory.INFER_FAILED),
+    # 无法合成隐式参数/占位符
+    ("don't know how to synthesize implicit argument", ErrorCategory.SYNTHESIZE_IMPLICIT),
+    ("don't know how to synthesize placeholder", ErrorCategory.SYNTHESIZE_IMPLICIT),
+    ("failed to synthesize instance", ErrorCategory.FAILED_TO_SYNTHESIZE),
+    # tactic 失败（如 Tactic `assumption` failed）
+    ("tactic `", ErrorCategory.TACTIC_FAILED),
+    ("tactic has not been implemented", ErrorCategory.TACTIC_FAILED),
     # 未知标识符（Lean 4.32："Unknown identifier `bar`"）
     ("unknown identifier", ErrorCategory.UNKNOWN_IDENTIFIER),
     ("unknown constant", ErrorCategory.UNKNOWN_IDENTIFIER),

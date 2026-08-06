@@ -134,3 +134,19 @@ def test_hard_motive_zh_explanation():
     )
     assert "归纳" in result.title or "索引" in result.what
     assert len(result.fix) > 0
+
+
+def test_theorem_not_proposition():
+    # LSP 会在声明行报：theorem 的结论不是命题
+    msg = "type of theorem `t1` is not a proposition"
+    info = classify_error(msg)
+    assert info.category is ErrorCategory.NOT_PROPOSITION
+
+
+def test_theorem_not_proposition_zh():
+    from leanweaver.errors.explain import explain
+
+    result = explain("type of theorem `t1` is not a proposition", lang="zh")
+    assert "命题" in result.title
+    assert len(result.fix) > 0
+    assert any("def" in f for f in result.fix), "应提示用 def"

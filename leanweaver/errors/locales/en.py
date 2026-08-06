@@ -242,6 +242,84 @@ TEMPLATES_EN: dict[ErrorCategory, dict[str, Any]] = {
         ],
     },
 
+    ErrorCategory.NOT_PROPOSITION: {
+        "title": "Theorem conclusion is not a proposition",
+        "what": (
+            "You declared a `theorem` (or `lemma`/`example`) whose conclusion is not "
+            "a proposition (Prop). In Lean, `theorem` is for proving propositions — "
+            "the result type must be a `Prop` (like `P`, `a = b`, `x > 0`), not a data "
+            "type like `Nat` or `String`. To construct a value of a data type, use `def` "
+            "instead of `theorem`."
+        ),
+        "why": [
+            "Used `theorem` but the conclusion is a data type (Nat, String, List, ...)",
+            "Should have used `def` (which can return any type) instead of `theorem`",
+            "The statement is not actually a mathematical proposition",
+        ],
+        "fix": [
+            "Change `theorem` to `def` if you want to define a function/value",
+            "If you want to prove a property, make sure the conclusion is a `Prop` (e.g. `x = 0`, `x > 0`, `P`)",
+            "Remember: `theorem`/`lemma`/`example` are for proofs; `def` is for definitions",
+        ],
+    },
+
+    ErrorCategory.INFER_FAILED: {
+        "title": "Failed to infer type",
+        "what": (
+            "Lean could not automatically determine (infer) the type of something — "
+            "a binder (variable), a `let` declaration, or a definition. It needs enough "
+            "type information to figure out what the term's type should be."
+        ),
+        "why": [
+            "A variable/binder's type is not specified and can't be deduced from context",
+            "A `let`/definition's type is ambiguous — Lean can't tell what it should be",
+            "Information that would determine the type is missing or inconsistent",
+        ],
+        "fix": [
+            "Add an explicit type annotation, e.g. `(x : Nat)`, `let x : Nat := ...`",
+            "For definitions, add a type signature: `def foo (n : Nat) : Nat := ...`",
+            "If it's a binder in a theorem, specify its type in the declaration",
+        ],
+    },
+
+    ErrorCategory.SYNTHESIZE_IMPLICIT: {
+        "title": "Cannot synthesize implicit argument / placeholder",
+        "what": (
+            "Lean could not figure out (synthesize) the value of an implicit argument "
+            "or a placeholder (`_`). It knows the argument must exist but cannot deduce "
+            "what it should be from the surrounding context."
+        ),
+        "why": [
+            "An implicit typeclass/type argument can't be deduced from context",
+            "A `_` placeholder has no unique solution — there could be multiple options",
+            "The information needed to determine the argument is not available yet",
+        ],
+        "fix": [
+            "Provide the argument explicitly, e.g. `f (x := value)` or `f (α := Nat)`",
+            "Add a type annotation to help inference",
+            "If it's a typeclass argument, make sure the required `instance` exists and is in scope",
+        ],
+    },
+
+    ErrorCategory.TACTIC_FAILED: {
+        "title": "Tactic failed",
+        "what": (
+            "The tactic you used could not achieve its goal in this situation. "
+            "Lean runs the tactic, and it failed — the message after 'failed' usually "
+            "explains why (e.g. no matching hypothesis, goal not applicable)."
+        ),
+        "why": [
+            "The tactic's precondition isn't met (e.g. `exact` with no matching term, `assumption` with no matching hypothesis)",
+            "The tactic isn't applicable to the current goal shape",
+            "A custom tactic has not been implemented / isn't defined",
+        ],
+        "fix": [
+            "Read what the tactic was trying to do and what it failed on",
+            "For `exact`/`assumption`: make sure the term/hypothesis really matches the goal",
+            "For custom tactics: check they are implemented and imported",
+        ],
+    },
+
     ErrorCategory.INVALID_TARGET: {
         "title": "Invalid induction target (index occurs more than once)",
         "what": (

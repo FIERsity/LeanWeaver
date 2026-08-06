@@ -224,6 +224,81 @@ TEMPLATES_ZH: dict[ErrorCategory, dict[str, Any]] = {
         "fix": ["用真实的证明替换 `sorry`", "提交前用 `grep sorry` 检查全仓库"],
     },
 
+    ErrorCategory.NOT_PROPOSITION: {
+        "title": "定理结论不是命题（not a proposition）",
+        "what": (
+            "你声明了一个 `theorem`（或 `lemma`/`example`），但它的结论不是命题。"
+            "在 Lean 中，`theorem` 用于证明命题——结论类型必须是 `Prop`"
+            "（比如 `P`、`a = b`、`x > 0`），而不是 `Nat`、`String` 这类数据类型。"
+            "如果要构造数据类型的值，应该用 `def` 而不是 `theorem`。"
+        ),
+        "why": [
+            "用了 `theorem` 但结论是数据类型（Nat、String、List...）",
+            "本应该用 `def`（它可以返回任意类型）而不是 `theorem`",
+            "这个声明其实不是数学命题",
+        ],
+        "fix": [
+            "如果想定义函数/值，把 `theorem` 改成 `def`",
+            "如果想证明性质，确保结论是 `Prop`（如 `x = 0`、`x > 0`、`P`）",
+            "记住：`theorem`/`lemma`/`example` 用于证明；`def` 用于定义",
+        ],
+    },
+
+    ErrorCategory.INFER_FAILED: {
+        "title": "无法推断类型（failed to infer type）",
+        "what": (
+            "Lean 无法自动确定某物的类型——可能是变量（binder）、`let` 声明、或定义。"
+            "它需要足够的类型信息才能判断这个项应该是什么类型。"
+        ),
+        "why": [
+            "变量/binder 没有指定类型，且上下文也无法推断",
+            "`let`/定义的类型不明确，Lean 无法判断",
+            "能决定类型的信息缺失或不一致",
+        ],
+        "fix": [
+            "加显式类型标注，如 `(x : Nat)`、`let x : Nat := ...`",
+            "给定义加类型签名，如 `def foo (n : Nat) : Nat := ...`",
+            "如果是在定理里的 binder，在声明里写明它的类型",
+        ],
+    },
+
+    ErrorCategory.SYNTHESIZE_IMPLICIT: {
+        "title": "无法合成隐式参数/占位符（cannot synthesize implicit argument）",
+        "what": (
+            "Lean 无法推断出某个隐式参数或占位符（`_`）的值。"
+            "它知道这个参数必须存在，但无法从周围上下文推导出它应该是什么。"
+        ),
+        "why": [
+            "隐式类型类/类型参数无法从上下文推导",
+            "`_` 占位符没有唯一解——可能有多个选项",
+            "决定该参数所需的信息还没给出",
+        ],
+        "fix": [
+            "显式提供参数，如 `f (x := value)` 或 `f (α := Nat)`",
+            "加类型标注帮助推断",
+            "如果是类型类参数，确保所需的 `instance` 存在且在作用域内",
+        ],
+    },
+
+    ErrorCategory.TACTIC_FAILED: {
+        "title": "tactic 执行失败（tactic failed）",
+        "what": (
+            "你用的 tactic 在这种情形下无法达成目标。"
+            "Lean 执行了它，但它失败了——'failed' 后面的信息通常会说明原因"
+            "（比如没有匹配的假设、目标不适用）。"
+        ),
+        "why": [
+            "tactic 的前提不满足（如 `exact` 没有匹配的项、`assumption` 没有匹配的假设）",
+            "tactic 不适用于当前目标的形式",
+            "自定义 tactic 未实现/未定义",
+        ],
+        "fix": [
+            "读报错：这个 tactic 想做什么、在哪一步失败",
+            "对 `exact`/`assumption`：确认项/假设真的匹配目标",
+            "对自定义 tactic：检查是否已实现并导入",
+        ],
+    },
+
     ErrorCategory.INVALID_TARGET: {
         "title": "归纳目标无效（索引出现多次）",
         "what": (

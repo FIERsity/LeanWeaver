@@ -28,7 +28,7 @@ function setCached(message: string, html: string) {
 
 
 export function registerHoverProvider(context: vscode.ExtensionContext) {
-  const provider = vscode.languages.registerHoverProvider("lean", {
+  const provider = vscode.languages.registerHoverProvider([{ language: "lean4" }, { language: "lean" }], {
     async provideHover(document, position) {
       // 1. 找到该位置的诊断
       const diags = vscode.languages.getDiagnostics(document.uri);
@@ -47,16 +47,20 @@ export function registerHoverProvider(context: vscode.ExtensionContext) {
         );
       }
 
-      // 3. 调用 leanweaver（规则层快，异常时静默降级为不显示）
+      // 3. 调用 leanweaver（规则层快，异常时提示而非静默）
       try {
         const explanation = await explainError(diag.message);
         // 直接存原始文本，让 MarkdownString 原生渲染（自动适配主题）
         const md = `**LeanWeaver 解释**\n\n${explanation.trim()}`;
         setCached(diag.message, md);
         return new vscode.Hover(new vscode.MarkdownString(md, true), diag.range);
-      } catch (e) {
-        // 不打断用户：leanweaver 不可用时保持 VS Code 原始 hover
-        return undefined;
+      } catch (e: any) {
+        console.error(`[LeanWeaver] explain 失败: ${e.message}`);
+        // CLI 不可用时给个提示，而不是完全静默
+        return new vscode.Hover(
+          new vscode.MarkdownString(`**LeanWeaver**\n\n⚠️ 未找到 leanweaver CLI（${e.message}）。\n请安装: \`pip install leanweaver\``, true),
+          diag.range
+        );
       }
     },
   });

@@ -26,7 +26,7 @@ suite("LeanWeaver 集成测试（纯规则）", () => {
 
   test("hover provider 可调用（不抛异常）", async () => {
     const doc = await vscode.workspace.openTextDocument({
-      language: "lean",
+      language: "lean4",
       content: ["theorem bad (a : Nat) : a = 0 := by", "  rfl"].join("\n"),
     });
     await vscode.window.showTextDocument(doc);
@@ -50,4 +50,13 @@ suite("LeanWeaver 集成测试（纯规则）", () => {
     assert.ok(out.includes("类型不匹配") || out.includes("Type mismatch"), `应包含解释: ${out.slice(0, 60)}`);
     assert.ok(out.includes("修复") || out.includes("Fixes"), "应有修复建议");
   });
+});
+
+test("detectEnvironment 检测 CLI（诊断状态栏问题）", async () => {
+  const { detectEnvironment } = await import("../../env.js") as typeof import("../../env");
+  const env = await detectEnvironment();
+  // 打印诊断（测试输出可见）
+  console.log("[diagnose] cli =", env.cli, "lean =", env.lean, "officialLean =", env.officialLean);
+  // 至少 CLI 检测逻辑不抛异常
+  assert.ok(typeof env.cli === "boolean");
 });

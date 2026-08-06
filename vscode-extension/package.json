@@ -2,7 +2,7 @@
   "name": "leanweaver",
   "displayName": "LeanWeaver",
   "description": "纯规则、零 LLM 的 Lean 4 报错解释 —— 悬停报错即看中文解释。Rule-based Lean 4 error explainer: hover errors to get clear explanations.",
-  "version": "0.4.0",
+  "version": "0.5.6",
   "publisher": "fiersity",
   "license": "MIT",
   "engines": {
@@ -21,21 +21,24 @@
   ],
   "activationEvents": [
     "onLanguage:lean",
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:leanweaver.installLean",
+    "onCommand:leanweaver.diagnose"
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "languages": [
-      {
-        "id": "lean",
-        "extensions": [".lean"],
-        "aliases": ["Lean", "lean"]
-      }
-    ],
     "commands": [
+      {
+        "command": "leanweaver.installLean",
+        "title": "LeanWeaver: 安装官方 Lean 扩展 / Install official Lean extension"
+      },
       {
         "command": "leanweaver.openSettings",
         "title": "LeanWeaver: 打开设置 / Open settings"
+      },
+      {
+        "command": "leanweaver.diagnose",
+        "title": "LeanWeaver: 环境诊断 / Diagnose environment"
       }
     ],
     "configuration": {
@@ -43,12 +46,15 @@
       "properties": {
         "leanweaver.leanweaverCli": {
           "type": "string",
-          "default": "python3 -m leanweaver",
-          "description": "Command to invoke leanweaver (e.g. 'python3 -m leanweaver' or 'leanweaver')."
+          "default": "",
+          "description": "Command to invoke leanweaver. Empty = auto-detect (project venv, then python3)."
         },
         "leanweaver.lang": {
           "type": "string",
-          "enum": ["zh", "en"],
+          "enum": [
+            "zh",
+            "en"
+          ],
           "default": "zh",
           "description": "Explanation language (zh=Chinese, en=English)."
         }

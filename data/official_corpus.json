@@ -1,0 +1,4152 @@
+{
+  "source": "lean4 official tests",
+  "count": 691,
+  "items": [
+    {
+      "source_file": "tests/elab_fail/1007.lean.out.expected",
+      "error_text": "declaration uses `sorry`",
+      "category": "uses_sorry",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1007.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  IsLin fun x => sum fun i => norm x",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1011.lean.out.expected",
+      "error_text": "Unknown identifier `AA`\n\nNote: It is not possible to treat `AA` as an implicitly bound variable here because it has multiple characters while the `relaxedAutoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1038.lean.out.expected",
+      "error_text": "Unknown constant `IO.FS.realpath`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/10488.lean.out.expected",
+      "error_text": "missing exponent digits in scientific literal",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/10488.lean.out.expected",
+      "error_text": "unexpected identifier after decimal point; consider parenthesizing the number",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/10488.lean.out.expected",
+      "error_text": "unexpected identifier; expected command",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/10488.lean.out.expected",
+      "error_text": "unexpected token '('; expected command",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/10488.lean.out.expected",
+      "error_text": "Invalid dotted identifier notation: The expected type of `.succ` could not be determined",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/10488.lean.out.expected",
+      "error_text": "unexpected identifier; expected ')', ',' or ':'",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/10488.lean.out.expected",
+      "error_text": "Invalid pattern: Expected a constructor or constant marked with `[match_pattern]`",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1050.lean.out.expected",
+      "error_text": "invalid mutual definition, result types must be in the same universe level, resulting type for `Foo.bar` is\n  Foo as bs → bs : Type (u + 1)",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1057.lean.out.expected",
+      "error_text": "Dependent elimination failed: Type mismatch when solving this alternative: it has type\n  motive t Int",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1062.lean.out.expected",
+      "error_text": "No goals to be solved",
+      "category": "no_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1074b.lean.out.expected",
+      "error_text": "Unknown identifier `z`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1074b.lean.out.expected",
+      "error_text": "Tactic `assumption` failed",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1079.lean.out.expected",
+      "error_text": "Alternative `isFalse` has not been provided",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1081.lean.out.expected",
+      "error_text": "Type mismatch\n  rfl",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1102.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  DVR 1",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1240.lean.out.expected",
+      "error_text": "import failed, trying to import module with anonymous name",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1301.lean.out.expected",
+      "error_text": "Tactic `tacticTac` has not been implemented",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1301.lean.out.expected",
+      "error_text": "elaboration function for `termTerm` has not been implemented\n  term",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1358.lean.out.expected",
+      "error_text": "error",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1371.lean.out.expected",
+      "error_text": "redundant alternative #3",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1371.lean.out.expected",
+      "error_text": "redundant alternative #4",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1569.lean.out.expected",
+      "error_text": "Unknown identifier `typo`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1576.lean.out.expected",
+      "error_text": "Unknown identifier `non`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1576.lean.out.expected",
+      "error_text": "Unknown identifier `sense`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1576.lean.out.expected",
+      "error_text": "unsolved goals\n⊢ True",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `z`\n  @Linear ?m ?m (?m :: ?m) (?m :: ?m) c.right",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `y`\n  @Linear ?m ?m (?m :: ?m) (?m :: ?m) c.right",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument\n  @Linear ?m ?m (?m :: ?m) (?m :: ?m) c.right",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `α`\n  @Cover.right ?m ?m ?m ?m ?m c",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument\n  @Linear ?m ?m ?m ?m c",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `z`\n  @Linear ?m (?m :: ?m) ?m (?m :: ?m) c.left",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `x`\n  @Linear ?m (?m :: ?m) ?m (?m :: ?m) c.left",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument\n  @Linear ?m (?m :: ?m) ?m (?m :: ?m) c.left",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1616.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `α`\n  @Cover.left ?m ?m ?m ?m ?m c",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1657.lean.out.expected",
+      "error_text": "function `foo` has been recursively inlined more than #16, consider removing the attribute `[inline_if_reduce]` from this declaration or increasing the limit using `set_option compiler.maxRecInlineIfReduce <num>`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1673.lean.out.expected",
+      "error_text": "fail to show termination for\n  foo.a\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1682.lean.out.expected",
+      "error_text": "unsolved goals\ncase a",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1690.lean.out.expected",
+      "error_text": "expected token",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1705.lean.out.expected",
+      "error_text": "type expected, got\n  (R : ?m)",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1707.lean.out.expected",
+      "error_text": "Unknown identifier `c`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1719.lean.out.expected",
+      "error_text": "Invalid dotted identifier notation: The expected type of `.inl` could not be determined",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1760.lean.out.expected",
+      "error_text": "unexpected token '#check'; expected ':', ']' or term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1781.lean.out.expected",
+      "error_text": "(kernel) declaration type mismatch, 'Univ'' has type\n  Type ((imax 1 u) + 1)",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1825.lean.out.expected",
+      "error_text": "Tactic `native_decide` evaluated that the proposition\n  -2147483648 + 2147483648 = -18446744069414584320",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1845.lean.out.expected",
+      "error_text": "Cannot lift nested action `← bar` over inconsistent syntax variants.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/1971.lean.out.expected",
+      "error_text": "unexpected token 'theorem'; expected term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1971.lean.out.expected",
+      "error_text": "unexpected token 'def'; expected ':=', 'where' or '|'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1971.lean.out.expected",
+      "error_text": "unexpected token 'def'; expected term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1971.lean.out.expected",
+      "error_text": "unexpected token 'example'; expected identifier",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1971.lean.out.expected",
+      "error_text": "unexpected token; expected command",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1971.lean.out.expected",
+      "error_text": "unexpected token 'example'; expected 'false', 'true', numeral or string literal",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/1971.lean.out.expected",
+      "error_text": "unterminated string literal",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/2006.lean.out.expected",
+      "error_text": "unterminated comment",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/2125.lean.out.expected",
+      "error_text": "(kernel) invalid return type for 'C.c'",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/217.lean.out.expected",
+      "error_text": "don't know how to synthesize placeholder for argument `init`",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/217.lean.out.expected",
+      "error_text": "don't know how to synthesize placeholder for argument `f`",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/2273.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  P 37",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/241.lean.out.expected",
+      "error_text": "mutable variable `xs` cannot be shadowed",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/242.lean.out.expected",
+      "error_text": "invalid atom",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/243.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  true",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/243.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  a",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/247.lean.out.expected",
+      "error_text": "Cannot lift nested action `← uinfoldDefinition? b` over a binder.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/248.lean.out.expected",
+      "error_text": "Invalid `implemented_by` argument `foo`: Definition cannot be implemented by itself",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/255.lean.out.expected",
+      "error_text": "Unknown constant `x✝`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/2634.lean.out.expected",
+      "error_text": "`simp` made no progress",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/276.lean.out.expected",
+      "error_text": "code generator does not support recursor `PEmpty.rec` yet, consider using 'match ... with' and/or structural recursion",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/277a.lean.out.expected",
+      "error_text": "Unknown identifier `nonexistent`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/277b.lean.out.expected",
+      "error_text": "Invalid `⟨...⟩` notation: The expected type `List Point` has more than one constructor\n\nNote: This notation can only be used when the expected type is an inductive type with a single constructor",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/283.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  f",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/297.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  OfNat (Sort ?u) 0",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/302.lean.out.expected",
+      "error_text": "Function expected at\n  m",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/309.lean.out.expected",
+      "error_text": "don't know how to synthesize placeholder",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/331.lean.out.expected",
+      "error_text": "Failed to infer type of binder `x`\n\nNote: Because this declaration's type has been explicitly provided, all parameter types and holes (e.g., `_`) in its header are resolved before its body is processed; information from the declaration body cannot be used to infer what these values should be",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/346.lean.out.expected",
+      "error_text": "Unknown constant `SomeType.b`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/346.lean.out.expected",
+      "error_text": "Invalid field `z`: The environment does not contain `Nat.z`, so it is not possible to project the field `z` from an expression\n  x",
+      "category": "invalid_field",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/348.lean.out.expected",
+      "error_text": "unexpected token '⟩'; expected ')'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/353.lean.out.expected",
+      "error_text": "typeclass instance problem is stuck\n  Arr.{1, ?u} Bool (@?m a₁ a₂)\n\nNote: Lean will not try to resolve this typeclass instance problem because the second type argument to `Arr.{u1,\n  u2}` contains metavariables. This argument must be fully determined before Lean will try to resolve the typeclass.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/361.lean.out.expected",
+      "error_text": "unsolved goals",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/361.lean.out.expected",
+      "error_text": "unexpected end of input; expected '{'",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/361.lean.out.expected",
+      "error_text": "unsolved goals\ncase inr",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/386.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  Fintype ?m",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/389.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  bar",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/3989_1.lean.out.expected",
+      "error_text": "expected else-alternative for `match_expr`, i.e., `| _ => ...`",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/3989_1.lean.out.expected",
+      "error_text": "Function expected at\n  MetaM",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/4117.lean.out.expected",
+      "error_text": "unexpected end of input; expected ')'",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/423.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  T",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/4309.lean.out.expected",
+      "error_text": "unexpected token ':'; expected identifier",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/435.lean.out.expected",
+      "error_text": "Unknown identifier `op` at quotation precheck\n\nNote: You can use `set_option quotPrecheck false` to disable this check.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/440.lean.out.expected",
+      "error_text": "Aborting evaluation since the expression depends on the 'sorry' axiom, which can lead to runtime instability and crashes.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/448.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  MonadExceptOf IO.Error M",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/450.lean.out.expected",
+      "error_text": "failed to infer `let` declaration type",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/496.lean.out.expected",
+      "error_text": "`foo` not supported by code generator; consider marking definition as `noncomputable`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/496.lean.out.expected",
+      "error_text": "failed to compile definition, consider marking it as 'noncomputable' because it depends on 'bla1', which is 'noncomputable'",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/586.lean.out.expected",
+      "error_text": "Unknown identifier `zero✝`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/586.lean.out.expected",
+      "error_text": "Unknown constant `succ✝`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/593.lean.out.expected",
+      "error_text": "Unknown identifier `boo`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/593.lean.out.expected",
+      "error_text": "Unknown identifier `bar`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/621.lean.out.expected",
+      "error_text": "Failed to coerce\n  xs",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/641.lean.out.expected",
+      "error_text": "Ambiguous term\n  x",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/653.lean.out.expected",
+      "error_text": "Function expected at\n  { }",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/655.lean.out.expected",
+      "error_text": "invalid declaration name `B.a`, structure `B` has field `a`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/689.lean.out.expected",
+      "error_text": "unexpected token 'section'; expected '|'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/690.lean.out.expected",
+      "error_text": "Too many variable names provided at alternative `step`: 3 provided, but 2 expected\ncase step",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/690.lean.out.expected",
+      "error_text": "declaration uses `sorry`\ncase step",
+      "category": "uses_sorry",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/697.lean.out.expected",
+      "error_text": "invalid use of `partial`, `pregion` is not a function\n  P Unit",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/770.lean.out.expected",
+      "error_text": "invalid `do` notation, expected type is not a monad application\n  Nat",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/799.lean.out.expected",
+      "error_text": "invalid declaration name `p`, there is a section variable with the same name",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/906.lean.out.expected",
+      "error_text": "Tactic `simp` failed with a nested error:",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/916.lean.out.expected",
+      "error_text": "mutable variable `x` cannot be shadowed",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/995.lean.out.expected",
+      "error_text": "unsolved goals\ncase match_1",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/StxQuot.lean.out.expected",
+      "error_text": "unexpected token ')'; expected identifier or term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/StxQuot.lean.out.expected",
+      "error_text": "unexpected token ']'; expected term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/StxQuot.lean.out.expected",
+      "error_text": "Unknown identifier `sufficesDecl`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/StxQuot.lean.out.expected",
+      "error_text": "unexpected antiquotation splice",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/StxQuot.lean.out.expected",
+      "error_text": "Unknown identifier `x` at quotation precheck\n\nNote: You can use `set_option quotPrecheck false` to disable this check.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/StxQuot.lean.out.expected",
+      "error_text": "Unknown identifier `y` at quotation precheck\n\nNote: You can use `set_option quotPrecheck false` to disable this check.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/ambiguousOpenExport.lean.out.expected",
+      "error_text": "ambiguous identifier `mk`, possible interpretations: [Bla.C.mk, Foo.C.mk]",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/antiquotRecovery.lean.out.expected",
+      "error_text": "unexpected token '$'; expected ')'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/argNameAtPlaceholderError.lean.out.expected",
+      "error_text": "don't know how to synthesize placeholder for argument `catchExPostpone`",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/argNameAtPlaceholderError.lean.out.expected",
+      "error_text": "don't know how to synthesize placeholder for argument `expectedType?`",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/argNameAtPlaceholderError.lean.out.expected",
+      "error_text": "don't know how to synthesize placeholder for argument `stx`",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/attrCmd.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  Pure M",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits1.lean.out.expected",
+      "error_text": "Unknown identifier `size`\n\nNote: It is not possible to treat `size` as an implicitly bound variable here because it has multiple characters while the `relaxedAutoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits1.lean.out.expected",
+      "error_text": "Unknown identifier `α`\n\nNote: It is not possible to treat `α` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits1.lean.out.expected",
+      "error_text": "Unknown identifier `n`\n\nNote: It is not possible to treat `n` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits1.lean.out.expected",
+      "error_text": "Unknown identifier `β`\n\nNote: It is not possible to treat `β` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits2.lean.out.expected",
+      "error_text": "unknown universe level `u`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits2.lean.out.expected",
+      "error_text": "unknown universe level `β`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits3.lean.out.expected",
+      "error_text": "Unknown identifier `size₂`\n\nNote: It is not possible to treat `size₂` as an implicitly bound variable here because it has multiple characters while the `relaxedAutoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits3.lean.out.expected",
+      "error_text": "Unknown identifier `α₃`\n\nNote: It is not possible to treat `α₃` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits3.lean.out.expected",
+      "error_text": "Unknown identifier `size₃`\n\nNote: It is not possible to treat `size₃` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits3.lean.out.expected",
+      "error_text": "Unknown identifier `α₄`\n\nNote: It is not possible to treat `α₄` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundImplicits3.lean.out.expected",
+      "error_text": "Unknown identifier `size₄`\n\nNote: It is not possible to treat `size₄` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoBoundPostponeLoop.lean.out.expected",
+      "error_text": "invalid `▸` notation, argument\n  h",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitChainNameIssue.lean.out.expected",
+      "error_text": "unsolved goals\ncase nil",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitCtorParamIssue.lean.out.expected",
+      "error_text": "Failed to infer type of binder `x`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitForbidden.lean.out.expected",
+      "error_text": "Unknown identifier `f`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitForbidden.lean.out.expected",
+      "error_text": "Unknown identifier `h`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitForbidden.lean.out.expected",
+      "error_text": "Unknown identifier `Bla`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitForbidden.lean.out.expected",
+      "error_text": "Unknown identifier `Foo`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitForbidden.lean.out.expected",
+      "error_text": "Unknown identifier `Ex2`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitForbidden.lean.out.expected",
+      "error_text": "Unknown identifier `foobar`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoImplicitForbidden.lean.out.expected",
+      "error_text": "Unknown constant `Bar.mk`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoIssue.lean.out.expected",
+      "error_text": "don't know how to synthesize placeholder for argument `a'`",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoIssue.lean.out.expected",
+      "error_text": "don't know how to synthesize placeholder for argument `h`",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoIssue.lean.out.expected",
+      "error_text": "unsolved goals\ncase h\n⊢ ?x = 1\n\ncase x\n⊢ Nat",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autoPPExplicit.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  b = c",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/autobound_and_macroscopes.lean.out.expected",
+      "error_text": "Unknown identifier `x✝`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/auxDeclIssue.lean.out.expected",
+      "error_text": "Tactic `assumption` failed\n\n⊢ False",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/auxDeclIssue.lean.out.expected",
+      "error_text": "Tactic `subst` failed: did not find equation for eliminating 'x'",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/badBinderName.lean.out.expected",
+      "error_text": "invalid binder name `X.mk`, it must be atomic",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/badIhName.lean.out.expected",
+      "error_text": "unsolved goals\ncase z\n⊢ add Nat.z Nat.z = Nat.z\n\ncase s",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/bigUnivOffsets.lean.out.expected",
+      "error_text": "Universe level offset `100000000` exceeds maximum offset `32`\n\nNote: This code is probably misusing universe levels, since they are usually small natural numbers. If you are confident this is not the case, you can increase the limit using `set_option maxUniverseOffset <limit>`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/bigUnivOffsets.lean.out.expected",
+      "error_text": "Universe level offset `10000000` exceeds maximum offset `32`\n\nNote: This code is probably misusing universe levels, since they are usually small natural numbers. If you are confident this is not the case, you can increase the limit using `set_option maxUniverseOffset <limit>`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/binopQuotPrecheck.lean.out.expected",
+      "error_text": "Unknown identifier `a` at quotation precheck\n\nNote: You can use `set_option quotPrecheck false` to disable this check.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/binrelTypeMismatch.lean.out.expected",
+      "error_text": "Type mismatch\n  ()",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/binrelTypeMismatch.lean.out.expected",
+      "error_text": "Type mismatch\n  p",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/bootstrapSorry.lean.out.expected",
+      "error_text": "Unknown identifier `Nat`\n\nNote: A public declaration `Nat` exists but is imported privately; consider adding `public import Init.Prelude`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/byStrictIndent.lean.out.expected",
+      "error_text": "unexpected token 'sorry'; expected command",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/calcErrors.lean.out.expected",
+      "error_text": "invalid 'calc' step, left-hand side is\n  0 + c + b : Nat",
+      "category": "calc_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/calcErrors.lean.out.expected",
+      "error_text": "invalid 'calc' step, relation expected\n  p a",
+      "category": "calc_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/calcErrors.lean.out.expected",
+      "error_text": "invalid 'calc' step, failed to synthesize `Trans` instance\n  Trans p p ?m",
+      "category": "calc_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/calcErrors.lean.out.expected",
+      "error_text": "invalid 'calc' step, left-hand side is\n  γ : Sort u_1",
+      "category": "calc_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/calcErrors.lean.out.expected",
+      "error_text": "unexpected token '['; expected command",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/caseSuggestions.lean.out.expected",
+      "error_text": "Case tag `nonexistent` not found.\n\nNote: There are no cases to select.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/caseSuggestions.lean.out.expected",
+      "error_text": "Case tag `nonexistent` not found.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/classBadOutParam.lean.out.expected",
+      "error_text": "invalid class, parameter #2 depends on `outParam`, but it is not an `outParam`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/class_def_must_fail.lean.out.expected",
+      "error_text": "invalid 'class', declaration 'Foo' must be inductive datatype, structure, or constant",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/class_def_must_fail.lean.out.expected",
+      "error_text": "invalid 'class', declaration 'Bla' must be inductive datatype, structure, or constant",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/constructorTac.lean.out.expected",
+      "error_text": "Tactic `constructor` failed: no applicable constructor found",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/constructorTac.lean.out.expected",
+      "error_text": "Tactic `constructor` failed: target is not an inductive datatype\n\n⊢ Type",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "invalid `lhs` tactic, application has 1 explicit argument(s) but the index is out of bounds",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "invalid `arg` tactic, application has 1 explicit argument(s) but the index is out of bounds",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "invalid `rhs` conv tactic, application or implication expected\n  p",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "`arg` conv tactic failed, cannot select argument",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "'pattern' conv tactic failed, pattern was found only 4 times but 5 expected",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "'pattern' conv tactic failed, pattern was found only 3 times but 5 expected",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "'pattern' conv tactic failed, pattern was found only 2 times but 5 expected",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "invalid 'fun' conv tactic, application expected\n  p",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/conv1.lean.out.expected",
+      "error_text": "invalid 'arg 0' conv tactic, application expected\n  p",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/csimpAttr.lean.out.expected",
+      "error_text": "invalid 'csimp' theorem, only constant replacement theorems (e.g., `@f = @g`) are currently supported.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/ctorUnivTooBig.lean.out.expected",
+      "error_text": "Invalid universe level in constructor `Bla.cons`: Parameter `α` has type\n  Type u",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/ctorUnivTooBig.lean.out.expected",
+      "error_text": "Invalid universe level in constructor `Foo.mk`: Parameter `α` has type\n  Type",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/ctorUnivTooBig.lean.out.expected",
+      "error_text": "Invalid universe level in constructor `Foo'.mk`: Parameter has type\n  Sort (max u v)",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/ctorUnivTooBig.lean.out.expected",
+      "error_text": "Constructor field `a` of `Foo''.mk` contains universe level metavariables at the expression\n  Sort ?u",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/ctorUnivTooBig.lean.out.expected",
+      "error_text": "Invalid universe level in constructor `Ex3.Member.head`: Parameter `as` has type\n  List α",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/ctorUnivTooBig.lean.out.expected",
+      "error_text": "Invalid universe level in constructor `Ex4.Member.head`: Parameter `as` has type\n  List α",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/ctorUnivTooBig.lean.out.expected",
+      "error_text": "Invalid universe level in constructor `Ex5.Member.head`: Parameter `as` has type\n  List α",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/decreasing_by.lean.out.expected",
+      "error_text": "Could not find a decreasing measure.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/defInst.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  BEq Foo",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/defaultInstance.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  Foo Bool (?m x)",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/defaultInstance.lean.out.expected",
+      "error_text": "typeclass instance problem is stuck\n  Foo Bool (?m x)\n\nNote: Lean will not try to resolve this typeclass instance problem because the second type argument to `Foo` contains metavariables. This argument must be fully determined before Lean will try to resolve the typeclass.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/delta.lean.out.expected",
+      "error_text": "Tactic `delta` failed: did not delta reduce [f]",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/delta.lean.out.expected",
+      "error_text": "Tactic `delta` failed: did not delta reduce [f] at h2",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/deprecated.lean.out.expected",
+      "error_text": "`[deprecated]` attribute should specify the date or library version at which the deprecation was introduced, using `(since := \"...\")`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/deprecated.lean.out.expected",
+      "error_text": "`[deprecated]` attribute should specify either a new name or a deprecation message",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/deprecated.lean.out.expected",
+      "error_text": "`f` has been deprecated: Use `g` instead",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/deprecated.lean.out.expected",
+      "error_text": "`h` has been deprecated",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/deprecated.lean.out.expected",
+      "error_text": "Unknown constant `g1`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/deprecated.lean.out.expected",
+      "error_text": "`f2` has been deprecated: Use `Foo.g1` instead\n\nNote: The updated constant has a different type:\n  Nat",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/deprecated.lean.out.expected",
+      "error_text": "`f4` has been deprecated: use g1 instead, f4 is not a good name",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/diamond1.lean.out.expected",
+      "error_text": "Field type mismatch: Field `a` from parent `Baz` has type\n  α → α",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/diamond1.lean.out.expected",
+      "error_text": "Field `a` from `Baz` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/diamond5.lean.out.expected",
+      "error_text": "`D.toC` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/diamond5.lean.out.expected",
+      "error_text": "❌️ Docstring on `#guard_msgs` does not match generated message:",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/doErrorMsg.lean.out.expected",
+      "error_text": "Type mismatch\n  IO.getStdin",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doErrorMsg.lean.out.expected",
+      "error_text": "Type mismatch\n  f1",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doErrorMsg.lean.out.expected",
+      "error_text": "Type mismatch\n  f2 10",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doErrorMsg.lean.out.expected",
+      "error_text": "Type mismatch\n  f2",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doErrorMsg.lean.out.expected",
+      "error_text": "Type mismatch\n  false",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doErrorMsg.lean.out.expected",
+      "error_text": "Type mismatch\n  n",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doErrorMsg.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  false",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doIssue.lean.out.expected",
+      "error_text": "Type mismatch\n  x",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doIssue.lean.out.expected",
+      "error_text": "Type mismatch\n  xs.set! 0 1",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doIssue.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  xs.set! 0 1",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doLetLoop.lean.out.expected",
+      "error_text": "unexpected end of input",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doLetLoop.lean.out.expected",
+      "error_text": "unexpected `do` element syntax\n  failed to pretty print term (use 'set_option pp.rawOnError true' for raw representation)",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "Variable `y` cannot be mutated. Only variables declared using `let mut` can be mutated.\n      If you did not intend to mutate but define `y`, consider using `let y` instead",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "Variable `p` cannot be mutated. Only variables declared using `let mut` can be mutated.\n      If you did not intend to mutate but define `p`, consider using `let p` instead",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "Type mismatch\n  Vector'.cons 1 v",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "Type mismatch\n  true",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "`break` must be nested inside a loop",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "`continue` must be nested inside a loop",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "This `do` element and its control-flow region are dead code. Consider removing it.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "Type mismatch\n  IO.mkRef true",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "Type mismatch\n  IO.println \"hello\"",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "This `do` element and its control-flow region are dead code. Consider refactoring your code to remove it.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "typeclass instance problem is stuck\n  ToString ?m\n\nNote: Lean will not try to resolve this typeclass instance problem because the type argument to `ToString` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
+      "error_text": "Type mismatch. The `do` element has monadic result type\n  Unit",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/doSeqRightIssue.lean.out.expected",
+      "error_text": "unknown universe level `v`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/docStr.lean.out.expected",
+      "error_text": "invalid 'add_decl_doc', declaration is in an imported module",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/docstringLinkValidation.lean.out.expected",
+      "error_text": "Missing documentation type",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/docstringLinkValidation.lean.out.expected",
+      "error_text": "Unknown documentation type `f`. Expected one of the following: `section`, `errorExplanation`",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/dsimpViaConst.lean.out.expected",
+      "error_text": "`dsimp` made no progress",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/eagerUnfoldingIssue.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  MonadLog (StateM Nat)",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/ellipsisProjIssue.lean.out.expected",
+      "error_text": "Unknown identifier `succ`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/elseifDoErrorPos.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  x",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/elseifDoErrorPos.lean.out.expected",
+      "error_text": "Type mismatch\n  \"a\"",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/emptyTypeAscription.lean.out.expected",
+      "error_text": "Invalid dotted identifier notation: The expected type of `.zero` could not be determined",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/emptyTypeAscription.lean.out.expected",
+      "error_text": "invalid `▸` notation, expected result type of cast is\n  w = add x y",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/emptyc.lean.out.expected",
+      "error_text": "Ambiguous term\n  { }",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/eoi.lean.out.expected",
+      "error_text": "unexpected end of input; expected ':=', 'where' or '|'",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/eraseInsts.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  HAdd Foo Foo ?m",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/errorOnInductionForNested.lean.out.expected",
+      "error_text": "The `induction` tactic does not support the type `LazyList` because it is a nested inductive type",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/evalInstMessage.lean.out.expected",
+      "error_text": "could not synthesize a `Repr` or `ToString` instance for type\n  Nat → Nat",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/evalLeak.lean.out.expected",
+      "error_text": "Unknown identifier `_eval.match_1`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/evalLeak.lean.out.expected",
+      "error_text": "Unknown identifier `_eval.match_2`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/evalNone.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `α`\n  @none ?m",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/evalNone.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `α`\n  @List.head? ?m []",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/evalNone.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `α`\n  @List.nil ?m",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/evalWithMVar.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `α`\n  @Sum.someRight ?m Nat c",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/evalWithMVar.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `α`\n  @c ?m",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/eval_except.lean.out.expected",
+      "error_text": "this is my error",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/eval_except.lean.out.expected",
+      "error_text": "no such file or directory (error code: 31)\n  file: file.ext",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/exceptionalTrace.lean.out.expected",
+      "error_text": "maximum recursion depth has been reached",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/exitAfterParseError.lean.out.expected",
+      "error_text": "unexpected token '#exit'; expected ':=', 'where' or '|'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/exitAfterParseError.lean.out.expected",
+      "error_text": "using 'exit' to interrupt Lean",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/failTac.lean.out.expected",
+      "error_text": "Failed: `fail` tactic was invoked",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/failTac.lean.out.expected",
+      "error_text": "giving up",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/failTac.lean.out.expected",
+      "error_text": "failing here\ncase left",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/forErrors.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  Std.ToStream α ?m",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/forErrors.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  ToString α",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/fun.lean.out.expected",
+      "error_text": "unexpected type ascription",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/funExpected.lean.out.expected",
+      "error_text": "Function expected at\n  List.map (fun x => x + 1) xs",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/funind_errors.lean.out.expected",
+      "error_text": "Unknown identifier `doesNotExist.induct`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/funind_errors.lean.out.expected",
+      "error_text": "Unknown constant `takeWhile.induct`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/funind_errors.lean.out.expected",
+      "error_text": "Unknown constant `idEven.induct`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/funind_errors.lean.out.expected",
+      "error_text": "Unknown constant `idAcc.induct`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
+      "error_text": "failed to declare `Structural.foo` because `Structural.foo.induct` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
+      "error_text": "failed to declare `WF.foo` because `WF.foo.induct` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
+      "error_text": "failed to declare `Mutual1.foo` because `Mutual1.foo.induct` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
+      "error_text": "failed to declare `Mutual2.bar` because `Mutual2.bar.induct` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
+      "error_text": "failed to declare `Mutual3.foo` because `Mutual3.foo.mutual_induct` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
+      "error_text": "failed to declare `Nested.foo` because `Nested.foo.induct` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/getElem.lean.out.expected",
+      "error_text": "failed to prove index is valid, possible solutions:\n  - Use `have`-expressions to prove the index is valid\n  - Use `a[i]!` notation instead, runtime check is performed, and 'Panic' error message is produced if index is not valid\n  - Use `a[i]?` notation instead, result is an `Option` type\n  - Use `a[i]'h` notation instead, where `h` is a proof that index is valid",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/guessLexDiff.lean.out.expected",
+      "error_text": "fail to show termination for\n  failure\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/guessLexDiff.lean.out.expected",
+      "error_text": "fail to show termination for\n  mutual_failure\n  mutual_failure2\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/guessLexFailures.lean.out.expected",
+      "error_text": "fail to show termination for\n  nonTerminating\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/guessLexFailures.lean.out.expected",
+      "error_text": "fail to show termination for\n  noArguments\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/guessLexFailures.lean.out.expected",
+      "error_text": "fail to show termination for\n  noNonFixedArguments\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/guessLexFailures.lean.out.expected",
+      "error_text": "fail to show termination for\n  Mutual.f\n  Mutual.g\n  Mutual.h\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/guessLexFailures.lean.out.expected",
+      "error_text": "fail to show termination for\n  DuplicatedCall.f\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/guessLexFailures.lean.out.expected",
+      "error_text": "failed to prove termination, possible solutions:\n  - Use `have`-expressions to prove the remaining goals\n  - Use `termination_by` to specify a different well-founded relation\n  - Use `decreasing_by` to specify your own tactic for discharging this kind of goal",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/have.lean.out.expected",
+      "error_text": "unexpected token 'example'; expected term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/have.lean.out.expected",
+      "error_text": "Type mismatch\n  f",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holeErrors.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `α`\n  @id ?m",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holeErrors.lean.out.expected",
+      "error_text": "Failed to infer type of definition `f1.{u}`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holeErrors.lean.out.expected",
+      "error_text": "Failed to infer type of definition `f2`\n\nNote: Because this declaration's type has been explicitly provided, all parameter types and holes (e.g., `_`) in its header are resolved before its body is processed; information from the declaration body cannot be used to infer what these values should be",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holeErrors.lean.out.expected",
+      "error_text": "Failed to infer type of definition `f3.{u}`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holeErrors.lean.out.expected",
+      "error_text": "Failed to infer type of definition `f4`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holeErrors.lean.out.expected",
+      "error_text": "Failed to infer type of definition `f5`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holeErrors.lean.out.expected",
+      "error_text": "Failed to infer type of definition `f6`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holeErrors.lean.out.expected",
+      "error_text": "failed to infer 'let rec' declaration type",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/holes.lean.out.expected",
+      "error_text": "A placeholder `_` cannot be used where a function is expected",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holes.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `β`\n  @g Nat (?m x) x",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holes.lean.out.expected",
+      "error_text": "Failed to infer type of binder `β`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holes.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `β`\n  @f Nat (?m a) a",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/holes.lean.out.expected",
+      "error_text": "Failed to infer type of definition `f7`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/hygienicIntro.lean.out.expected",
+      "error_text": "Unknown identifier `a_1`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/implementedByIssue.lean.out.expected",
+      "error_text": "Invalid `implemented_by` argument `Hidden.get_2`: `Hidden.get_2` has 0 universe level parameter(s), but `Array.data` has 1",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/implementedByIssue.lean.out.expected",
+      "error_text": "Invalid `implemented_by` argument `Hidden.get_3`: `Hidden.get_3` has type\n  {α : Type u} → {n : Nat} → Fin n → Array α n → α",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/implicitArgumentError.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `n`\n  @foo ?_",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/implicitTypePos.lean.out.expected",
+      "error_text": "Failed to infer type of binder `y`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/indimpltarget.lean.out.expected",
+      "error_text": "Failed to infer implicit target `m`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/indimpltarget.lean.out.expected",
+      "error_text": "Failed to infer implicit target `n`",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/indimpltarget.lean.out.expected",
+      "error_text": "Failed to infer implicit target",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "unsolved goals\ncase lower",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "unsolved goals\ncase upper",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Unknown identifier `elimEx2`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Insufficient number of targets for `elimEx`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Expected resulting type of eliminator to be an application of one of its parameters (the motive), but found\n  Nat",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "unsolved goals\ncase zero\n⊢ 0 + 0 = 0",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "unsolved goals\ncase succ",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Alternative `cons` is not needed",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Invalid alternative name `upper2`: Expected `upper`",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Alternative `upper` has not been provided",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Invalid occurrence of the wildcard alternative `| _ => ...`: It must be the last alternative",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Wildcard alternative is not needed",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
+      "error_text": "Duplicate alternative name `lower`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductionGen.lean.out.expected",
+      "error_text": "Invalid target: Index in target's type is not a variable (consider using the `cases` tactic instead)\n  n + 1\ncase cons",
+      "category": "invalid_target",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionGen.lean.out.expected",
+      "error_text": "declaration uses `sorry`\ncase natVal",
+      "category": "uses_sorry",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionGen.lean.out.expected",
+      "error_text": "Invalid target: Target (or one of its indices) occurs more than once\n  n",
+      "category": "invalid_target",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductionMutual.lean.out.expected",
+      "error_text": "The `induction` tactic does not support the type `A` because it is mutually inductive",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductionParse.lean.out.expected",
+      "error_text": "Alternative `zero` has not been provided",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductionParse.lean.out.expected",
+      "error_text": "Alternative `succ` has not been provided",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid resulting type: Expected a sort or an indexed family of sorts",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid mutually inductive types: The resulting type of this declaration\n  Type",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid mutually inductive types: The resulting type of this declaration\n  Type v",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid mutually inductive types: Parameter `x` has type\n  Bool",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid mutually inductive types: `T2` has 1 parameter(s), but the preceding type `T1` has 2\n\nNote: All inductive types declared in the same `mutual` block must have the same parameters",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid mutually inductive types: Binder annotations for parameter `x` must match",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Universe parameter mismatch in mutually inductive types: `T2` has universe parameters\n  `w2`, `v`, `u`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "`Boo.T1.bla` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "`Boo.T1` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid modifier: Inductive declarations cannot be marked as `partial`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid modifier: Inductive declarations cannot be marked as `noncomputable`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Cannot add attribute `[inline]`: Declaration `T1'` is not a definition",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Constructor cannot be marked `private` because it is already in a `private` inductive datatype",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Invalid mutually inductive types: `T2` is unsafe, but `T1` is safe\n\nNote: Safe and unsafe inductive declarations cannot both occur in the same `mutual` block",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Missing resulting type for constructor `T1.z2`: Its resulting type must be specified because it is part of an inductive family declaration",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "type expected, got\n  (T1 : Nat → Type)",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Unexpected resulting type for constructor `T1.z1`: Expected an application of\n  T1",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "Unknown identifier `cons`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductiveUnivErrorMsg.lean.out.expected",
+      "error_text": "Constructor field `Foo` of `Bar.foobar` contains universe level metavariables at the expression\n  Sort ?u",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/inductiveUnivErrorMsg.lean.out.expected",
+      "error_text": "Constructor field `Foo` of `Bar2.foobar` contains universe level metavariables at the expression\n  Sort ?u",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/instance1.lean.out.expected",
+      "error_text": "Fields missing: `pure`, `bind`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/invalidFieldName.lean.out.expected",
+      "error_text": "Invalid field name `mk`: This is the name of the structure constructor",
+      "category": "invalid_field",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/invalidInstImplicit.lean.out.expected",
+      "error_text": "invalid binder annotation, type is not a class instance\n  Nat\n\nNote: Use the command `set_option checkBinderAnnotations false` to disable the check",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/invalidMutualError.lean.out.expected",
+      "error_text": "invalid mutual block: either all elements of the block must be inductive/structure declarations, or they must all be definitions/theorems/abbrevs",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/invalidNamedArgs.lean.out.expected",
+      "error_text": "Invalid argument name `b` for function `List.foldl`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/invalidNamedArgs.lean.out.expected",
+      "error_text": "Invalid argument name `flg` for function `f`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/invalidNamedArgs.lean.out.expected",
+      "error_text": "Invalid argument name `k` for function `h`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/invalidPatternIssue.lean.out.expected",
+      "error_text": "Invalid pattern(s): `x` is an explicit pattern variable, but it only occurs in positions that are inaccessible to pattern matching:\n  { pred := .(x.1).succ }",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/issue2260.lean.out.expected",
+      "error_text": "The termination measure's type must not depend on the function's varying parameters, but foo's termination measure does:\n  {i : Nat} → DNat i → DNat i",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/issue2260.lean.out.expected",
+      "error_text": "The termination measure's type must not depend on the function's varying parameters, but bar1's termination measure does:\n  {i : Nat} → DNat i → DNat i",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/issue2260.lean.out.expected",
+      "error_text": "The termination measure's type must not depend on the function's varying parameters, but baz2's termination measure does:\n  {i : Nat} → DNat i → DNat i",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/issue3232.lean.out.expected",
+      "error_text": "Tactic `apply` failed: could not unify the type of `h`\n  @foo 42",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/issue3232.lean.out.expected",
+      "error_text": "Tactic `apply` failed: could not unify the type of `rfl`\n  (1 : Int) = 1",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/issue3232.lean.out.expected",
+      "error_text": "Tactic `apply` failed: could not unify the type of `Eq.refl PUnit`\n  Eq.{2} PUnit PUnit",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/jason2.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `x`\n  @Foo.foo ?m",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/jason2.lean.out.expected",
+      "error_text": "don't know how to synthesize implicit argument `x`\n  @Foo ?m",
+      "category": "synthesize_implicit",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/kernelMVarBug.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  HAdd α α α",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/kernelQuotNameCollision.lean.out.expected",
+      "error_text": "(kernel) constant has already been declared 'Quot.lift'",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/letArrowOutsideDo.lean.out.expected",
+      "error_text": "unexpected token '←'; expected ':=' or '|'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/letrec1.lean.out.expected",
+      "error_text": "`f1.g` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/letrec1.lean.out.expected",
+      "error_text": "Unknown identifier `g`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/letrec1.lean.out.expected",
+      "error_text": "invalid type in `let rec`, it uses `f` which is being defined simultaneously",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/letrec1.lean.out.expected",
+      "error_text": "invalid type in `let rec`, it uses `g` which is being defined simultaneously",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/letrecErrors.lean.out.expected",
+      "error_text": "`f2.h` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/letrecErrors.lean.out.expected",
+      "error_text": "`f3.h` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/liftOverLeft.lean.out.expected",
+      "error_text": "Cannot lift nested action `← x.get` over a binder.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `x` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `y` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `z` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `inst` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `a` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `h` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `β` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `s` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `b` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "type of theorem `async` is not a proposition\n  Nat → Nat",
+      "category": "not_proposition",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/linterUnusedVariables.lean.out.expected",
+      "error_text": "Variable name `ha` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/longestParsePrio.lean.out.expected",
+      "error_text": "unexpected end of input; expected ']'",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/macroElabRulesIssue2.lean.out.expected",
+      "error_text": "Failed at elab_rules",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/macroError.lean.out.expected",
+      "error_text": "Test Error",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/macroPrio.lean.out.expected",
+      "error_text": "Ambiguous term\n  foo! 1",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/macroStack.lean.out.expected",
+      "error_text": "Unknown identifier `x`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/macroStack.lean.out.expected",
+      "error_text": "Nested action `← get` must be nested inside a `do` expression.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/macroStack.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  HAdd Nat String ?m",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/macroSwizzle.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  HAdd Bool String ?m",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/macroSwizzle.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  \"x\"",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/match2.lean.out.expected",
+      "error_text": "The '(generalizing := true)' parameter is not supported when the 'match' motive is explicitly provided",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/matchAltIndent.lean.out.expected",
+      "error_text": "expected alternative right-hand-side to start in a column greater than or equal to the corresponding '|'",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/matchErrorLocation.lean.out.expected",
+      "error_text": "Type mismatch\n  h he",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/matchErrorMsg.lean.out.expected",
+      "error_text": "Missing cases:",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/metaEvalInstMessage.lean.out.expected",
+      "error_text": "Could not synthesize a `ToExpr`, `Repr`, or `ToString` instance for type\n  Nat → Nat",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/modBug.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  Nat.mod_zero 1",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/moduleKeywords.lean.out.expected",
+      "error_text": "cannot use `public import` without `module`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/moduleKeywords.lean.out.expected",
+      "error_text": "cannot use `meta import` without `module`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/moduleKeywords.lean.out.expected",
+      "error_text": "cannot use `import all` without `module`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/moduleOf.lean.out.expected",
+      "error_text": "Unknown constant `foo`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/motiveNotTypeCorrect.lean.out.expected",
+      "error_text": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a => P _a d",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/motiveNotTypeCorrect.lean.out.expected",
+      "error_text": "Tactic `rewrite` failed: Motive is dependent:\n  fun _a => A _a\n\nNote: The rewrite tactic cannot substitute terms on which the type of the target expression depends. The type of the expression\n  A true",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/mulcommErrorMessage.lean.out.expected",
+      "error_text": "Type mismatch\n  fun a b => ?m",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/mulcommErrorMessage.lean.out.expected",
+      "error_text": "failed to elaborate eliminator, expected type is not available",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `b`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifier `b` is being interpreted as a parameter `(b : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `c`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b` and `c` are being interpreted as parameters `(b : _)` and `(c : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `b`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b` and `c` are being interpreted as parameters `(b : _)` and `(c : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `d`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b`, `c`, and `d` are being interpreted as parameters `(b : _)`, `(c : _)`, and `(d : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `c`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b`, `c`, and `d` are being interpreted as parameters `(b : _)`, `(c : _)`, and `(d : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `b`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b`, `c`, and `d` are being interpreted as parameters `(b : _)`, `(c : _)`, and `(d : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `e`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b`, `c`, `d`, and `e` are being interpreted as parameters `(b : _)`, `(c : _)`, `(d : _)`, and `(e : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `d`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b`, `c`, `d`, and `e` are being interpreted as parameters `(b : _)`, `(c : _)`, `(d : _)`, and `(e : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `c`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b`, `c`, `d`, and `e` are being interpreted as parameters `(b : _)`, `(c : _)`, `(d : _)`, and `(e : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `b`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `b`, `c`, `d`, and `e` are being interpreted as parameters `(b : _)`, `(c : _)`, `(d : _)`, and `(e : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `c`\n\nNote: Because this declaration's type has been explicitly provided, all parameter types and holes (e.g., `_`) in its header are resolved before its body is processed; information from the declaration body cannot be used to infer what these values should be",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `b`\n\nNote: Because this declaration's type has been explicitly provided, all parameter types and holes (e.g., `_`) in its header are resolved before its body is processed; information from the declaration body cannot be used to infer what these values should be",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `α`\n\nNote: Multiple constants cannot be declared in a single declaration. The identifiers `α` and `β` are being interpreted as parameters `(α : _)` and `(β : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `x`\n\nNote: Examples do not have names. The identifier `x` is being interpreted as a parameter `(x : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `y`\n\nNote: Examples do not have names. The identifiers `x` and `y` are being interpreted as parameters `(x : _)` and `(y : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `x`\n\nNote: Examples do not have names. The identifiers `x` and `y` are being interpreted as parameters `(x : _)` and `(y : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `z`\n\nNote: Examples do not have names. The identifiers `x`, `y`, and `z` are being interpreted as parameters `(x : _)`, `(y : _)`, and `(z : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `y`\n\nNote: Examples do not have names. The identifiers `x`, `y`, and `z` are being interpreted as parameters `(x : _)`, `(y : _)`, and `(z : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `x`\n\nNote: Examples do not have names. The identifiers `x`, `y`, and `z` are being interpreted as parameters `(x : _)`, `(y : _)`, and `(z : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `γ`\n\nNote: Examples do not have names. The identifiers `α`, `β`, and `γ` are being interpreted as parameters `(α : _)`, `(β : _)`, and `(γ : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `α`\n\nNote: Examples do not have names. The identifiers `α`, `β`, and `γ` are being interpreted as parameters `(α : _)`, `(β : _)`, and `(γ : _)`.",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/multiConstantError.lean.out.expected",
+      "error_text": "Failed to infer type of binder `y`\n\nNote: Because this declaration's type has been explicitly provided, all parameter types and holes (e.g., `_`) in its header are resolved before its body is processed; information from the declaration body cannot be used to infer what these values should be",
+      "category": "infer_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/mutualdef1.lean.out.expected",
+      "error_text": "invalid mutually recursive definitions, cannot mix theorems and definitions",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/mutualdef1.lean.out.expected",
+      "error_text": "invalid mutually recursive definitions, cannot mix examples and definitions",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/mutualdef1.lean.out.expected",
+      "error_text": "invalid mutually recursive definitions, cannot mix unsafe and safe definitions",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/mutwftypemismatch.lean.out.expected",
+      "error_text": "The termination measures of mutually recursive functions must have the same return type, but the termination measure of Ex1.foo has type\n  Nat",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/mutwftypemismatch.lean.out.expected",
+      "error_text": "The termination measures of mutually recursive functions must have the same return type, but the termination measure of Ex2.foo has type\n  Nat",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/mvarAtDefaultValue.lean.out.expected",
+      "error_text": "Failed to infer default value for field `x`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/nameArgErrorIssue.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  \"hi\"",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/nameArgErrorIssue.lean.out.expected",
+      "error_text": "Invalid argument name `z` for function `bla`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/namedHoles.lean.out.expected",
+      "error_text": "Application type mismatch: The last\n  ?x",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/namedHoles.lean.out.expected",
+      "error_text": "synthetic hole has already been defined with an incompatible local context",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/namedHoles.lean.out.expected",
+      "error_text": "synthetic hole has already been defined and assigned to value incompatible with the current context\n  y",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/newCatPanic.lean.out.expected",
+      "error_text": "unexpected end of input; expected identifier",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/noTabs.lean.out.expected",
+      "error_text": "tabs are not allowed; please configure your editor to expand them",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/nonAtomicFieldName.lean.out.expected",
+      "error_text": "Invalid field name `a.b`: Field names must be atomic",
+      "category": "invalid_field",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/nonReserved.lean.out.expected",
+      "error_text": "unexpected identifier; expected 'bla'",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/nonfatalattrs.lean.out.expected",
+      "error_text": "Unknown attribute `[attrUnimplementedattr]`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/nonfatalattrs.lean.out.expected",
+      "error_text": "invalid 'class', declaration 'bar.bar' must be inductive datatype, structure, or constant",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/notNaturalNumbersGame.lean.out.expected",
+      "error_text": "unknown tactic",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/notNaturalNumbersGame.lean.out.expected",
+      "error_text": "Invalid syntax for induction tactic: The `with` keyword must be followed by a tactic or by an alternative (e.g. `| zero =>`), but here it is followed by the identifier `n`.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/notNaturalNumbersGame.lean.out.expected",
+      "error_text": "Invalid syntax for case analysis tactic: The `with` keyword must be followed by a tactic or by an alternative (e.g. `| zero =>`), but here it is followed by the identifier `n`.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/notationPrecheck.lean.out.expected",
+      "error_text": "no macro or `[quot_precheck]` instance for syntax kind `termB_` found\n  b x",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/notationPrecheck.lean.out.expected",
+      "error_text": "elaboration function for `termB_` has not been implemented\n  b x✝",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/notationPrecheck.lean.out.expected",
+      "error_text": "ambiguous notation with at least one interpretation that failed quotation precheck, possible interpretations\n  («term_∧__1» `x \"∧\" `y)\n  Unknown identifier `y` at quotation precheck\n\n  Note: You can use `set_option quotPrecheck false` to disable this check.\n\n  («term_∧_» `x \"∧\" `y)\n  Unknown identifier `y` at quotation precheck\n\n  Note: You can use `set_option quotPrecheck false` to disable this check.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/openExport.lean.out.expected",
+      "error_text": "Unknown identifier `y`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/openScoped.lean.out.expected",
+      "error_text": "Unknown identifier `epsilon`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/openScoped.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  Decidable (f = g)",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserPrio.lean.out.expected",
+      "error_text": "Ambiguous term\n  [1]",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token; expected identifier",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token ':='; expected term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token '('; expected identifier",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token ')'; expected '_' or identifier",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token ')'; expected term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token '('; expected '_' or identifier",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token '⟩'; expected term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token '!'; expected identifier",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "Unknown identifier `Foo.a`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token ']'; expected '|}'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token at this precedence level; consider parenthesizing the term",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token ']'; expected ')', ',' or ':'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
+      "error_text": "unexpected token 'def'; expected identifier",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/partialIssue.lean.out.expected",
+      "error_text": "(kernel) invalid declaration, safe declaration must not contain partial declaration 'False_intro'",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/partialVariable.lean.out.expected",
+      "error_text": "unexpected token ':'; expected '(', '[', '{' or '⦃'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/partial_fixpoint_parseerrors.lean.out.expected",
+      "error_text": "expected indented monotonicity proof",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/patvar.lean.out.expected",
+      "error_text": "Invalid pattern variable: Variable name must be atomic, but `foo.bar` has multiple components",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/phashmap_inst_coherence.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  m",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/precissues.lean.out.expected",
+      "error_text": "unexpected token 'have'; expected command",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/precissues.lean.out.expected",
+      "error_text": "unexpected token 'let'; expected command",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/precissues.lean.out.expected",
+      "error_text": "unexpected token 'foo!'; expected command",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/private.lean.out.expected",
+      "error_text": "private declaration `Bla.foo` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/private.lean.out.expected",
+      "error_text": "a non-private declaration `y` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/private.lean.out.expected",
+      "error_text": "a private declaration `z` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/protected.lean.out.expected",
+      "error_text": "protected declarations must be in a namespace",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/protectedAlias.lean.out.expected",
+      "error_text": "Unknown identifier `double`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/rawStringEOF.lean.out.expected",
+      "error_text": "unterminated raw string literal",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/redundantAlt.lean.out.expected",
+      "error_text": "Redundant alternative: Any expression matching\n  2",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/redundantAlt.lean.out.expected",
+      "error_text": "Redundant alternative: Any expression matching\n  3",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/refineFiltersOldMVars.lean.out.expected",
+      "error_text": "unsolved goals\ncase a\n⊢ True",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/refineFiltersOldMVars.lean.out.expected",
+      "error_text": "unsolved goals\ncase b",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/refineFiltersOldMVars.lean.out.expected",
+      "error_text": "unsolved goals\ncase d\n⊢ Bool",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/refineFiltersOldMVars.lean.out.expected",
+      "error_text": "unsolved goals\ncase e\n⊢ Nat",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/refineFiltersOldMVars.lean.out.expected",
+      "error_text": "unsolved goals\ncase e\n⊢ Bool",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/refineOccursCheck.lean.out.expected",
+      "error_text": "`refine` tactic failed, value\n  ax ?a",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/rewrite.lean.out.expected",
+      "error_text": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (List.reverse ?as).reverse",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/rewrite.lean.out.expected",
+      "error_text": "Tactic `rewrite` failed: Did not find an occurrence of the pattern in the current goal",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/root.lean.out.expected",
+      "error_text": "invalid declaration name `_root_`, `_root_` is a prefix used to refer to the 'root' namespace",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/root.lean.out.expected",
+      "error_text": "invalid namespace `_root_`, `_root_` is a reserved namespace",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/root.lean.out.expected",
+      "error_text": "invalid namespace `f._root_`, `_root_` is a reserved namespace",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/runTacticMustCatchExceptions.lean.out.expected",
+      "error_text": "Tactic `rfl` failed: The left-hand side\n  1",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/runTacticMustCatchExceptions.lean.out.expected",
+      "error_text": "Tactic `rfl` failed: The left-hand side\n  a + b",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/runTacticMustCatchExceptions.lean.out.expected",
+      "error_text": "Tactic `rfl` failed: The left-hand side\n  b",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/run_meta1.lean.out.expected",
+      "error_text": "to use this command, include `import Lean.Meta.Basic`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/sanitychecks.lean.out.expected",
+      "error_text": "fail to show termination for\n  unsound\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/sanitychecks.lean.out.expected",
+      "error_text": "'partial' theorems are not allowed, 'partial' is a code generation directive",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/sanitychecks.lean.out.expected",
+      "error_text": "'unsafe' theorems are not allowed",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/sanitychecks.lean.out.expected",
+      "error_text": "failed to synthesize 'Inhabited' or 'Nonempty' instance for\n  False",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/sanitychecks.lean.out.expected",
+      "error_text": "invalid use of `partial`, `Foo.unsound3` is not a function\n  False",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/sanitychecks.lean.out.expected",
+      "error_text": "failed to compile 'partial' definition `Foo.unsound4`, could not prove that the type\n  ∀ (x : Unit), False",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/sanitychecks.lean.out.expected",
+      "error_text": "(kernel) invalid declaration, it uses unsafe declaration 'unsafeCast'",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/scientific.lean.out.expected",
+      "error_text": "invalid occurrence of `·` notation, it must be surrounded by parentheses (e.g. `(· + 1)`)",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/scientific.lean.out.expected",
+      "error_text": "Unknown identifier `e`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/scientific.lean.out.expected",
+      "error_text": "Unknown constant `Nat.E`\n\nNote: Inferred this name from the expected resulting type of `.E`:\n  Nat",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/scientific.lean.out.expected",
+      "error_text": "Unknown identifier `E3`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/scopedInstanceOutsideNamespace.lean.out.expected",
+      "error_text": "Scoped attributes must be used inside namespaces",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/scopedInstanceOutsideNamespace.lean.out.expected",
+      "error_text": "invalid syntax node kind `«term_+__1»`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/scopedLocalInsts.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  ToString A",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/scopedMacros.lean.out.expected",
+      "error_text": "Unknown identifier `foo!`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/scopedMacros.lean.out.expected",
+      "error_text": "invalid syntax node kind `termBla!_`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/scopedMacros.lean.out.expected",
+      "error_text": "Unknown identifier `bla!`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/scopedMacros.lean.out.expected",
+      "error_text": "elaboration function for `termBar!_` has not been implemented\n  bar! 10",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/semicolonOrLinebreak.lean.out.expected",
+      "error_text": "expected ';' or line break",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/semicolonOrLinebreak.lean.out.expected",
+      "error_text": "Fields missing: `y`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/semicolonOrLinebreak.lean.out.expected",
+      "error_text": "Function expected at\n  x",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/semicolonOrLinebreak.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  Singleton ?m Point",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/setLit.lean.out.expected",
+      "error_text": "overloaded, errors\n  failed to synthesize instance of type class\n    EmptyCollection String\n\n  Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.\n\n  Fields missing: `toByteArray`, `isValidUTF8`\n\n  Hint: Add missing fields:\n     ̲t̲o̲B̲y̲t̲e̲A̲r̲r̲a̲y̲ ̲:̲=̲ ̲_̲\n    ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲ ̲i̲s̲V̲a̲l̲i̲d̲U̲T̲F̲8̲ ̲:̲=̲ ̲_̲ ̲",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/setLit.lean.out.expected",
+      "error_text": "overloaded, errors\n  failed to synthesize instance of type class\n    Singleton Nat String\n\n  Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.\n\n  24:33 `val` is not a field of structure `String`",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/shadow.lean.out.expected",
+      "error_text": "Type mismatch\n  h",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/simpArgTypeMismatch.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  Unit",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/sorryAtError.lean.out.expected",
+      "error_text": "Application type mismatch: The argument\n  Γ",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/specializeAttr.lean.out.expected",
+      "error_text": "Invalid specialization argument name `h`: `f1` does not have an argument with this name",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/specializeAttr.lean.out.expected",
+      "error_text": "Invalid specialization argument index `1`: The argument at this index (`f`) has already been specified as a specialization candidate",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/specializeAttr.lean.out.expected",
+      "error_text": "Invalid specialization argument name `f`: It has already been specified as a specialization candidate",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/specializeAttr.lean.out.expected",
+      "error_text": "Invalid specialization argument index `0`: Index must be greater than 0",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/specializeAttr.lean.out.expected",
+      "error_text": "Invalid argument index `9`: `f5` has only 3 arguments",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/specializeAttr.lean.out.expected",
+      "error_text": "Invalid specialization argument name `ff`: `f6` does not have an argument with this name",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/string_gaps_err_newline.lean.out.expected",
+      "error_text": "unexpected additional newline in string gap",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Invalid resulting type: Expected a sort",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "expected structure",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Field `x` from `B` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Field `x` has already been declared in a parent structure",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Duplicate parent structure `A`; skipping",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Field type mismatch: Field `x` from parent `B` has type\n  Bool",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Field `x` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Constructor cannot be marked `private` because it is already in a `private` structure",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Constructor cannot be `protected` because this structure is `private`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Field cannot be marked `protected` because this structure is `private`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/struct1.lean.out.expected",
+      "error_text": "Unknown constant `S.mk2`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/structAutoBound.lean.out.expected",
+      "error_text": "a universe level named `u` has already been declared",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/structAutoBound.lean.out.expected",
+      "error_text": "unused universe parameter 'w'",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/structDefValueOverride.lean.out.expected",
+      "error_text": "A default value for field `x` has already been set for this structure",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/structInst1.lean.out.expected",
+      "error_text": "field `x` has already been specified",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/structInstError.lean.out.expected",
+      "error_text": "invalid {...} notation, expected type is not known",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/structSorryBug.lean.out.expected",
+      "error_text": "Unknown identifier `HasArr`\n\nNote: It is not possible to treat `HasArr` as an implicitly bound variable here because it has multiple characters while the `relaxedAutoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/structSorryBug.lean.out.expected",
+      "error_text": "invalid {...} notation, structure type expected\n  Nat",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/substFails.lean.out.expected",
+      "error_text": "invalid `▸` notation, expected result type of cast is\n  P 4",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/substFails.lean.out.expected",
+      "error_text": "invalid `▸` notation, the equality\n  heq",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/syntaxErrors.lean.out.expected",
+      "error_text": "parser `withPosition` does not take two arguments",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/syntaxErrors.lean.out.expected",
+      "error_text": "parser `withPosition` is not a constant, it takes one argument",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/syntaxPrec.lean.out.expected",
+      "error_text": "unexpected token '<|>'; expected ':'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/synthorder.lean.out.expected",
+      "error_text": "instance does not provide concrete values for (semi-)out-params\n  Foo A (B × ?C)",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/synthorder.lean.out.expected",
+      "error_text": "cannot find synthesization order for instance @instFooNat with type\n  {A : Type} → [Foo A Nat] → Foo Nat A",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/tacUnsolvedGoalsErrors.lean.out.expected",
+      "error_text": "unsolved goals\ncase inl",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/tcloop.lean.out.expected",
+      "error_text": "failed to synthesize\n  B Nat",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/terminationFailure.lean.out.expected",
+      "error_text": "fail to show termination for\n  f.g\n  f\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/terminationFailure.lean.out.expected",
+      "error_text": "fail to show termination for\n  h\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused `termination_by`, function is not recursive",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused `decreasing_by`, function is not recursive",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused termination hints, function is not recursive",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused `termination_by`, function is partial",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused `decreasing_by`, function is partial",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused termination hints, function is partial",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused `termination_by`, function is unsafe",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused `decreasing_by`, function is unsafe",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "unused termination hints, function is unsafe",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by.lean.out.expected",
+      "error_text": "incomplete set of termination hints:",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by_vars.lean.out.expected",
+      "error_text": "one parameter bound in `termination_by`, but the body of Basic.tooManyVars only binds 0 parameters.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by_vars.lean.out.expected",
+      "error_text": "no extra parameters bounds, please omit the `=>`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by_vars.lean.out.expected",
+      "error_text": "3 parameters bound in `termination_by`, but the body of Basic.tooManyVariables2 only binds 2 parameters.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by_vars.lean.out.expected",
+      "error_text": "one parameter bound in `termination_by`, but the body of WithVariable.tooManyVars only binds 0 parameters.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by_vars.lean.out.expected",
+      "error_text": "one parameter bound in `termination_by`, but the body of InLetRec.foo1.tooManyVars only binds 0 parameters.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by_vars.lean.out.expected",
+      "error_text": "3 parameters bound in `termination_by`, but the body of ManyTooMany.tooManyVars only binds 0 parameters.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/termination_by_vars.lean.out.expected",
+      "error_text": "2 parameters bound in `termination_by`, but the body of WithHelpfulComment.foo only binds 0 parameters. (Since Lean v4.6.0, the `termination_by` clause no longer expects the function name here.)",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/test_extern.lean.out.expected",
+      "error_text": "test_extern: HAdd.hAdd does not have an @[extern] attribute or @[implemented_by] attribute",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/test_extern.lean.out.expected",
+      "error_text": "native implementation did not agree with reference implementation!",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/tokenErrors.lean.out.expected",
+      "error_text": "missing end of character literal",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/tokenErrors.lean.out.expected",
+      "error_text": "invalid escape sequence",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/tokenErrors.lean.out.expected",
+      "error_text": "unterminated identifier escape",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/tooManyVarsAtInduction.lean.out.expected",
+      "error_text": "Too many variable names provided at alternative `succ`: 4 provided, but 2 expected",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/tooManyVarsAtInduction.lean.out.expected",
+      "error_text": "Too many variable names provided at alternative `succ`: 2 provided, but 1 expected",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/trailingComma.lean.out.expected",
+      "error_text": "unexpected token ','; expected ']'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/trailingComma.lean.out.expected",
+      "error_text": "unexpected token ','; expected ')'",
+      "category": "unexpected_token",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/typeIncorrectPat.lean.out.expected",
+      "error_text": "Type mismatch in pattern: Pattern\n  true",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/typeMismatch.lean.out.expected",
+      "error_text": "Type mismatch\n  IO.println \"\"",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/typeMismatch.lean.out.expected",
+      "error_text": "Type mismatch\n  Meta.isDefEq x x",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/typeOf.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  HAdd Nat Nat Bool",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/typeOf.lean.out.expected",
+      "error_text": "failed to synthesize instance of type class\n  HAdd Bool Nat Nat",
+      "category": "failed_to_synthesize",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/typeOf.lean.out.expected",
+      "error_text": "invalid reassignment, term has type\n  Bool",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/typeOf.lean.out.expected",
+      "error_text": "natural number expected, value has type\n  Bool",
+      "category": "type_mismatch",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unfoldFailure.lean.out.expected",
+      "error_text": "Tactic `unfold` failed to unfold `Nat.add` in\n  True",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unfoldFailure.lean.out.expected",
+      "error_text": "Tactic `unfold` failed to unfold `Nat.add` in\n  x = 2 * y",
+      "category": "tactic_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/univInference.lean.out.expected",
+      "error_text": "Inferred universe level for type may be unnecessarily high. The inferred resulting universe is\n  Type (max u v)",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/univInference.lean.out.expected",
+      "error_text": "Invalid universe polymorphic resulting type: The resulting universe is not `Prop`, but it may be `Prop` for some parameter values:\n  Sort (max u v)",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/univInference.lean.out.expected",
+      "error_text": "Failed to infer universe levels in type of field `t1`\n  Sort ?u",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/univInference.lean.out.expected",
+      "error_text": "Failed to infer universe levels in type of binder `b`\n  sorry",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/unknownCannotBeComplex.lean.out.expected",
+      "error_text": "Function expected at\n  Maybe",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unknownCannotBeComplex.lean.out.expected",
+      "error_text": "Function expected at\n  Result",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unknownCannotBeComplex.lean.out.expected",
+      "error_text": "Function expected at\n  Nonsense",
+      "category": "function_expected",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unknownCannotBeComplex.lean.out.expected",
+      "error_text": "Unknown identifier `MetaM`\n\nNote: It is not possible to treat `MetaM` as an implicitly bound variable here because it has multiple characters while the `relaxedAutoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unknownCannotBeComplex.lean.out.expected",
+      "error_text": "Unknown identifier `Nonsense`\n\nNote: It is not possible to treat `Nonsense` as an implicitly bound variable here because it has multiple characters while the `relaxedAutoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unknownCannotBeComplex.lean.out.expected",
+      "error_text": "Unknown identifier `hi`\n\nNote: It is not possible to treat `hi` as an implicitly bound variable here because it has multiple characters while the `relaxedAutoImplicit` option is set to `false`.",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unknownId.lean.out.expected",
+      "error_text": "Unknown identifier `bla✝`",
+      "category": "unknown_identifier",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unsolvedIndCases.lean.out.expected",
+      "error_text": "unsolved goals\ncase ind",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unsolvedIndCases.lean.out.expected",
+      "error_text": "unsolved goals\ncase base",
+      "category": "unsolved_goals",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/unused_univ.lean.out.expected",
+      "error_text": "unused universe parameter 'u'",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/versoDocMissing.lean.out.expected",
+      "error_text": "unexpected end of input; expected '#guard_msgs', 'abbrev', 'add_decl_doc', 'axiom', 'binder_predicate', 'builtin_cbv_simproc', 'builtin_cbv_simproc_decl', 'builtin_dsimproc', 'builtin_dsimproc_decl', 'builtin_grind_propagator', 'builtin_initialize', 'builtin_simproc', 'builtin_simproc_decl', 'cbv_simproc', 'cbv_simproc_decl', 'class', 'coinductive', 'declare_simp_like_tactic', 'declare_syntax_cat', 'def', 'dsimproc', 'dsimproc_decl', 'elab', 'elab_rules', 'example', 'grind_propagator', 'inductive', 'infix', 'infixl', 'infixr', 'initialize', 'instance', 'macro', 'macro_rules', 'notation', 'opaque', 'postfix', 'prefix', 'recommended_spelling', 'register_error_explanation', 'register_tactic_tag', 'register_try?_tactic', 'simproc', 'simproc_decl', 'structure', 'syntax', 'tactic_extension', 'theorem' or 'unif_hint'",
+      "category": "syntax_error",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/warningAsError.lean.out.expected",
+      "error_text": "`g` has been deprecated: Use `f` instead",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab_fail/warningAsError.lean.out.expected",
+      "error_text": "Variable name `unused` is not explicitly referenced.",
+      "category": "unused_variable",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/wf1.lean.out.expected",
+      "error_text": "fail to show termination for\n  g\nwith errors",
+      "category": "recursive_failed",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab/1986.lean.out.expected",
+      "error_text": "@HasSup.sup does not have a doc string",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/1986.lean.out.expected",
+      "error_text": "@HasInf.inf does not have a doc string",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/3965_3.lean.out.expected",
+      "error_text": "@Sup.sup does not have a doc string",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/3965_3.lean.out.expected",
+      "error_text": "@Inf.inf does not have a doc string",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/4452.lean.out.expected",
+      "error_text": "`hi` has been deprecated: Don't use `hi`.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/4452.lean.out.expected",
+      "error_text": "`hi'` has been deprecated: Don't use `hi'`, either.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/consumePPHint.lean.out.expected",
+      "error_text": "declaration uses `sorry`\n⊢ q\n    (have x := 0;\n    x + 1)",
+      "category": "uses_sorry",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "macro 'Lean.Parser.Term.paren' produces deprecated syntax 'Lean.Parser.Term.let_fun': use `have` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "macro 'termMy_wrapper' (expanded from 'Lean.Parser.Term.paren') produces deprecated syntax 'Lean.Parser.Term.let_fun': use `have` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "macro 'termInnerMacro' (expanded from 'termOuterMacro') produces deprecated syntax 'Lean.Parser.Term.let_fun': use `have` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "syntax 'tacticMyDepTac' has been deprecated: use `trivial` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "quotation uses deprecated syntax 'termOldThing': use `42` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "syntax 'commandMyDepCmd' has been deprecated: use `#check` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "macro 'commandMyWrapperCmd' produces deprecated syntax 'commandMyDepCmd': use `#check` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "`deprecated_syntax` should specify the date or library version at which the deprecation was introduced, using `(since := \"...\")`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
+      "error_text": "syntax 'termOldThing' has been deprecated: use `42` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/eraseSimp.lean.out.expected",
+      "error_text": "`foo` does not have the `[simp]` attribute",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/grind_11130.lean.out.expected",
+      "error_text": "exponent 32317006071311007300714876688669951960444102669715484032130345427524655138867890893197201411522913463688717960921898019494119559150490921095088152386448283120630877367300996091750197750389652106796057638384067568276792218642619756161838094338476170470581645852036305042887575891541065808607552399123930385521914333389668342420684974786564569494856176035326322058077805659331026192708460314150258592864177116725943603718461857357598351152301645904403697613233287231227125684710820209725157101726931323469678542580656697935045997268352998638215525166389437335543602135433229604645318478604952148193555853611059596230656 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/grind_cutsat_tests.lean.out.expected",
+      "error_text": "`cutsat` has been deprecated, use `lia` instead",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/grind_field_panic.lean.out.expected",
+      "error_text": "fastInstance does not have a doc string",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/grind_field_panic.lean.out.expected",
+      "error_text": "letImplDetailStx does not have a doc string",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/grind_qsort.lean.out.expected",
+      "error_text": "this parameter is redundant, environment already contains `_private.elab.grind_qsort.0.Array.qsort_sort_perm` annotated with `@[grind]`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/grind_t1.lean.out.expected",
+      "error_text": "this parameter is redundant, environment already contains `List.replace_cons` annotated with `@[grind =]`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public def noDoc\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public def noDoc2\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public def openIn\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public def setOptionIn1\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public def lintDoc\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public inductive Ind\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public constructor Ind.ind1\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public constructor Ind.ind2\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for computed field Ind.field\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public structure Foo\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Foo.mk1\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Foo.mk4\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Foo.mk5\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Foo.mk6\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Foo.mk7\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public structure Bar\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Bar.foo\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Bar.bar\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public structure Bar2\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Bar2.bar\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public structure Bar3\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public field Bar3.baz\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for initializer init\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for syntax category myCat\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for syntax\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for syntax namedSyn\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for infixl\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for infixr namedInfix\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for notation\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for notation namedNota\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for elab\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for macro\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for class abbrev [anonymous]\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for option myOption\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for elab myCmd\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public def handleMyCmd\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for my_command z\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "empty doc string for public def emptyDoc1\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "empty doc string for public def emptyDoc2\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "empty doc string for public def emptyDoc3\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "empty doc string for public inductive EmptyInd\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "empty doc string for public constructor EmptyInd.emptyCtorDoc\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "missing doc string for public constructor EmptyInd.noCtorDoc\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "empty doc string for notation\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "empty doc string for macro\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterMissingDocs.lean.out.expected",
+      "error_text": "empty doc string for elab\n\nNote: This linter can be disabled with `set_option linter.missingDocs false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/linterSuspiciousUnexpanderPatterns.lean.out.expected",
+      "error_text": "Unexpanders should match the function name against an antiquotation `$_` so as to be independent of the specific pretty printing of the name.\n\nNote: This linter can be disabled with `set_option linter.suspiciousUnexpanderPatterns false`",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/mspecInvariantInstantiation.lean.out.expected",
+      "error_text": "The `mvcgen` tactic is experimental and still under development. Avoid using it in production projects.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/ppDeepTerms.lean.out.expected",
+      "error_text": "The '⋯' token is used by the pretty printer to indicate omitted terms, and it should not be used directly. It logs this warning and then elaborates like '_'.",
+      "category": "unknown",
+      "recognized": false
+    },
+    {
+      "source_file": "tests/elab/versoDocs.lean.out.expected",
+      "error_text": "Code element could be more specific.",
+      "category": "unknown",
+      "recognized": false
+    }
+  ]
+}
