@@ -29,6 +29,9 @@ from .state import ProofTrace, StateStep, extract_state_trace
 # 战术 ↔ 中文术语对照表（数据层，供翻译器提升中文质量）
 _GLOSSARY_PATH = Path(__file__).resolve().parent.parent / "data" / "tactic_glossary.json"
 
+# Herald few-shot 示例库（真实「形式化证明 → 自然语言」配对，ICLR 2025）
+_HERALD_FEWSHOT_PATH = Path(__file__).resolve().parent.parent / "data" / "herald_fewshot.json"
+
 
 def _load_glossary() -> str:
     """加载术语表，返回适合注入 prompt 的文本。"""
@@ -38,6 +41,26 @@ def _load_glossary() -> str:
         for item in data.get("tactics", []):
             lines.append(f"- {item['tactic']}: 中文 [{item['zh']}] —— {item['meaning']}")
         return "\n".join(lines)
+    except Exception:
+        return ""
+
+
+def _load_herald_fewshot(n: int = 2) -> str:
+    """加载 Herald few-shot 样本，返回适合注入 prompt 的文本。
+
+    用真实「形式化证明 → 自然语言解释」配对教模型如何翻译。
+    n: 取前 n 条（控制 token 预算）。
+    """
+    try:
+        data = json.loads(_HERALD_FEWSHOT_PATH.read_text(encoding="utf-8"))
+        parts = []
+        for sample in data.get("samples", [])[:n]:
+            parts.append(
+                f"### Example: {sample['name']}\n"
+                f"Formal proof:\n{sample['formal_proof']}\n\n"
+                f"Readable explanation:\n{sample['informal_proof']}\n"
+            )
+        return "\n".join(parts)
     except Exception:
         return ""
 
@@ -82,6 +105,14 @@ Produce a READABLE, COHERENT natural-language proof in {lang}, written the way
 a mathematician would write it in a paper. Structure it with paragraphs or bullet points.
 For each major step, briefly note which tactic implements it (e.g. "（`rw [h]`）").
 Do NOT just translate the tactics literally — write real mathematical prose.
+"""
+
+# Herald few-shot 提示（教模型真实的高质量翻译范例）
+_FEWSHOT_HINT = """
+Here are real examples of formal proofs translated into readable explanations (from the Herald dataset):
+{fewshot}
+
+Follow the same style and level of detail in your answer.
 """
 
 
@@ -174,12 +205,15 @@ def translate_proof_block(
         )
 
     lang = "中文" if _lang_zh(target_lang) else "English"
-    # 整篇可读证明的 system prompt 也注入术语表（中文时）
+    # 整篇可读证明的 system prompt：中文时注入术语表，双语都注入 Herald few-shot
     sys_proof = _PROOF_SYSTEM.format(lang=lang)
     if _lang_zh(target_lang):
         gl = _load_glossary()
         if gl:
             sys_proof += "\n" + _GLOSSARY_HINT.format(glossary=gl)
+    fs = _load_herald_fewshot(n=2)
+    if fs:
+        sys_proof += "\n" + _FEWSHOT_HINT.format(fewshot=fs)
     result = ProofTranslation(
         theorem_name=block.theorem_name,
         theorem_stmt=block.theorem_stmt,

@@ -33,3 +33,6 @@ lean/VerboseZH/.lake/
 
 # 本地敏感配置（不入库）
 .env
+
+# Herald 原始数据（大文件，不入库；用脚本从 HF 下载）
+data/herald/
