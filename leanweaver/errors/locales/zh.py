@@ -299,6 +299,42 @@ TEMPLATES_ZH: dict[ErrorCategory, dict[str, Any]] = {
         ],
     },
 
+    ErrorCategory.NO_PROGRESS: {
+        "title": "tactic 无进展（made no progress）",
+        "what": "这个 tactic（如 `simp`、`omega`）执行了但没有改变任何东西——它无法在当前目标上取得进展。",
+        "why": [
+            "目标已经是最简形式，没有可化简的了",
+            "tactic 没有可用的东西（没有匹配的引理、没有找到矛盾）",
+            "需要的定理/引理不在化简集合里",
+        ],
+        "fix": [
+            "如果目标看起来已经解决了，改用 `trivial` 或 `rfl`",
+            "如果预期要化简，加上相关引理（如 `simp [my_lemma]`）",
+            "检查这个目标到底需不需要这个 tactic",
+        ],
+    },
+
+    ErrorCategory.UNTERMINATED: {
+        "title": "未闭合的字面量/注释（unterminated）",
+        "what": "字符串、字符、注释或原始字符串没有闭合——Lean 在它内部一直读到了输入结束。",
+        "why": ["缺少闭合引号或注释结束符"],
+        "fix": ["找到未闭合的字面量/注释并闭合它", "检查引号或注释标记是否配对"],
+    },
+
+    ErrorCategory.COERCE_FAILED: {
+        "title": "类型强制转换失败（failed to coerce）",
+        "what": "Lean 试图自动把值从一种类型转换（coerce）到另一种，但两者之间不存在合法的转换。",
+        "why": ["两个类型之间没有定义 coercion", "转换链不存在或不在作用域内"],
+        "fix": ["改用显式转换，而不是依赖自动 coercion", "检查所需的 coercion 是否已导入/可用"],
+    },
+
+    ErrorCategory.DECREASING_FAILED: {
+        "title": "终止性/递减证明失败（decreasing proof failed）",
+        "what": "Lean 无法证明递归函数会终止（每次递归调用都有某个度量在递减），或某个索引未被证明有效。",
+        "why": ["递归调用没有让选定的度量递减", "无法自动找到递减度量", "索引（如 `i < n`）未被证明有效"],
+        "fix": ["加 `termination_by` 指定什么在递减", "用 `decreasing_by` 证明递减", "对索引有效性，证明索引在界内（如 `have : i < n := ...`）"],
+    },
+
     ErrorCategory.ALREADY_DECLARED: {
         "title": "重复声明（already declared）",
         "what": "你试图声明一个在当前作用域里已经存在的名字（定义、定理或字段）。",

@@ -320,6 +320,42 @@ TEMPLATES_EN: dict[ErrorCategory, dict[str, Any]] = {
         ],
     },
 
+    ErrorCategory.NO_PROGRESS: {
+        "title": "Tactic made no progress",
+        "what": "The tactic (e.g. `simp`, `omega`) ran but did not change anything — it couldn't make progress on the goal.",
+        "why": [
+            "The goal is already in its simplest form — nothing left to simplify",
+            "The tactic has nothing applicable (no lemmas match, no contradiction found)",
+            "The required theorem/lemma is not in the simplification set",
+        ],
+        "fix": [
+            "If the goal looks solved already, try `trivial` or `rfl` instead",
+            "If you expect simplification, add relevant lemmas (e.g. `simp [my_lemma]`)",
+            "Check whether the goal actually needs this tactic at all",
+        ],
+    },
+
+    ErrorCategory.UNTERMINATED: {
+        "title": "Unterminated literal / comment",
+        "what": "A string literal, character literal, comment, or raw string was not closed — Lean reached the end of input while it was still inside it.",
+        "why": ["Missing closing quote or comment marker"],
+        "fix": ["Find the unterminated literal/comment and close it", "Check for unbalanced quotes or comment markers"],
+    },
+
+    ErrorCategory.COERCE_FAILED: {
+        "title": "Failed to coerce type",
+        "what": "Lean tried to automatically coerce (convert) a value from one type to another, but no valid coercion exists between them.",
+        "why": ["The two types have no coercion defined between them", "The coercion chain doesn't exist or isn't available in scope"],
+        "fix": ["Add an explicit conversion instead of relying on coercion", "Check whether the expected coercion is imported/available"],
+    },
+
+    ErrorCategory.DECREASING_FAILED: {
+        "title": "Termination / decreasing proof failed",
+        "what": "Lean could not prove that a recursive function terminates (that some measure decreases on each recursive call), or an index was not proven valid.",
+        "why": ["The recursive call doesn't decrease the chosen measure", "No decreasing measure could be found automatically", "An index (like `i < n`) was not proven valid"],
+        "fix": ["Add `termination_by` to specify what decreases", "Use `decreasing_by` to prove the decrease", "For index validity, prove the index is in bounds (e.g. `have : i < n := ...`)"],
+    },
+
     ErrorCategory.ALREADY_DECLARED: {
         "title": "Already declared",
         "what": "You tried to declare something (a definition, theorem, or field) whose name already exists in the current scope.",

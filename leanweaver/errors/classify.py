@@ -45,6 +45,10 @@ class ErrorCategory(str, Enum):
     MISSING_ALTERNATIVE = "missing_alternative"  # match 分支缺失
     DEPRECATED = "deprecated"                # 已废弃
     UNUSED = "unused"                        # 未使用（函数等）
+    NO_PROGRESS = "no_progress"              # tactic 无进展（simp/omega 等）
+    UNTERMINATED = "unterminated"            # 未闭合字面量/注释
+    COERCE_FAILED = "coerce_failed"          # 类型强制转换失败
+    DECREASING_FAILED = "decreasing_failed"  # 终止性/递减证明失败
     UNKNOWN = "unknown"                      # 未识别
 
 
@@ -120,6 +124,21 @@ _RULES: list[tuple[str, ErrorCategory]] = [
     ("alternative", ErrorCategory.MISSING_ALTERNATIVE),
     # 已废弃
     ("has been deprecated", ErrorCategory.DEPRECATED),
+    # tactic 无进展（"simp made no progress" / "omega made no progress"）
+    ("made no progress", ErrorCategory.NO_PROGRESS),
+    # 未闭合（字面量/注释/字符串）
+    ("unterminated string literal", ErrorCategory.UNTERMINATED),
+    ("unterminated comment", ErrorCategory.UNTERMINATED),
+    ("unterminated raw string literal", ErrorCategory.UNTERMINATED),
+    ("unterminated identifier escape", ErrorCategory.UNTERMINATED),
+    ("missing end of character literal", ErrorCategory.UNTERMINATED),
+    # 类型强制转换失败
+    ("failed to coerce", ErrorCategory.COERCE_FAILED),
+    ("cannot coerce", ErrorCategory.COERCE_FAILED),
+    # 终止性/递减失败
+    ("could not find a decreasing measure", ErrorCategory.DECREASING_FAILED),
+    ("failed to prove index is valid", ErrorCategory.DECREASING_FAILED),
+    ("the termination measure's type must not", ErrorCategory.DECREASING_FAILED),
     # 未知标识符（Lean 4.32："Unknown identifier `bar`"）
     ("unknown identifier", ErrorCategory.UNKNOWN_IDENTIFIER),
     ("unknown constant", ErrorCategory.UNKNOWN_IDENTIFIER),

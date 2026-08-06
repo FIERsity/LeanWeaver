@@ -335,14 +335,14 @@
     {
       "source_file": "tests/elab_fail/1971.lean.out.expected",
       "error_text": "unterminated string literal",
-      "category": "unknown",
-      "recognized": false
+      "category": "unterminated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/2006.lean.out.expected",
       "error_text": "unterminated comment",
-      "category": "unknown",
-      "recognized": false
+      "category": "unterminated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/2125.lean.out.expected",
@@ -413,8 +413,8 @@
     {
       "source_file": "tests/elab_fail/2634.lean.out.expected",
       "error_text": "`simp` made no progress",
-      "category": "unknown",
-      "recognized": false
+      "category": "no_progress",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/276.lean.out.expected",
@@ -611,8 +611,8 @@
     {
       "source_file": "tests/elab_fail/621.lean.out.expected",
       "error_text": "Failed to coerce\n  xs",
-      "category": "unknown",
-      "recognized": false
+      "category": "coerce_failed",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/641.lean.out.expected",
@@ -1157,8 +1157,8 @@
     {
       "source_file": "tests/elab_fail/decreasing_by.lean.out.expected",
       "error_text": "Could not find a decreasing measure.",
-      "category": "unknown",
-      "recognized": false
+      "category": "decreasing_failed",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/defInst.lean.out.expected",
@@ -1427,8 +1427,8 @@
     {
       "source_file": "tests/elab_fail/dsimpViaConst.lean.out.expected",
       "error_text": "`dsimp` made no progress",
-      "category": "unknown",
-      "recognized": false
+      "category": "no_progress",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/eagerUnfoldingIssue.lean.out.expected",
@@ -1673,8 +1673,8 @@
     {
       "source_file": "tests/elab_fail/getElem.lean.out.expected",
       "error_text": "failed to prove index is valid, possible solutions:\n  - Use `have`-expressions to prove the index is valid\n  - Use `a[i]!` notation instead, runtime check is performed, and 'Panic' error message is produced if index is not valid\n  - Use `a[i]?` notation instead, result is an `Option` type\n  - Use `a[i]'h` notation instead, where `h` is a proof that index is valid",
-      "category": "unknown",
-      "recognized": false
+      "category": "decreasing_failed",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/guessLexDiff.lean.out.expected",
@@ -2147,20 +2147,20 @@
     {
       "source_file": "tests/elab_fail/issue2260.lean.out.expected",
       "error_text": "The termination measure's type must not depend on the function's varying parameters, but foo's termination measure does:\n  {i : Nat} → DNat i → DNat i",
-      "category": "unknown",
-      "recognized": false
+      "category": "decreasing_failed",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/issue2260.lean.out.expected",
       "error_text": "The termination measure's type must not depend on the function's varying parameters, but bar1's termination measure does:\n  {i : Nat} → DNat i → DNat i",
-      "category": "unknown",
-      "recognized": false
+      "category": "decreasing_failed",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/issue2260.lean.out.expected",
       "error_text": "The termination measure's type must not depend on the function's varying parameters, but baz2's termination measure does:\n  {i : Nat} → DNat i → DNat i",
-      "category": "unknown",
-      "recognized": false
+      "category": "decreasing_failed",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/issue3232.lean.out.expected",
@@ -2909,8 +2909,8 @@
     {
       "source_file": "tests/elab_fail/rawStringEOF.lean.out.expected",
       "error_text": "unterminated raw string literal",
-      "category": "unknown",
-      "recognized": false
+      "category": "unterminated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/redundantAlt.lean.out.expected",
@@ -3509,8 +3509,8 @@
     {
       "source_file": "tests/elab_fail/tokenErrors.lean.out.expected",
       "error_text": "missing end of character literal",
-      "category": "unknown",
-      "recognized": false
+      "category": "unterminated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/tokenErrors.lean.out.expected",
@@ -3521,8 +3521,8 @@
     {
       "source_file": "tests/elab_fail/tokenErrors.lean.out.expected",
       "error_text": "unterminated identifier escape",
-      "category": "unknown",
-      "recognized": false
+      "category": "unterminated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/tooManyVarsAtInduction.lean.out.expected",
