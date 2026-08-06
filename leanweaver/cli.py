@@ -34,6 +34,51 @@ def _cmd_explain(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_suggest(args: argparse.Namespace) -> int:
+    from .translate.parser import extract_proof
+    from .translate.suggest import suggest_next
+
+    from pathlib import Path
+
+    try:
+        source = Path(args.message).read_text(encoding="utf-8")
+    except OSError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
+
+    block = extract_proof(source, args.theorem)
+    if block is None:
+        print("Error: 未找到证明块", file=sys.stderr)
+        return 1
+
+    full_decl = f"theorem {block.theorem_name} {block.theorem_stmt}"
+    print(f"定理: {block.theorem_name}")
+    print(f"已写步骤: {block.tactics}")
+    print()
+
+    result = suggest_next(
+        full_decl,
+        block.tactics,
+        num_candidates=args.candidates,
+        target_lang=args.lang,
+        verify=not args.no_verify,
+    )
+    if result["error"]:
+        print(f"提示: {result['error']}")
+        return 1
+
+    print("当前目标:")
+    print(result["state"])
+    print()
+    print("下一步建议（均经 Lean 验证）:")
+    for i, s in enumerate(result["suggestions"], 1):
+        tag = "✅ 可直接完成" if s.completes else "🔹 可推进"
+        print(f"  {i}. {tag} `{s.tactic}`")
+        if s.explanation:
+            print(f"     ↳ {s.explanation}")
+    return 0
+
+
 def _cmd_check(args: argparse.Namespace) -> int:
     from .check import check_file
 
@@ -128,6 +173,14 @@ def main(argv: list[str] | None = None) -> int:
     p_explain.add_argument("--lang", default="en", choices=["en", "zh"], help="explanation language (default: en)")
     p_explain.add_argument("--llm", action="store_true", help="fall back to LLM when rules miss")
     p_explain.set_defaults(func=_cmd_explain)
+
+    p_suggest = sub.add_parser("suggest", help="Suggest next proof step (verified by Lean)")
+    p_suggest.add_argument("message", help="path to a .lean file")
+    p_suggest.add_argument("--theorem", help="theorem name to suggest for (default: first)")
+    p_suggest.add_argument("--lang", default="zh", choices=["zh", "en"], help="explanation language")
+    p_suggest.add_argument("--candidates", type=int, default=6, help="number of candidates to generate")
+    p_suggest.add_argument("--no-verify", action="store_true", help="skip Lean verification (not recommended)")
+    p_suggest.set_defaults(func=_cmd_suggest)
 
     p_check = sub.add_parser("check", help="Analyze a .lean file and explain all diagnostics")
     p_check.add_argument("path", help="path to .lean file")
