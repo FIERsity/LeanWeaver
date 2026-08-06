@@ -320,6 +320,65 @@ TEMPLATES_EN: dict[ErrorCategory, dict[str, Any]] = {
         ],
     },
 
+    ErrorCategory.ALREADY_DECLARED: {
+        "title": "Already declared",
+        "what": "You tried to declare something (a definition, theorem, or field) whose name already exists in the current scope.",
+        "why": [
+            "The name was already defined earlier in this file or an imported module",
+            "Two declarations share the same name",
+            "A field/constructor name collides with an existing one",
+        ],
+        "fix": [
+            "Use a different name",
+            "Remove the earlier declaration if it's a duplicate",
+            "If importing, the name may already exist in the imported module — rename yours",
+        ],
+    },
+
+    ErrorCategory.AMBIGUOUS: {
+        "title": "Ambiguous term / typeclass instance",
+        "what": "Lean found more than one possible interpretation (type or typeclass instance) for something, and cannot decide which one you meant.",
+        "why": [
+            "The type of a term is ambiguous — multiple types fit",
+            "Multiple typeclass instances apply equally well",
+            "Lean can't pick a unique meaning without more info",
+        ],
+        "fix": [
+            "Add an explicit type annotation to disambiguate",
+            "For typeclass ambiguity, provide/restrict the instance in scope",
+            "Check if you opened too many namespaces causing conflicts",
+        ],
+    },
+
+    ErrorCategory.MISSING_ALTERNATIVE: {
+        "title": "Missing alternative (match branch not provided)",
+        "what": "A `match`/`cases`/pattern-matching construct has a case that is not handled — Lean expected an alternative (branch) that was not provided.",
+        "why": [
+            "Not all constructors/patterns of the type are covered",
+            "A named alternative (like `isFalse`) was referenced but not written",
+            "The match is missing a required branch",
+        ],
+        "fix": [
+            "Add the missing branch (check the type's constructors)",
+            "If a named alternative is missing, provide it (e.g. `| isFalse => ...`)",
+            "Use `match ... with` covering all cases, or add a catch-all `| _ =>`",
+        ],
+    },
+
+    ErrorCategory.DEPRECATED: {
+        "title": "Deprecated (use another name)",
+        "what": "The name you used has been deprecated — it still works but is discouraged; use the suggested replacement instead.",
+        "why": ["The API/name was renamed or superseded", "You're using an old spelling"],
+        "fix": ["Use the replacement suggested in the message (e.g. `Use `...` instead`)"],
+    },
+
+    ErrorCategory.UNUSED: {
+        "title": "Unused declaration (function/parameter)",
+        "what": "A function or parameter you declared is not used. Lean warns it may be removable.",
+        "why": ["The function is never called", "A parameter is never referenced in the body"],
+        "fix": ["Remove the unused declaration", "If it's a parameter, remove it or use `_` to ignore"],
+    },
+
     ErrorCategory.INVALID_TARGET: {
         "title": "Invalid induction target (index occurs more than once)",
         "what": (

@@ -40,6 +40,11 @@ class ErrorCategory(str, Enum):
     INFER_FAILED = "infer_failed"            # 类型/定义推断失败（binder/let/definition）
     SYNTHESIZE_IMPLICIT = "synthesize_implicit"  # 无法合成隐式参数/占位符
     TACTIC_FAILED = "tactic_failed"          # tactic 执行失败
+    ALREADY_DECLARED = "already_declared"    # 重复声明
+    AMBIGUOUS = "ambiguous"                  # 歧义（term/typeclass）
+    MISSING_ALTERNATIVE = "missing_alternative"  # match 分支缺失
+    DEPRECATED = "deprecated"                # 已废弃
+    UNUSED = "unused"                        # 未使用（函数等）
     UNKNOWN = "unknown"                      # 未识别
 
 
@@ -104,6 +109,17 @@ _RULES: list[tuple[str, ErrorCategory]] = [
     # tactic 失败（如 Tactic `assumption` failed）
     ("tactic `", ErrorCategory.TACTIC_FAILED),
     ("tactic has not been implemented", ErrorCategory.TACTIC_FAILED),
+    # 重复声明
+    ("has already been declared", ErrorCategory.ALREADY_DECLARED),
+    ("failed to declare", ErrorCategory.ALREADY_DECLARED),
+    # 歧义
+    ("ambiguous term", ErrorCategory.AMBIGUOUS),
+    ("ambiguous", ErrorCategory.AMBIGUOUS),
+    # match 分支缺失
+    ("has not been provided", ErrorCategory.MISSING_ALTERNATIVE),
+    ("alternative", ErrorCategory.MISSING_ALTERNATIVE),
+    # 已废弃
+    ("has been deprecated", ErrorCategory.DEPRECATED),
     # 未知标识符（Lean 4.32："Unknown identifier `bar`"）
     ("unknown identifier", ErrorCategory.UNKNOWN_IDENTIFIER),
     ("unknown constant", ErrorCategory.UNKNOWN_IDENTIFIER),
@@ -153,6 +169,8 @@ _RULES: list[tuple[str, ErrorCategory]] = [
     # 未使用变量（警告类，真实格式："Variable name `a` is not explicitly referenced."）
     ("unused variable", ErrorCategory.UNUSED_VARIABLE),
     ("not explicitly referenced", ErrorCategory.UNUSED_VARIABLE),
+    # 未使用（函数等："unused `foo`, function is not recursive"）——放变量规则之后
+    ("unused", ErrorCategory.UNUSED),
     ("declaration uses 'sorry'", ErrorCategory.DECLARATION_USES_SORRY),
     ("declaration uses `sorry`", ErrorCategory.DECLARATION_USES_SORRY),
     # 缺失导入

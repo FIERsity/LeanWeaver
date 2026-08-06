@@ -101,8 +101,8 @@
     {
       "source_file": "tests/elab_fail/1079.lean.out.expected",
       "error_text": "Alternative `isFalse` has not been provided",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/1081.lean.out.expected",
@@ -143,14 +143,14 @@
     {
       "source_file": "tests/elab_fail/1371.lean.out.expected",
       "error_text": "redundant alternative #3",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/1371.lean.out.expected",
       "error_text": "redundant alternative #4",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/1569.lean.out.expected",
@@ -521,7 +521,7 @@
     {
       "source_file": "tests/elab_fail/3989_1.lean.out.expected",
       "error_text": "expected else-alternative for `match_expr`, i.e., `| _ => ...`",
-      "category": "syntax_error",
+      "category": "missing_alternative",
       "recognized": true
     },
     {
@@ -617,8 +617,8 @@
     {
       "source_file": "tests/elab_fail/641.lean.out.expected",
       "error_text": "Ambiguous term\n  x",
-      "category": "unknown",
-      "recognized": false
+      "category": "ambiguous",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/653.lean.out.expected",
@@ -641,7 +641,7 @@
     {
       "source_file": "tests/elab_fail/690.lean.out.expected",
       "error_text": "Too many variable names provided at alternative `step`: 3 provided, but 2 expected\ncase step",
-      "category": "syntax_error",
+      "category": "missing_alternative",
       "recognized": true
     },
     {
@@ -725,8 +725,8 @@
     {
       "source_file": "tests/elab_fail/ambiguousOpenExport.lean.out.expected",
       "error_text": "ambiguous identifier `mk`, possible interpretations: [Bla.C.mk, Foo.C.mk]",
-      "category": "unknown",
-      "recognized": false
+      "category": "ambiguous",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/antiquotRecovery.lean.out.expected",
@@ -1205,14 +1205,14 @@
     {
       "source_file": "tests/elab_fail/deprecated.lean.out.expected",
       "error_text": "`f` has been deprecated: Use `g` instead",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/deprecated.lean.out.expected",
       "error_text": "`h` has been deprecated",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/deprecated.lean.out.expected",
@@ -1223,14 +1223,14 @@
     {
       "source_file": "tests/elab_fail/deprecated.lean.out.expected",
       "error_text": "`f2` has been deprecated: Use `Foo.g1` instead\n\nNote: The updated constant has a different type:\n  Nat",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/deprecated.lean.out.expected",
       "error_text": "`f4` has been deprecated: use g1 instead, f4 is not a good name",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/diamond1.lean.out.expected",
@@ -1241,14 +1241,14 @@
     {
       "source_file": "tests/elab_fail/diamond1.lean.out.expected",
       "error_text": "Field `a` from `Baz` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/diamond5.lean.out.expected",
       "error_text": "`D.toC` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/diamond5.lean.out.expected",
@@ -1469,8 +1469,8 @@
     {
       "source_file": "tests/elab_fail/emptyc.lean.out.expected",
       "error_text": "Ambiguous term\n  { }",
-      "category": "unknown",
-      "recognized": false
+      "category": "ambiguous",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/eoi.lean.out.expected",
@@ -1637,38 +1637,38 @@
     {
       "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
       "error_text": "failed to declare `Structural.foo` because `Structural.foo.induct` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
       "error_text": "failed to declare `WF.foo` because `WF.foo.induct` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
       "error_text": "failed to declare `Mutual1.foo` because `Mutual1.foo.induct` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
       "error_text": "failed to declare `Mutual2.bar` because `Mutual2.bar.induct` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
       "error_text": "failed to declare `Mutual3.foo` because `Mutual3.foo.mutual_induct` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/funind_reserved.lean.out.expected",
       "error_text": "failed to declare `Nested.foo` because `Nested.foo.induct` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/getElem.lean.out.expected",
@@ -1907,38 +1907,38 @@
     {
       "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
       "error_text": "Alternative `cons` is not needed",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
       "error_text": "Invalid alternative name `upper2`: Expected `upper`",
-      "category": "syntax_error",
+      "category": "missing_alternative",
       "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
       "error_text": "Alternative `upper` has not been provided",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
       "error_text": "Invalid occurrence of the wildcard alternative `| _ => ...`: It must be the last alternative",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
       "error_text": "Wildcard alternative is not needed",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
       "error_text": "Duplicate alternative name `lower`",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductionGen.lean.out.expected",
@@ -1967,14 +1967,14 @@
     {
       "source_file": "tests/elab_fail/inductionParse.lean.out.expected",
       "error_text": "Alternative `zero` has not been provided",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductionParse.lean.out.expected",
       "error_text": "Alternative `succ` has not been provided",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductive1.lean.out.expected",
@@ -2021,14 +2021,14 @@
     {
       "source_file": "tests/elab_fail/inductive1.lean.out.expected",
       "error_text": "`Boo.T1.bla` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductive1.lean.out.expected",
       "error_text": "`Boo.T1` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/inductive1.lean.out.expected",
@@ -2201,8 +2201,8 @@
     {
       "source_file": "tests/elab_fail/kernelQuotNameCollision.lean.out.expected",
       "error_text": "(kernel) constant has already been declared 'Quot.lift'",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/letArrowOutsideDo.lean.out.expected",
@@ -2213,8 +2213,8 @@
     {
       "source_file": "tests/elab_fail/letrec1.lean.out.expected",
       "error_text": "`f1.g` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/letrec1.lean.out.expected",
@@ -2237,14 +2237,14 @@
     {
       "source_file": "tests/elab_fail/letrecErrors.lean.out.expected",
       "error_text": "`f2.h` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/letrecErrors.lean.out.expected",
       "error_text": "`f3.h` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/liftOverLeft.lean.out.expected",
@@ -2339,8 +2339,8 @@
     {
       "source_file": "tests/elab_fail/macroPrio.lean.out.expected",
       "error_text": "Ambiguous term\n  foo! 1",
-      "category": "unknown",
-      "recognized": false
+      "category": "ambiguous",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/macroStack.lean.out.expected",
@@ -2381,7 +2381,7 @@
     {
       "source_file": "tests/elab_fail/matchAltIndent.lean.out.expected",
       "error_text": "expected alternative right-hand-side to start in a column greater than or equal to the corresponding '|'",
-      "category": "syntax_error",
+      "category": "missing_alternative",
       "recognized": true
     },
     {
@@ -2699,14 +2699,14 @@
     {
       "source_file": "tests/elab_fail/notNaturalNumbersGame.lean.out.expected",
       "error_text": "Invalid syntax for induction tactic: The `with` keyword must be followed by a tactic or by an alternative (e.g. `| zero =>`), but here it is followed by the identifier `n`.",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/notNaturalNumbersGame.lean.out.expected",
       "error_text": "Invalid syntax for case analysis tactic: The `with` keyword must be followed by a tactic or by an alternative (e.g. `| zero =>`), but here it is followed by the identifier `n`.",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/notationPrecheck.lean.out.expected",
@@ -2723,7 +2723,7 @@
     {
       "source_file": "tests/elab_fail/notationPrecheck.lean.out.expected",
       "error_text": "ambiguous notation with at least one interpretation that failed quotation precheck, possible interpretations\n  («term_∧__1» `x \"∧\" `y)\n  Unknown identifier `y` at quotation precheck\n\n  Note: You can use `set_option quotPrecheck false` to disable this check.\n\n  («term_∧_» `x \"∧\" `y)\n  Unknown identifier `y` at quotation precheck\n\n  Note: You can use `set_option quotPrecheck false` to disable this check.",
-      "category": "unknown_identifier",
+      "category": "ambiguous",
       "recognized": true
     },
     {
@@ -2747,8 +2747,8 @@
     {
       "source_file": "tests/elab_fail/parserPrio.lean.out.expected",
       "error_text": "Ambiguous term\n  [1]",
-      "category": "unknown",
-      "recognized": false
+      "category": "ambiguous",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/parserRecovery.lean.out.expected",
@@ -2879,20 +2879,20 @@
     {
       "source_file": "tests/elab_fail/private.lean.out.expected",
       "error_text": "private declaration `Bla.foo` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/private.lean.out.expected",
       "error_text": "a non-private declaration `y` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/private.lean.out.expected",
       "error_text": "a private declaration `z` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/protected.lean.out.expected",
@@ -2915,14 +2915,14 @@
     {
       "source_file": "tests/elab_fail/redundantAlt.lean.out.expected",
       "error_text": "Redundant alternative: Any expression matching\n  2",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/redundantAlt.lean.out.expected",
       "error_text": "Redundant alternative: Any expression matching\n  3",
-      "category": "unknown",
-      "recognized": false
+      "category": "missing_alternative",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/refineFiltersOldMVars.lean.out.expected",
@@ -3233,14 +3233,14 @@
     {
       "source_file": "tests/elab_fail/struct1.lean.out.expected",
       "error_text": "Field `x` from `B` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/struct1.lean.out.expected",
       "error_text": "Field `x` has already been declared in a parent structure",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/struct1.lean.out.expected",
@@ -3257,8 +3257,8 @@
     {
       "source_file": "tests/elab_fail/struct1.lean.out.expected",
       "error_text": "Field `x` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/struct1.lean.out.expected",
@@ -3287,14 +3287,14 @@
     {
       "source_file": "tests/elab_fail/structAutoBound.lean.out.expected",
       "error_text": "a universe level named `u` has already been declared",
-      "category": "unknown",
-      "recognized": false
+      "category": "already_declared",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/structAutoBound.lean.out.expected",
       "error_text": "unused universe parameter 'w'",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/structDefValueOverride.lean.out.expected",
@@ -3395,56 +3395,56 @@
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused `termination_by`, function is not recursive",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused `decreasing_by`, function is not recursive",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused termination hints, function is not recursive",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused `termination_by`, function is partial",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused `decreasing_by`, function is partial",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused termination hints, function is partial",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused `termination_by`, function is unsafe",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused `decreasing_by`, function is unsafe",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
       "error_text": "unused termination hints, function is unsafe",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/termination_by.lean.out.expected",
@@ -3527,13 +3527,13 @@
     {
       "source_file": "tests/elab_fail/tooManyVarsAtInduction.lean.out.expected",
       "error_text": "Too many variable names provided at alternative `succ`: 4 provided, but 2 expected",
-      "category": "syntax_error",
+      "category": "missing_alternative",
       "recognized": true
     },
     {
       "source_file": "tests/elab_fail/tooManyVarsAtInduction.lean.out.expected",
       "error_text": "Too many variable names provided at alternative `succ`: 2 provided, but 1 expected",
-      "category": "syntax_error",
+      "category": "missing_alternative",
       "recognized": true
     },
     {
@@ -3683,8 +3683,8 @@
     {
       "source_file": "tests/elab_fail/unused_univ.lean.out.expected",
       "error_text": "unused universe parameter 'u'",
-      "category": "unknown",
-      "recognized": false
+      "category": "unused",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/versoDocMissing.lean.out.expected",
@@ -3695,8 +3695,8 @@
     {
       "source_file": "tests/elab_fail/warningAsError.lean.out.expected",
       "error_text": "`g` has been deprecated: Use `f` instead",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab_fail/warningAsError.lean.out.expected",
@@ -3737,14 +3737,14 @@
     {
       "source_file": "tests/elab/4452.lean.out.expected",
       "error_text": "`hi` has been deprecated: Don't use `hi`.",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab/4452.lean.out.expected",
       "error_text": "`hi'` has been deprecated: Don't use `hi'`, either.",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab/consumePPHint.lean.out.expected",
@@ -3773,8 +3773,8 @@
     {
       "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
       "error_text": "syntax 'tacticMyDepTac' has been deprecated: use `trivial` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
@@ -3785,8 +3785,8 @@
     {
       "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
       "error_text": "syntax 'commandMyDepCmd' has been deprecated: use `#check` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
@@ -3803,8 +3803,8 @@
     {
       "source_file": "tests/elab/deprecated_syntax.lean.out.expected",
       "error_text": "syntax 'termOldThing' has been deprecated: use `42` instead\n\nNote: This linter can be disabled with `set_option linter.deprecated.syntax false`",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab/eraseSimp.lean.out.expected",
@@ -3821,8 +3821,8 @@
     {
       "source_file": "tests/elab/grind_cutsat_tests.lean.out.expected",
       "error_text": "`cutsat` has been deprecated, use `lia` instead",
-      "category": "unknown",
-      "recognized": false
+      "category": "deprecated",
+      "recognized": true
     },
     {
       "source_file": "tests/elab/grind_field_panic.lean.out.expected",

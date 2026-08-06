@@ -299,6 +299,65 @@ TEMPLATES_ZH: dict[ErrorCategory, dict[str, Any]] = {
         ],
     },
 
+    ErrorCategory.ALREADY_DECLARED: {
+        "title": "重复声明（already declared）",
+        "what": "你试图声明一个在当前作用域里已经存在的名字（定义、定理或字段）。",
+        "why": [
+            "这个名字之前已经定义过（本文件或导入的模块里）",
+            "两个声明重名了",
+            "字段/构造子名与已有名字冲突",
+        ],
+        "fix": [
+            "换一个名字",
+            "如果是重复定义，删掉早先那个",
+            "如果来自导入，可能名字已被占用——改你自己的名字",
+        ],
+    },
+
+    ErrorCategory.AMBIGUOUS: {
+        "title": "歧义（ambiguous term / typeclass instance）",
+        "what": "Lean 发现某个东西有不止一种可能的解释（类型或类型类实例），无法决定你指的是哪个。",
+        "why": [
+            "项的类型有歧义——多个类型都合适",
+            "多个类型类实例都同样适用",
+            "没有更多信息，Lean 无法选出唯一含义",
+        ],
+        "fix": [
+            "加显式类型标注来消除歧义",
+            "对类型类歧义，限制/提供作用域内的实例",
+            "检查是否打开了太多 namespace 导致冲突",
+        ],
+    },
+
+    ErrorCategory.MISSING_ALTERNATIVE: {
+        "title": "缺少分支（match 分支未提供）",
+        "what": "`match`/`cases`/模式匹配缺少一个未处理的情况——Lean 期望有一个没被提供的分支。",
+        "why": [
+            "类型的所有构造子/模式没有被完全覆盖",
+            "引用了具名分支（如 `isFalse`）但没写出来",
+            "match 缺少必需的分支",
+        ],
+        "fix": [
+            "补上缺失的分支（查看类型的构造子）",
+            "如果缺具名分支，补上（如 `| isFalse => ...`）",
+            "用 `match ... with` 覆盖所有情况，或加兜底 `| _ =>`",
+        ],
+    },
+
+    ErrorCategory.DEPRECATED: {
+        "title": "已废弃（deprecated）",
+        "what": "你用的名字已被废弃——它还能用但不推荐，请用建议的替代名。",
+        "why": ["API/名字被重命名或取代", "用了旧拼写"],
+        "fix": ["用报错建议的替代名（如 'Use `...` instead'）"],
+    },
+
+    ErrorCategory.UNUSED: {
+        "title": "未使用（unused）",
+        "what": "你声明的函数或参数没有被使用。Lean 提示它可能可以删除。",
+        "why": ["函数从未被调用", "参数在函数体里从未被引用"],
+        "fix": ["删掉未使用的声明", "如果是参数，删掉或用 `_` 忽略"],
+    },
+
     ErrorCategory.INVALID_TARGET: {
         "title": "归纳目标无效（索引出现多次）",
         "what": (
