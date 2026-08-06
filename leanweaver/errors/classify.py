@@ -184,7 +184,16 @@ _RULES: list[tuple[str, ErrorCategory]] = [
     ("unexpected token", ErrorCategory.UNEXPECTED_TOKEN),
     ("unexpected end of input", ErrorCategory.SYNTAX_ERROR),
     ("unexpected symbol", ErrorCategory.UNEXPECTED_TOKEN),
-    ("expected", ErrorCategory.SYNTAX_ERROR),  # 通用兜底，放最后
+    # 语法错误里的 expected（只匹配带引号的 token 或语法关键词，避免误吃非语法错误）
+    ("expected '", ErrorCategory.SYNTAX_ERROR),
+    ("expected term", ErrorCategory.SYNTAX_ERROR),
+    ("expected command", ErrorCategory.SYNTAX_ERROR),
+    ("expected identifier", ErrorCategory.SYNTAX_ERROR),
+    ("expected ';' or line break", ErrorCategory.SYNTAX_ERROR),
+    # conv tactic 问题
+    ("conv tactic", ErrorCategory.TACTIC_FAILED),
+    # 构造子返回类型不合法
+    ("resulting type for constructor", ErrorCategory.INVALID_TARGET),
     # 未使用变量（警告类，真实格式："Variable name `a` is not explicitly referenced."）
     ("unused variable", ErrorCategory.UNUSED_VARIABLE),
     ("not explicitly referenced", ErrorCategory.UNUSED_VARIABLE),

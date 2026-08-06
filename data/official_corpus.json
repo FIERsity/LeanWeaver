@@ -65,8 +65,8 @@
     {
       "source_file": "tests/elab_fail/10488.lean.out.expected",
       "error_text": "Invalid pattern: Expected a constructor or constant marked with `[match_pattern]`",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/1050.lean.out.expected",
@@ -251,14 +251,14 @@
     {
       "source_file": "tests/elab_fail/1690.lean.out.expected",
       "error_text": "expected token",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/1705.lean.out.expected",
       "error_text": "type expected, got\n  (R : ?m)",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/1707.lean.out.expected",
@@ -707,8 +707,8 @@
     {
       "source_file": "tests/elab_fail/StxQuot.lean.out.expected",
       "error_text": "unexpected antiquotation splice",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/StxQuot.lean.out.expected",
@@ -1067,7 +1067,7 @@
     {
       "source_file": "tests/elab_fail/conv1.lean.out.expected",
       "error_text": "invalid `rhs` conv tactic, application or implication expected\n  p",
-      "category": "syntax_error",
+      "category": "tactic_failed",
       "recognized": true
     },
     {
@@ -1097,13 +1097,13 @@
     {
       "source_file": "tests/elab_fail/conv1.lean.out.expected",
       "error_text": "invalid 'fun' conv tactic, application expected\n  p",
-      "category": "syntax_error",
+      "category": "tactic_failed",
       "recognized": true
     },
     {
       "source_file": "tests/elab_fail/conv1.lean.out.expected",
       "error_text": "invalid 'arg 0' conv tactic, application expected\n  p",
-      "category": "syntax_error",
+      "category": "tactic_failed",
       "recognized": true
     },
     {
@@ -1325,8 +1325,8 @@
     {
       "source_file": "tests/elab_fail/doLetLoop.lean.out.expected",
       "error_text": "unexpected `do` element syntax\n  failed to pretty print term (use 'set_option pp.rawOnError true' for raw representation)",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/doNotation1.lean.out.expected",
@@ -1421,8 +1421,8 @@
     {
       "source_file": "tests/elab_fail/docstringLinkValidation.lean.out.expected",
       "error_text": "Unknown documentation type `f`. Expected one of the following: `section`, `errorExplanation`",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/dsimpViaConst.lean.out.expected",
@@ -1463,8 +1463,8 @@
     {
       "source_file": "tests/elab_fail/emptyTypeAscription.lean.out.expected",
       "error_text": "invalid `▸` notation, expected result type of cast is\n  w = add x y",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/emptyc.lean.out.expected",
@@ -1787,8 +1787,8 @@
     {
       "source_file": "tests/elab_fail/holes.lean.out.expected",
       "error_text": "A placeholder `_` cannot be used where a function is expected",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/holes.lean.out.expected",
@@ -1889,8 +1889,8 @@
     {
       "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
       "error_text": "Expected resulting type of eliminator to be an application of one of its parameters (the motive), but found\n  Nat",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/inductionErrors.lean.out.expected",
@@ -2063,19 +2063,19 @@
     {
       "source_file": "tests/elab_fail/inductive1.lean.out.expected",
       "error_text": "Missing resulting type for constructor `T1.z2`: Its resulting type must be specified because it is part of an inductive family declaration",
+      "category": "invalid_target",
+      "recognized": true
+    },
+    {
+      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
+      "error_text": "type expected, got\n  (T1 : Nat → Type)",
       "category": "unknown",
       "recognized": false
     },
     {
       "source_file": "tests/elab_fail/inductive1.lean.out.expected",
-      "error_text": "type expected, got\n  (T1 : Nat → Type)",
-      "category": "syntax_error",
-      "recognized": true
-    },
-    {
-      "source_file": "tests/elab_fail/inductive1.lean.out.expected",
       "error_text": "Unexpected resulting type for constructor `T1.z1`: Expected an application of\n  T1",
-      "category": "syntax_error",
+      "category": "invalid_target",
       "recognized": true
     },
     {
@@ -2843,8 +2843,8 @@
     {
       "source_file": "tests/elab_fail/partial_fixpoint_parseerrors.lean.out.expected",
       "error_text": "expected indented monotonicity proof",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/patvar.lean.out.expected",
@@ -3215,20 +3215,20 @@
     {
       "source_file": "tests/elab_fail/string_gaps_err_newline.lean.out.expected",
       "error_text": "unexpected additional newline in string gap",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/struct1.lean.out.expected",
       "error_text": "Invalid resulting type: Expected a sort",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/struct1.lean.out.expected",
       "error_text": "expected structure",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/struct1.lean.out.expected",
@@ -3323,14 +3323,14 @@
     {
       "source_file": "tests/elab_fail/structSorryBug.lean.out.expected",
       "error_text": "invalid {...} notation, structure type expected\n  Nat",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/substFails.lean.out.expected",
       "error_text": "invalid `▸` notation, expected result type of cast is\n  P 4",
-      "category": "syntax_error",
-      "recognized": true
+      "category": "unknown",
+      "recognized": false
     },
     {
       "source_file": "tests/elab_fail/substFails.lean.out.expected",
