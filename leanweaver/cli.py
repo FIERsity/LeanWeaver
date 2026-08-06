@@ -107,8 +107,10 @@ def _cmd_translate(args: argparse.Namespace) -> int:
     if not results:
         print("（未找到证明块）", file=sys.stderr)
         return 1
+    # 注释模式默认开启；--no-commented 关闭
+    include_commented = not getattr(args, "no_commented", False)
     for r in results:
-        print(r.pretty(include_commented=getattr(args, "commented", False)))
+        print(r.pretty(include_commented=include_commented))
         print("\n" + "=" * 60 + "\n")
     return 0
 
@@ -137,7 +139,7 @@ def main(argv: list[str] | None = None) -> int:
     p_translate.add_argument("message", help="Lean source text or path to a .lean file")
     p_translate.add_argument("--theorem", help="only translate this theorem (default: all)")
     p_translate.add_argument("--lang", default="zh", choices=["zh", "en"], help="target language (default: zh)")
-    p_translate.add_argument("--commented", action="store_true", help="also output line-by-line annotated proof (Herald style)")
+    p_translate.add_argument("--no-commented", action="store_true", help="disable line-by-line annotated proof (default: on)")
     p_translate.add_argument("--temperature", type=float, help="sampling temperature")
     p_translate.add_argument("--max-tokens", type=int, help="max output tokens")
     p_translate.add_argument("--top-p", type=float, help="nucleus sampling top-p")

@@ -1,0 +1,96 @@
+{
+  "name": "leanweaver",
+  "displayName": "LeanWeaver",
+  "description": "Make Lean 4 formal proofs readable to humans — Chinese/English proof translation & error explanation.",
+  "version": "0.1.0",
+  "publisher": "fiersity",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formal Languages",
+    "Machine Learning"
+  ],
+  "keywords": [
+    "lean",
+    "lean4",
+    "theorem-proving",
+    "formal-math",
+    "ai4math",
+    "mathlib"
+  ],
+  "activationEvents": [
+    "onLanguage:lean",
+    "onCommand:leanweaver.translate",
+    "onCommand:leanweaver.check",
+    "onCommand:leanweaver.openPanel"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "leanweaver.translate",
+        "title": "LeanWeaver: 翻译当前证明 / Translate proof",
+        "icon": "$(book)"
+      },
+      {
+        "command": "leanweaver.check",
+        "title": "LeanWeaver: 解释当前文件报错 / Explain errors",
+        "icon": "$(wrench)"
+      },
+      {
+        "command": "leanweaver.openPanel",
+        "title": "LeanWeaver: 打开输出面板 / Open panel"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "leanweaver.translate",
+          "when": "editorLangId == lean",
+          "group": "navigation@100"
+        },
+        {
+          "command": "leanweaver.check",
+          "when": "editorLangId == lean",
+          "group": "navigation@101"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "LeanWeaver",
+      "properties": {
+        "leanweaver.pythonPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to python (with leanweaver installed). Empty = use 'python3' from PATH."
+        },
+        "leanweaver.leanweaverCli": {
+          "type": "string",
+          "default": "python3 -m leanweaver",
+          "description": "Command to invoke leanweaver (e.g. 'python3 -m leanweaver' or 'leanweaver')."
+        },
+        "leanweaver.lang": {
+          "type": "string",
+          "enum": ["zh", "en"],
+          "default": "zh",
+          "description": "Output language (zh=Chinese, en=English)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0",
+    "@vscode/vsce": "^2.24.0"
+  }
+}

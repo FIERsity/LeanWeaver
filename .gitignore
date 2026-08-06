@@ -36,3 +36,9 @@ lean/VerboseZH/.lake/
 
 # Herald 原始数据（大文件，不入库；用脚本从 HF 下载）
 data/herald/
+
+# VS Code 扩展构建产物
+vscode-extension/node_modules/
+vscode-extension/dist/
+vscode-extension/*.vsix
+vscode-extension/.tmp/
