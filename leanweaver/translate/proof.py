@@ -49,20 +49,21 @@ _TACTIC_SYSTEM = """You are a Lean 4 theorem prover tutor. You will be given:
 - the proof state AFTER this step
 
 Explain in plain {lang} what this step does and WHY it makes sense.
+IMPORTANT: Base your explanation strictly on the provided "Before this step" and "After this step" states. Compare them to see exactly what changed. The "Before" state is the authoritative truth of what needed to be proved at this point.
 Keep it concise (2-4 sentences). Focus on the mathematical idea, not the syntax.
 """
 
 # 让 LLM 解释单个 tactic（带状态）的 user prompt 模板
-_TACTIC_STATE_USER = """Theorem:
-{theorem}
-
-Before this step:
+_TACTIC_STATE_USER = """--- PROOF STATE BEFORE THIS STEP (this is what currently needs to be proved) ---
 {before}
 
-Tactic: {tactic}
+Tactic executed at this step:
+{tactic}
 
-After this step:
+--- PROOF STATE AFTER THIS STEP ---
 {after}
+
+Note: the line starting with "⊢" in the BEFORE state is the current goal for this step. Explain ONLY how this tactic transforms the BEFORE goal into the AFTER state.
 """
 
 # 术语表（仅中文时注入，帮助对齐数学术语）
@@ -143,9 +144,15 @@ def translate_tactic(
         gl = _load_glossary()
         if gl:
             sys += "\n" + _GLOSSARY_HINT.format(glossary=gl)
-    if before is not None and after is not None:
+    if before is not None:
+        # 单步解释只依赖状态差（Before/After 已含全部上下文），
+        # 不再传整个定理声明 —— 避免模型把声明结论误当成当前目标。
+        # after 为 None 表示该步后证明完成。
         user = _TACTIC_STATE_USER.format(
-            theorem=theorem_stmt, before=before, tactic=tactic, after=after or "(无剩余目标，证明完成)"
+            theorem="",
+            before=before,
+            tactic=tactic,
+            after=after if after is not None else "(证明完成，无剩余目标)",
         )
     else:
         user = f"Theorem:\n{theorem_stmt}\n\nProof step:\n{tactic}"

@@ -17,7 +17,34 @@ from __future__ import annotations
 
 import os
 from abc import ABC, abstractmethod
+from pathlib import Path
 from typing import Optional
+
+
+# 项目根目录（leanweaver/ 的上一级）
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+
+
+def _load_dotenv(path: Path | None = None) -> None:
+    """轻量 .env 加载：把 KEY=VALUE 写入环境变量（不覆盖已存在的）。"""
+    dotenv_path = path or (_PROJECT_ROOT / ".env")
+    if not dotenv_path.exists():
+        return
+    try:
+        for line in dotenv_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key, value = key.strip(), value.strip()
+            if key and key not in os.environ:
+                os.environ[key] = value
+    except OSError:
+        pass
+
+
+# 模块加载时自动读取 .env（幂等）
+_load_dotenv()
 
 
 class LLMBackend(ABC):
@@ -56,10 +83,21 @@ class OpenAIBackend(LLMBackend):
             raise ImportError(
                 "未安装 openai 包。请执行 `pip install leanweaver[llm]`。"
             )
-        self._client = OpenAI(
-            api_key=api_key or os.environ.get("OPENAI_API_KEY"),
-            base_url=base_url or os.environ.get("OPENAI_BASE_URL"),
-        )
+        # 系统代理可能配置异常（如 NO_PROXY 含非法 IPv6 项 `[::1]`）导致 httpx 崩溃。
+        # 在干净环境中构建 client：临时清掉代理变量，绕开坏配置。
+        saved = {k: os.environ.get(k) for k in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY")}
+        for k in saved:
+            os.environ.pop(k, None)
+        try:
+            self._client = OpenAI(
+                api_key=api_key or os.environ.get("OPENAI_API_KEY"),
+                base_url=base_url or os.environ.get("OPENAI_BASE_URL"),
+            )
+        finally:
+            # 恢复代理变量（仅恢复存在过的）
+            for k, v in saved.items():
+                if v is not None:
+                    os.environ[k] = v
         self._model = model or os.environ.get("LEANWEAVER_MODEL", "gpt-4o-mini")
 
     def complete(self, system: str, user: str, **kwargs) -> str:
