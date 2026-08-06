@@ -8,7 +8,7 @@
 不接任何大模型 —— 每个解释都是确定性的，可复现，无幻觉。
 """
 
-__version__ = "0.4.0"
+__version__ = "0.6.0"
 
 from .errors.explain import explain  # noqa: F401
 

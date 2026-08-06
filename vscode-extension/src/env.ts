@@ -8,30 +8,14 @@ import * as path from "path";
 export interface EnvironmentStatus {
   cli: boolean;              // leanweaver CLI 是否可用
   lean: boolean;             // lean 工具链是否可用
-  officialLean: boolean;     // 官方 Lean 扩展 (vscode-lean4) 是否已安装
+  officialLean: boolean;     // 官方 Lean 扩展 (leanprover.lean4) 是否已安装
 }
 
-function execCheck(cmd: string): Promise<boolean> {
+function execOk(cmd: string, timeout = 20000): Promise<boolean> {
   return new Promise((resolve) => {
-    // 超时给足 20s：启动时系统可能繁忙，python 冷启动 + import 可能慢
-    execFile("/bin/bash", ["-c", cmd], { timeout: 20000 }, (err, stdout, stderr) => {
-      console.log(`[execCheck] ${cmd} => err=${err?.message?.slice(0,80)} stdout=${(stdout||"").slice(0,40).trim()} stderr=${(stderr||"").slice(0,80).trim()}`);
+    execFile("/bin/bash", ["-c", cmd], { timeout }, (err, stdout) => {
       resolve(!err && !!stdout);
     });
-  });
-}
-
-/** 执行命令并返回 {ok, stdout, stderr}（诊断用）。 */
-export function execDetail(cmd: string): Promise<{ ok: boolean; stdout: string; stderr: string }> {
-  return new Promise((resolve) => {
-    execFile(
-      "/bin/bash",
-      ["-c", cmd],
-      { timeout: 8000 },
-      (err, stdout, stderr) => {
-        resolve({ ok: !err, stdout: stdout || "", stderr: (stderr || err?.message || "") });
-      }
-    );
   });
 }
 
@@ -40,11 +24,10 @@ export function hasOfficialLean(): boolean {
   return !!vscode.extensions.getExtension("leanprover.lean4");
 }
 
-/** 直接执行 venv python -m leanweaver（不走 bash，避免 Electron 环境差异）。 */
+/** 直接检测 python3 -m leanweaver（不走 bash，避免 Electron 环境差异）。 */
 function checkPythonCli(python: string): Promise<boolean> {
   return new Promise((resolve) => {
-    execFile(python, ["-m", "leanweaver", "--help"], { timeout: 20000 }, (err, stdout, stderr) => {
-      console.log(`[checkPythonCli] ${python} => err=${err?.message?.slice(0,80)} out=${(stdout||"").slice(0,30).trim()}`);
+    execFile(python, ["-m", "leanweaver", "--help"], { timeout: 20000 }, (err, stdout) => {
       resolve(!err && !!stdout);
     });
   });
@@ -53,23 +36,19 @@ function checkPythonCli(python: string): Promise<boolean> {
 export async function detectEnvironment(): Promise<EnvironmentStatus> {
   const cfg = vscode.workspace.getConfiguration("leanweaver");
   const configured = cfg.get<string>("leanweaverCli", "");
-  const venv = "/Volumes/DataHub/Dev/LeanWeaver/.venv/bin/python3";
   let cliOk = false;
-  // 1. 用户配置的完整命令（走 bash，用户自己负责）
   if (configured) {
-    cliOk = await execCheck(configured);
+    // 用户配置的完整命令（用户自己负责正确）
+    cliOk = await execOk(configured);
   } else {
-    // 2. 自动：直接用 execFile 跑 venv python（不走 bash，最稳）
-    if (fs.existsSync(venv)) {
-      cliOk = await checkPythonCli(venv);
-      if (!cliOk) cliOk = await checkPythonCli("python3");
-    } else {
-      cliOk = await checkPythonCli("python3");
-    }
+    // 自动检测：依次尝试 python3 / python / leanweaver（不依赖任何硬编码路径）
+    cliOk = await checkPythonCli("python3");
+    if (!cliOk) cliOk = await checkPythonCli("python");
+    if (!cliOk) cliOk = await execOk("leanweaver --help");
   }
+  // lean 工具链（~/.elan 是标准安装位置）
   const homeLean = path.join(process.env.HOME || "", ".elan", "bin", "lean");
-  const leanOk = fs.existsSync(homeLean) || (await execCheck("lean --version"));
-  console.log(`[LeanWeaver env] cliOk=${cliOk} leanOk=${leanOk} officialLean=${hasOfficialLean()}`);
+  const leanOk = fs.existsSync(homeLean) || (await execOk("lean --version"));
   return { cli: cliOk, lean: leanOk, officialLean: hasOfficialLean() };
 }
 

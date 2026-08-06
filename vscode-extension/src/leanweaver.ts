@@ -19,7 +19,7 @@ function getCliParts(): string[] {
 
 function getLang(): string {
   const cfg = vscode.workspace.getConfiguration("leanweaver");
-  return cfg.get<string>("lang", "zh");
+  return cfg.get<string>("lang", "en");
 }
 
 function runCli(args: string[], timeout = 15000): Promise<string> {

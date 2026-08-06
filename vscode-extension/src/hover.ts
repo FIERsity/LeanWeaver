@@ -50,17 +50,20 @@ export function registerHoverProvider(context: vscode.ExtensionContext) {
       // 3. 调用 leanweaver（规则层快，异常时提示而非静默）
       try {
         const explanation = await explainError(diag.message);
-        // 直接存原始文本，让 MarkdownString 原生渲染（自动适配主题）
-        const md = `**LeanWeaver 解释**\n\n${explanation.trim()}`;
+        // 标题按语言（en 默认 / zh 插件）；内容本身已按 lang 生成
+        const isZh = vscode.workspace.getConfiguration("leanweaver").get<string>("lang", "en") === "zh";
+        const header = isZh ? "**LeanWeaver 解释**" : "**LeanWeaver**";
+        const md = `${header}\n\n${explanation.trim()}`;
         setCached(diag.message, md);
         return new vscode.Hover(new vscode.MarkdownString(md, true), diag.range);
       } catch (e: any) {
         console.error(`[LeanWeaver] explain 失败: ${e.message}`);
-        // CLI 不可用时给个提示，而不是完全静默
-        return new vscode.Hover(
-          new vscode.MarkdownString(`**LeanWeaver**\n\n⚠️ 未找到 leanweaver CLI（${e.message}）。\n请安装: \`pip install leanweaver\``, true),
-          diag.range
-        );
+        // CLI 不可用时给个提示，而不是完全静默（引导用户 setup）
+        const isZh = vscode.workspace.getConfiguration("leanweaver").get<string>("lang", "en") === "zh";
+        const tip = isZh
+          ? `⚠️ leanweaver CLI 不可用（${e.message}）。\n请运行命令 \`LeanWeaver: Setup\` 安装。`
+          : `⚠️ leanweaver CLI unavailable (${e.message}).\nRun the \`LeanWeaver: Setup\` command to install.`;
+        return new vscode.Hover(new vscode.MarkdownString(`**LeanWeaver**\n\n${tip}`, true), diag.range);
       }
     },
   });

@@ -1,8 +1,8 @@
 {
   "name": "leanweaver",
   "displayName": "LeanWeaver",
-  "description": "纯规则、零 LLM 的 Lean 4 报错解释 —— 悬停报错即看中文解释。Rule-based Lean 4 error explainer: hover errors to get clear explanations.",
-  "version": "0.5.6",
+  "description": "Rule-based Lean 4 error explainer — hover errors to get clear explanations. 纯规则 Lean 报错解释：悬停即懂，英语优先，中英可切。",
+  "version": "0.6.0",
   "publisher": "fiersity",
   "license": "MIT",
   "engines": {
@@ -20,43 +20,47 @@
     "error-explainer"
   ],
   "activationEvents": [
+    "onLanguage:lean4",
     "onLanguage:lean",
     "onStartupFinished",
-    "onCommand:leanweaver.installLean",
-    "onCommand:leanweaver.diagnose"
+    "onCommand:leanweaver.setup"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "leanweaver.installLean",
-        "title": "LeanWeaver: 安装官方 Lean 扩展 / Install official Lean extension"
+        "command": "leanweaver.setup",
+        "title": "LeanWeaver: Setup / 安装引导",
+        "icon": "$(tools)"
       },
       {
         "command": "leanweaver.openSettings",
-        "title": "LeanWeaver: 打开设置 / Open settings"
-      },
-      {
-        "command": "leanweaver.diagnose",
-        "title": "LeanWeaver: 环境诊断 / Diagnose environment"
+        "title": "LeanWeaver: Settings / 设置"
       }
     ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "leanweaver.setup"
+        },
+        {
+          "command": "leanweaver.openSettings"
+        }
+      ]
+    },
     "configuration": {
       "title": "LeanWeaver",
       "properties": {
+        "leanweaver.lang": {
+          "type": "string",
+          "enum": ["en", "zh"],
+          "default": "en",
+          "description": "Explanation language (en default / zh 中文)."
+        },
         "leanweaver.leanweaverCli": {
           "type": "string",
           "default": "",
           "description": "Command to invoke leanweaver. Empty = auto-detect (project venv, then python3)."
-        },
-        "leanweaver.lang": {
-          "type": "string",
-          "enum": [
-            "zh",
-            "en"
-          ],
-          "default": "zh",
-          "description": "Explanation language (zh=Chinese, en=English)."
         }
       }
     }

@@ -16,7 +16,10 @@ suite("LeanWeaver hover 核心逻辑", () => {
       out.includes("类型不匹配") || out.includes("Type mismatch"),
       `应含解释: ${out.slice(0, 80)}`
     );
-    assert.ok(out.includes("修复"), `应含修复建议: ${out.slice(0, 120)}`);
+    assert.ok(
+      out.includes("修复") || out.includes("Fixes"),
+      `应含修复建议: ${out.slice(0, 120)}`
+    );
   });
 
   test("motive 难报错 → explain 返回中文解释", async () => {
