@@ -1,73 +1,81 @@
-# LeanWeaver VS Code 扩展
+# LeanWeaver
 
-> 让 Lean 4 形式化证明对人类可读——报错中文解释 + 证明翻译。
+> Rule-based Lean 4 error explainer — hover any error, get a clear explanation.
+> 纯规则 Lean 4 报错解释器 —— 悬停报错，秒懂修复。
 
-## 核心能力
+**LeanWeaver** is a VS Code extension that explains Lean 4 error messages in plain language. Hover over any red squiggle, and LeanWeaver tells you what the error means, why it happened, and how to fix it — **without any LLM, fully offline, free, and deterministic.**
 
-| 能力 | 触发方式 | 说明 |
-|---|---|---|
-| **🖱️ 报错悬停解释** | 鼠标悬停在红波浪线上 | 秒出中文解释（规则层，免费离线） |
-| **🔍 定理行翻译按钮** | 定理上方 CodeLens「翻译证明」 | 逐定理精确翻译 |
-| **📖 翻译当前文件** | 右键 / 命令面板 | 中文可读证明 + 逐行注释 |
-| **✂️ 翻译选中代码** | 选中后右键 | 翻译一段证明片段 |
-| **🔧 解释报错** | 右键 / 命令面板 | 列出文件所有报错的中文解释 |
-| **📊 状态栏** | 左下角 | 环境状态（CLI/Lean/LLM） |
+## Features
 
-## 安装
+- 🖱️ **Hover to explain** — point at any Lean error, get a clear explanation
+- 🌍 **English first, 中文可切** — default English, switch to Chinese in settings
+- ⚡ **Instant & offline** — pure rule engine in the extension, no network, no API key
+- 🔒 **Deterministic** — same error always gets the same explanation
+- 🎓 **Beginner-friendly** — each error gets: what it means + common causes + how to fix
 
-```bash
-# 1. LeanWeaver CLI
-pip install leanweaver
+## Installation
 
-# 2. Lean 工具链
-curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
+1. Install **LeanWeaver** from the VS Code Marketplace.
+2. Install the **official Lean extension** ([leanprover.lean4](https://marketplace.visualstudio.com/items?itemName=leanprover.lean4)) — it provides the red squiggles that LeanWeaver explains. LeanWeaver will prompt you if it's missing.
+3. Open a `.lean` file. That's it.
 
-# 3. 安装扩展
-code --install-extension leanweaver-0.2.0.vsix
-# 或从扩展市场安装（发布后）
-```
+> No Python, no CLI, no configuration. LeanWeaver is fully self-contained.
 
-## 配置
+## Usage
 
-VS Code 设置搜索 `leanweaver`：
-
-| 设置 | 默认 | 说明 |
-|---|---|---|
-| `leanweaver.leanweaverCli` | `python3 -m leanweaver` | CLI 调用命令 |
-| `leanweaver.lang` | `zh` | 输出语言（zh/en） |
-| `leanweaver.llmFallback` | `false` | 规则未命中时用 LLM 兜底 |
-
-## LLM 配置（翻译需要；报错解释不需要）
-
-```bash
-export OPENAI_API_KEY=sk-xxx
-export OPENAI_BASE_URL=https://api.deepseek.com/v1   # DeepSeek 示例
-export LEANWEAVER_MODEL=deepseek-chat
-```
-
-## 架构
+Hover your mouse over any red (error) or yellow (warning) squiggle in a `.lean` file:
 
 ```
-src/
-├── extension.ts   # 入口：命令注册 + 激活引导
-├── env.ts         # 环境检测（CLI/Lean/LLM）
-├── leanweaver.ts  # CLI 调用封装
-├── hover.ts       # 报错悬停解释（规则层，带缓存）
-├── codelens.ts    # 定理行「翻译证明」按钮
-├── webview.ts     # 输出面板（Markdown 渲染）
-└── statusbar.ts   # 状态栏
+theorem bad (a : Nat) : a = 0 := by
+  rfl        ← hover here
 ```
 
-设计原则：**所有功能复用 Python CLI**（单一实现源），TypeScript 层只做 UI 集成。
+You'll see the original Lean error plus LeanWeaver's plain-language explanation:
 
-## 开发 / 打包
+```
+LeanWeaver
+[Type mismatch]
 
-```bash
-npm install
-npm run compile     # 编译 TS
-npx @vscode/vsce package --no-dependencies   # 打包 vsix
+Lean is a strongly-typed system. It found that an expression you wrote
+has a type that does not match the type it expected at that position...
+
+Common causes:
+  - Mixing values of different types...
+Fixes:
+  - Look at the two lines: `has type` vs `but is expected to have type`...
 ```
 
-## 许可
+## Language
+
+English is the default. To switch to Chinese:
+
+1. Open Settings (`Cmd+,` / `Ctrl+,`)
+2. Search for `leanweaver.lang`
+3. Set it to `zh`
+
+Or set it in `settings.json`:
+
+```json
+{
+  "leanweaver.lang": "zh"
+}
+```
+
+## Setup guide
+
+If something is missing (the official Lean extension, or the Lean toolchain), click the **LeanWeaver** item in the status bar, or run the **`LeanWeaver: Setup`** command — it will guide you through installing what's needed.
+
+## Covered errors (29 categories)
+
+Type mismatch, unknown identifier, unsolved goals, no goals, failed to synthesize, calc errors, motive/induction errors, recursion termination, inference failures, implicit argument synthesis, tactic failures, and more — all built from **official Lean test corpus** (691 verified real errors).
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `LeanWeaver: Setup` | Check environment & guide installation of missing pieces |
+| `LeanWeaver: Settings` | Open extension settings |
+
+## License
 
 MIT

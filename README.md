@@ -1,85 +1,127 @@
 # LeanWeaver
 
-> 纯规则、零 LLM 的 Lean 4 报错解释器。
-> Rule-based, zero-LLM Lean 4 error explainer — deterministic, offline, free.
+> Rule-based Lean 4 error explainer — hover any error, get a clear explanation.
+> 纯规则 Lean 4 报错解释器 —— 悬停报错，秒懂修复。
 
-Lean 4 的报错对新手极其不友好（`type mismatch`、`motive is not type correct`、`invalid 'calc' step`……全是英文晦涩术语）。**LeanWeaver 把报错翻译成人话**——用确定性规则，不用任何大模型。
+LeanWeaver explains Lean 4 error messages in plain language. Hover over any red squiggle in a `.lean` file, and LeanWeaver tells you **what the error means, why it happened, and how to fix it** — built entirely on a deterministic rule engine, with **no LLM, no network, no API key, fully offline.**
 
-## 为什么不用 LLM
+## 核心形态 / Primary Form
 
-- **确定性**：同一个报错，永远得到同一个解释。可复现、无幻觉。
-- **离线**：不需要网络、不需要 API key。
-- **免费**：零成本，毫秒级返回。
-- **可信**：Lean 社区信任"编译器验证"，不信任 AI 猜。
+**LeanWeaver is a VS Code extension.** Install it, hover over a Lean error, read the explanation. That's it — no Python, no CLI, no configuration.
 
-## 快速开始
+## Features
 
-```bash
-pip install -e .
-leanweaver explain --lang zh "type mismatch
-  term
-    a + b
-  has type
-    Nat
-  but is expected to have type
-    String"
+- 🖱️ **Hover to explain** — point at any Lean error/warning, get a plain-language explanation
+- 🌍 **English first, 中文可切** — default English, switch to Chinese in one setting
+- ⚡ **Instant & offline** — pure rule engine embedded in the extension
+- 🔒 **Deterministic** — the same error always gets the same explanation (no hallucination)
+- 🎓 **Actionable** — every explanation includes: what it means + common causes + how to fix
+
+## Quick Start
+
+1. Install **LeanWeaver** from the VS Code Marketplace.
+2. Install the **official Lean extension** (`leanprover.lean4`) — it provides the diagnostics that LeanWeaver explains. LeanWeaver prompts you if it's missing.
+3. Open a `.lean` file and hover over an error.
+
+## Example
+
+Hover over the red squiggle:
+
+```lean
+theorem bad (a : Nat) : a = 0 := by
+  rfl        ← hover here
 ```
 
-或者从 stdin：
+You get:
 
-```bash
-echo "unsolved goals
-⊢ a + b = b + a" | leanweaver explain --lang zh
+```
+LeanWeaver
+[Type mismatch]
+
+Lean is a strongly-typed system. It found that an expression you wrote
+has a type that does not match the type it expected at that position...
+
+Common causes:
+  - Mixing values of different types...
+Fixes:
+  - Look at the two lines: `has type` vs `but is expected to have type`...
 ```
 
-## 支持的错误类别（20+）
+## Covered Errors
 
-| 类别 | 示例报错 |
+**29 categories**, built from the **official Lean test corpus (691 verified real errors)**:
+
+| Category | Example |
 |---|---|
 | `type_mismatch` | `Type mismatch ... has type Nat but is expected to have type String` |
-| `app_type_mismatch` | `Application type mismatch: The argument "hello" has type String but is expected to have type Nat` |
 | `unknown_identifier` | `Unknown identifier \`foo\`` |
-| `unsolved_goals` | `unsolved goals ... ⊢ c + (a + b) = c + b + a` |
-| `no_goals` | `No goals to be solved` |
-| `failed_to_synthesize` | `failed to synthesize instance of type class HAdd Nat String String` |
-| `invalid_target` | `Invalid target: Target (or one of its indices) occurs more than once` |
+| `unsolved_goals` | `unsolved goals ... ⊢ ...` |
 | `calc_error` | `invalid 'calc' step, right-hand side is ... but is expected to be ...` |
-| `recursive_failed` | `fail to show termination for ... failed to infer structural recursion` |
-| `invalid_field` | `Invalid field \`z\` ... does not have field` |
-| `function_expected` | `Function expected at ... but this term has type Nat` |
-| `motive_not_correct` | `motive is not type correct` |
-| `missing_import` | `unknown module prefix` |
-| … | 更多见 `leanweaver/errors/classify.py` |
+| `invalid_target` | `Invalid target: Target (or one of its indices) occurs more than once` |
+| `not_proposition` | `type of theorem \`t\` is not a proposition` |
+| `infer_failed` | `failed to infer type of binder` |
+| `synthesize_implicit` | `don't know how to synthesize implicit argument` |
+| `tactic_failed` | `Tactic \`assumption\` failed` |
+| `decreasing_failed` | `could not find a decreasing measure` |
+| … | 29 categories total, each with en/zh explanations |
 
-每个类别都有中英双语解释：**含义 + 常见原因 + 可操作修复**。
+**Measured coverage**: 78.4% of user-facing errors in the official corpus are recognized (the rest are long-tail / internal errors).
 
-## 架构
+## Language
 
-```
-leanweaver/
-├── errors/
-│   ├── classify.py     # 确定性分类（error code + 文本模式）
-│   ├── templates.py    # 语言注册表 + 缺失回退
-│   ├── explain.py      # 解释器入口（纯规则）
-│   └── locales/
-│       ├── en.py       # 英文模板（默认）
-│       └── zh.py       # 中文模板（插件）
-└── cli.py              # leanweaver explain
+English by default. Switch to Chinese:
+
+```json
+{
+  "leanweaver.lang": "zh"
+}
 ```
 
-设计原则：
-- **机制与语言分离**：分类逻辑与文案完全解耦，加语言只需加一个 locale 文件
-- **优先 error code**：Lean 诊断里的 `error(lean.xxx)` 比文本匹配更可靠
-- **版本演进可维护**：报错文本随 Lean 版本变化，规则库按版本维护
+## Architecture
 
-## 测试
+```
+VS Code extension (self-contained, zero Python dependency)
+├── src/engine.ts          # rule engine (error code + text matching, 29 categories)
+├── src/generated/rules.ts # auto-generated from Python rule library (single source of truth)
+└── src/hover.ts           # hover integration
+```
+
+The **Python package** (`leanweaver/`) is the **single source of truth** for the rule library (29 categories, 91 rules, en/zh templates). The extension's `rules.ts` is auto-generated from it:
 
 ```bash
-pip install -e ".[dev]" && pytest
+python -m leanweaver.gen_rules_ts --out vscode-extension/src/generated/rules.ts
 ```
 
-包含 15+ 个真实 Lean 报错样本（从本机 `lean` 实际运行收集）。
+Corpus pipeline (all data from official Lean sources, not LLM-generated):
 
-## 许可
+```
+lean4 official tests (tests/elab, tests/elab_fail)
+  → build_official_corpus.py → data/official_corpus.json (691 errors)
+  → classify coverage report
+```
+
+## Repository Layout
+
+```
+├── vscode-extension/       # the product (self-contained VS Code extension)
+├── leanweaver/             # Python rule library (source of truth)
+│   ├── errors/             # classify + templates (en/zh)
+│   ├── gen_rules_ts.py     # generates extension rules.ts
+│   ├── build_official_corpus.py
+│   ├── collect_issues.py
+│   └── extract_official.py
+├── data/official_corpus.json  # 691 official verified errors
+├── docs/                   # methodology & real error samples
+└── tests/                  # 34 tests
+```
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `LeanWeaver: Setup` | Check environment & guide installation of missing pieces |
+| `LeanWeaver: Settings` | Open extension settings |
+
+## License
 
 MIT
