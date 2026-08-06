@@ -47,14 +47,51 @@ def _load_dotenv(path: Path | None = None) -> None:
 _load_dotenv()
 
 
+# 支持的采样参数（参考 OpenAI SDK / litellm 通用写法）
+# 值 None 表示使用 provider 默认
+SUPPORTED_PARAMS = [
+    "temperature",
+    "max_tokens",
+    "top_p",
+    "presence_penalty",
+    "frequency_penalty",
+    "stop",
+    "seed",
+    "timeout",
+]
+
+# 从环境变量读取采样参数默认值（如 LEANWEAVER_TEMPERATURE=0.3）
+def _env_sampling_params() -> dict:
+    out = {}
+    for p in SUPPORTED_PARAMS:
+        env_key = f"LEANWEAVER_{p.upper()}"
+        val = os.environ.get(env_key)
+        if val is None:
+            continue
+        try:
+            if p == "max_tokens":
+                out[p] = int(val)
+            elif p == "stop":
+                out[p] = [s.strip() for s in val.split("|") if s.strip()]
+            elif p == "timeout":
+                out[p] = float(val)
+            else:
+                out[p] = float(val)
+        except ValueError:
+            pass
+    return out
+
+
 class LLMBackend(ABC):
     """LLM 后端的统一抽象。"""
 
     provider: str = "base"
+    # 采样参数默认值（可被调用方 kwargs 覆盖）
+    sampling: dict = {}
 
     @abstractmethod
     def complete(self, system: str, user: str, **kwargs) -> str:
-        """通用对话补全（system + user → 回复）。"""
+        """通用对话补全（system + user → 回复）。kwargs 可含采样参数。"""
 
     @abstractmethod
     def explain_error(self, message: str, code: str | None = None, lang: str = "en") -> str:
@@ -75,6 +112,7 @@ class OpenAIBackend(LLMBackend):
         api_key: str | None = None,
         base_url: str | None = None,
         model: str | None = None,
+        sampling: dict | None = None,
     ):
         # 延迟导入：未安装 openai 包时不应破坏规则层
         try:
@@ -99,15 +137,27 @@ class OpenAIBackend(LLMBackend):
                 if v is not None:
                     os.environ[k] = v
         self._model = model or os.environ.get("LEANWEAVER_MODEL", "gpt-4o-mini")
+        # 采样参数：显式传入 > 环境变量 > 默认
+        self.sampling = _env_sampling_params()
+        if sampling:
+            self.sampling.update(sampling)
 
     def complete(self, system: str, user: str, **kwargs) -> str:
+        # 合并采样参数：调用方 kwargs > 实例默认（来自 env/构造）> provider 默认
+        params = dict(self.sampling)
+        for k in SUPPORTED_PARAMS:
+            if k in kwargs:
+                params[k] = kwargs[k]
+        params.pop("timeout", None)  # timeout 单独处理
+
         resp = self._client.chat.completions.create(
             model=self._model,
             messages=[
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
             ],
-            temperature=kwargs.get("temperature", 0.2),
+            timeout=kwargs.get("timeout", 120),
+            **params,
         )
         return resp.choices[0].message.content or ""
 
@@ -145,16 +195,29 @@ class OllamaBackend(LLMBackend):
 
     provider = "ollama"
 
-    def __init__(self, base_url: str | None = None, model: str | None = None):
+    def __init__(self, base_url: str | None = None, model: str | None = None, sampling: dict | None = None):
         self._base_url = base_url or os.environ.get(
             "OLLAMA_BASE_URL", "http://localhost:11434"
         )
         self._model = model or os.environ.get("LEANWEAVER_MODEL", "qwen2.5-coder:7b")
+        self.sampling = _env_sampling_params()
+        if sampling:
+            self.sampling.update(sampling)
 
     def complete(self, system: str, user: str, **kwargs) -> str:
         # Ollama 原生 HTTP API，无需额外依赖
         import json
         import urllib.request
+
+        # 合并采样参数（Ollama 支持 temperature/top_p/stop/seed 等）
+        params = dict(self.sampling)
+        for k in SUPPORTED_PARAMS:
+            if k in kwargs:
+                params[k] = kwargs[k]
+        params.pop("timeout", None)
+        params.pop("max_tokens", None)  # Ollama 用 num_predict
+        if "max_tokens" in {**self.sampling, **kwargs}:
+            params["num_predict"] = {**self.sampling, **kwargs}["max_tokens"]
 
         payload = json.dumps(
             {
@@ -164,6 +227,7 @@ class OllamaBackend(LLMBackend):
                     {"role": "user", "content": user},
                 ],
                 "stream": False,
+                **params,
             }
         ).encode()
         req = urllib.request.Request(

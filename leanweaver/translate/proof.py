@@ -107,6 +107,24 @@ For each major step, briefly note which tactic implements it (e.g. "（`rw [h]`�
 Do NOT just translate the tactics literally — write real mathematical prose.
 """
 
+# 注释翻译模式（commented）：输出逐行中文注释的证明（Herald commented_proof 风格）
+_COMMENTED_SYSTEM = """You are a Lean 4 theorem prover tutor. You will be given:
+- a theorem statement
+- the list of tactics used to prove it
+
+Produce a {lang} ANNOTATED version of the proof, where you KEEP the original Lean
+tactic code line by line and add a comment after each tactic explaining in {lang}
+what it does and why. Format:
+
+```lean
+theorem ... := by
+  tactic1  -- 注释：这一步...
+  tactic2  -- 注释：这一步...
+```
+
+Style: like a teacher walking through the proof line by line. Comments in plain {lang}.
+"""
+
 # Herald few-shot 提示（教模型真实的高质量翻译范例）
 _FEWSHOT_HINT = """
 Here are real examples of formal proofs translated into readable explanations (from the Herald dataset):
@@ -125,6 +143,7 @@ class ProofTranslation:
     tactic_count: int
     line_by_line: list[dict[str, str]] = field(default_factory=list)  # {tactic, explanation}
     full_proof: str = ""              # 连贯可读证明
+    commented: str = ""              # 注释模式输出（逐行中文/英文注释）
     target_lang: str = "zh"
 
     def to_dict(self) -> dict[str, Any]:
@@ -134,16 +153,20 @@ class ProofTranslation:
             "tactic_count": self.tactic_count,
             "line_by_line": self.line_by_line,
             "full_proof": self.full_proof,
+            "commented": self.commented,
             "target_lang": self.target_lang,
         }
 
-    def pretty(self) -> str:
+    def pretty(self, include_commented: bool = False) -> str:
         lang_label = {"zh": "中文可读证明", "en": "Readable proof"}.get(
             self.target_lang, self.target_lang
         )
         lines = [f"定理 {self.theorem_name}：{self.theorem_stmt}", ""]
         lines.append(f"【{lang_label}】")
         lines.append(self.full_proof)
+        if include_commented and self.commented:
+            lines += ["", "【逐行注释】"]
+            lines.append(self.commented)
         if self.line_by_line:
             lines += ["", "【逐步解释】"]
             for item in self.line_by_line:
@@ -163,6 +186,7 @@ def translate_tactic(
     target_lang: str = "zh",
     before: str | None = None,
     after: str | None = None,
+    sampling: dict | None = None,
 ) -> str:
     """解释单个 tactic（用于逐步解释）。
 
@@ -187,7 +211,7 @@ def translate_tactic(
         )
     else:
         user = f"Theorem:\n{theorem_stmt}\n\nProof step:\n{tactic}"
-    return llm.complete(sys, user)
+    return llm.complete(sys, user, **(sampling or {}))
 
 
 def translate_proof_block(
@@ -205,6 +229,9 @@ def translate_proof_block(
         )
 
     lang = "中文" if _lang_zh(target_lang) else "English"
+    # 采样参数（调用方可通过 sampling / env 传入 temperature 等）
+    sampling = getattr(llm, "sampling", {})
+
     # 整篇可读证明的 system prompt：中文时注入术语表，双语都注入 Herald few-shot
     sys_proof = _PROOF_SYSTEM.format(lang=lang)
     if _lang_zh(target_lang):
@@ -234,13 +261,12 @@ def translate_proof_block(
         try:
             exp = translate_tactic(
                 llm, block.theorem_stmt, tactic, target_lang,
-                before=before, after=after,
+                before=before, after=after, sampling=sampling,
             )
             result.line_by_line.append({"tactic": tactic, "explanation": exp})
         except Exception as exc:
             result.line_by_line.append({"tactic": tactic, "explanation": f"（失败：{exc}）"})
 
-    # 2. 连贯可读证明（一次生成整篇）
     # 3. 连贯可读证明（有状态时也注入状态轨迹）
     user_parts = [f"Theorem:\n{block.theorem_stmt}", "Proof:"]
     if has_state:
@@ -253,9 +279,23 @@ def translate_proof_block(
             user_parts.append(f"  {i+1}. {t}")
     user = "\n".join(user_parts)
     try:
-        result.full_proof = llm.complete(sys_proof, user)
+        result.full_proof = llm.complete(sys_proof, user, **sampling)
     except Exception as exc:
         result.full_proof = f"（生成失败：{exc}）"
+
+    # 4. 注释翻译模式（逐行注释，Herald commented_proof 风格）
+    sys_commented = _COMMENTED_SYSTEM.format(lang=lang)
+    fs = _load_herald_fewshot(n=1)
+    if fs:
+        sys_commented += "\n" + _FEWSHOT_HINT.format(fewshot=fs)
+    commented_user = (
+        f"Theorem:\n{block.theorem_stmt}\n\nProof (tactics):\n"
+        + "\n".join(f"  {i+1}. {t}" for i, t in enumerate(block.tactics))
+    )
+    try:
+        result.commented = llm.complete(sys_commented, commented_user, **sampling)
+    except Exception as exc:
+        result.commented = f"（生成失败：{exc}）"
 
     return result
 

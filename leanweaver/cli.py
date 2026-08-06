@@ -83,6 +83,19 @@ def _cmd_translate(args: argparse.Namespace) -> int:
             print(f"Error: {exc}", file=sys.stderr)
             return 1
 
+    # 采样参数（CLI > 环境变量 > 默认）
+    sampling = {}
+    if getattr(args, "temperature", None) is not None:
+        sampling["temperature"] = args.temperature
+    if getattr(args, "max_tokens", None) is not None:
+        sampling["max_tokens"] = args.max_tokens
+    if getattr(args, "top_p", None) is not None:
+        sampling["top_p"] = args.top_p
+    if getattr(args, "seed", None) is not None:
+        sampling["seed"] = args.seed
+    if sampling:
+        llm.sampling.update(sampling)
+
     try:
         results = translate_source(
             source, theorem_name=args.theorem, target_lang=args.lang, llm=llm
@@ -95,7 +108,7 @@ def _cmd_translate(args: argparse.Namespace) -> int:
         print("（未找到证明块）", file=sys.stderr)
         return 1
     for r in results:
-        print(r.pretty())
+        print(r.pretty(include_commented=getattr(args, "commented", False)))
         print("\n" + "=" * 60 + "\n")
     return 0
 
@@ -124,6 +137,11 @@ def main(argv: list[str] | None = None) -> int:
     p_translate.add_argument("message", help="Lean source text or path to a .lean file")
     p_translate.add_argument("--theorem", help="only translate this theorem (default: all)")
     p_translate.add_argument("--lang", default="zh", choices=["zh", "en"], help="target language (default: zh)")
+    p_translate.add_argument("--commented", action="store_true", help="also output line-by-line annotated proof (Herald style)")
+    p_translate.add_argument("--temperature", type=float, help="sampling temperature")
+    p_translate.add_argument("--max-tokens", type=int, help="max output tokens")
+    p_translate.add_argument("--top-p", type=float, help="nucleus sampling top-p")
+    p_translate.add_argument("--seed", type=int, help="random seed for reproducibility")
     p_translate.set_defaults(func=_cmd_translate)
 
     args = parser.parse_args(argv)
