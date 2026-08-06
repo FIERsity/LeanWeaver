@@ -26,12 +26,16 @@ class LLMBackend(ABC):
     provider: str = "base"
 
     @abstractmethod
+    def complete(self, system: str, user: str, **kwargs) -> str:
+        """通用对话补全（system + user → 回复）。"""
+
+    @abstractmethod
     def explain_error(self, message: str, code: str | None = None, lang: str = "en") -> str:
         """解释一条规则层未覆盖的 Lean 报错（返回指定语言的解释）。"""
 
     @abstractmethod
     def translate_proof(self, lean_proof: str, target_lang: str = "zh") -> str:
-        """把形式化证明翻译成自然语言（主线功能，待实现）。"""
+        """把形式化证明翻译成自然语言（主线功能）。"""
 
 
 class OpenAIBackend(LLMBackend):
@@ -58,6 +62,17 @@ class OpenAIBackend(LLMBackend):
         )
         self._model = model or os.environ.get("LEANWEAVER_MODEL", "gpt-4o-mini")
 
+    def complete(self, system: str, user: str, **kwargs) -> str:
+        resp = self._client.chat.completions.create(
+            model=self._model,
+            messages=[
+                {"role": "system", "content": system},
+                {"role": "user", "content": user},
+            ],
+            temperature=kwargs.get("temperature", 0.2),
+        )
+        return resp.choices[0].message.content or ""
+
     def explain_error(self, message: str, code: str | None = None, lang: str = "en") -> str:
         if lang == "zh":
             sys = (
@@ -76,18 +91,15 @@ class OpenAIBackend(LLMBackend):
             user = f"Lean error:\n{message}"
         if code:
             user += f"\n\nOffending code:\n{code}"
-        resp = self._client.chat.completions.create(
-            model=self._model,
-            messages=[
-                {"role": "system", "content": sys},
-                {"role": "user", "content": user},
-            ],
-            temperature=0.2,
-        )
-        return resp.choices[0].message.content or "（模型返回为空）"
+        return self.complete(sys, user)
 
     def translate_proof(self, lean_proof: str, target_lang: str = "zh") -> str:
-        raise NotImplementedError("证明翻译器主线功能开发中（roadmap 阶段 ②）")
+        from .proof import translate_source
+
+        results = translate_source(lean_proof, target_lang=target_lang, llm=self)
+        if not results:
+            return "（未找到证明块）"
+        return results[0].pretty()
 
 
 class OllamaBackend(LLMBackend):
@@ -101,11 +113,31 @@ class OllamaBackend(LLMBackend):
         )
         self._model = model or os.environ.get("LEANWEAVER_MODEL", "qwen2.5-coder:7b")
 
-    def explain_error(self, message: str, code: str | None = None, lang: str = "en") -> str:
+    def complete(self, system: str, user: str, **kwargs) -> str:
         # Ollama 原生 HTTP API，无需额外依赖
         import json
         import urllib.request
 
+        payload = json.dumps(
+            {
+                "model": self._model,
+                "messages": [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                "stream": False,
+            }
+        ).encode()
+        req = urllib.request.Request(
+            f"{self._base_url}/api/chat",
+            data=payload,
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=kwargs.get("timeout", 120)) as resp:
+            data = json.loads(resp.read().decode())
+        return data.get("message", {}).get("content", "")
+
+    def explain_error(self, message: str, code: str | None = None, lang: str = "en") -> str:
         if lang == "zh":
             sys = (
                 "你是 Lean 4 定理证明器的中文导师。用通俗中文解释下面的 Lean 报错："
@@ -121,27 +153,15 @@ class OllamaBackend(LLMBackend):
             user = f"Lean error:\n{message}"
         if code:
             user += f"\n\nOffending code:\n{code}"
-        payload = json.dumps(
-            {
-                "model": self._model,
-                "messages": [
-                    {"role": "system", "content": sys},
-                    {"role": "user", "content": user},
-                ],
-                "stream": False,
-            }
-        ).encode()
-        req = urllib.request.Request(
-            f"{self._base_url}/api/chat",
-            data=payload,
-            headers={"Content-Type": "application/json"},
-        )
-        with urllib.request.urlopen(req, timeout=120) as resp:
-            data = json.loads(resp.read().decode())
-        return data.get("message", {}).get("content", "（模型返回为空）")
+        return self.complete(sys, user)
 
     def translate_proof(self, lean_proof: str, target_lang: str = "zh") -> str:
-        raise NotImplementedError("证明翻译器主线功能开发中（roadmap 阶段 ②）")
+        from .proof import translate_source
+
+        results = translate_source(lean_proof, target_lang=target_lang, llm=self)
+        if not results:
+            return "（未找到证明块）"
+        return results[0].pretty()
 
 
 def get_default_llm() -> Optional[LLMBackend]:

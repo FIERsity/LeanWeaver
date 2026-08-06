@@ -59,20 +59,44 @@ def _cmd_check(args: argparse.Namespace) -> int:
 
 def _cmd_translate(args: argparse.Namespace) -> int:
     from .translate.llm import get_default_llm
+    from .translate.proof import translate_source
 
     llm = get_default_llm()
     if llm is None:
         print(
-            "证明翻译器尚未实现（roadmap 阶段 ②）。\n"
-            "当前可先使用：leanweaver explain \"<报错>\"",
+            "未配置 LLM。证明翻译器需要模型。\n"
+            "设置环境变量：\n"
+            "  LEANWEAVER_LLM_PROVIDER=openai  +  OPENAI_API_KEY=...\n"
+            "  或 LEANWEAVER_LLM_PROVIDER=ollama（本地 Ollama）",
             file=sys.stderr,
         )
         return 1
+
+    # 支持从文件读取：leanweaver translate <file.lean> [--theorem NAME]
+    source = args.message
+    if args.message.endswith(".lean"):
+        from pathlib import Path
+
+        try:
+            source = Path(args.message).read_text(encoding="utf-8")
+        except OSError as exc:
+            print(f"Error: {exc}", file=sys.stderr)
+            return 1
+
     try:
-        print(llm.translate_proof(args.message, target_lang=args.lang))
-    except NotImplementedError as e:
-        print(str(e), file=sys.stderr)
+        results = translate_source(
+            source, theorem_name=args.theorem, target_lang=args.lang, llm=llm
+        )
+    except (ValueError, RuntimeError) as e:
+        print(f"Error: {e}", file=sys.stderr)
         return 1
+
+    if not results:
+        print("（未找到证明块）", file=sys.stderr)
+        return 1
+    for r in results:
+        print(r.pretty())
+        print("\n" + "=" * 60 + "\n")
     return 0
 
 
@@ -96,9 +120,10 @@ def main(argv: list[str] | None = None) -> int:
     p_check.add_argument("--llm", action="store_true", help="fall back to LLM when rules miss")
     p_check.set_defaults(func=_cmd_check)
 
-    p_translate = sub.add_parser("translate", help="翻译形式化证明（开发中）")
-    p_translate.add_argument("message", help="Lean 证明文本")
-    p_translate.add_argument("--lang", default="zh", help="目标语言，默认 zh")
+    p_translate = sub.add_parser("translate", help="Translate a formal proof into readable prose (needs LLM)")
+    p_translate.add_argument("message", help="Lean source text or path to a .lean file")
+    p_translate.add_argument("--theorem", help="only translate this theorem (default: all)")
+    p_translate.add_argument("--lang", default="zh", choices=["zh", "en"], help="target language (default: zh)")
     p_translate.set_defaults(func=_cmd_translate)
 
     args = parser.parse_args(argv)

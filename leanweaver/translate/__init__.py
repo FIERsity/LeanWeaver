@@ -1,12 +1,25 @@
-"""证明翻译器（主线，开发中）。
+"""证明翻译器（主线）。
 
-目标：在"形式化证明 ↔ 自然语言（中文优先）"之间搭桥。
-- formal → 中文可读证明：解释每个 tactic 在干什么、为什么
-- 中文 → Lean 骨架：把自然语言证明转成 Lean 证明框架
+目标：在"形式化证明 ↔ 自然语言"之间搭桥。
+- formal → 中文/英文可读证明：逐步解释每个 tactic + 生成连贯可读证明
+- 中文 → Lean 骨架：反向翻译（开发中）
 
-当前状态：骨架 + LLM 适配器接口，主体功能在 roadmap 阶段 ②。
+当前状态：v1（文本级翻译，不依赖 Lean 状态机）已可用。
 """
 
-from .llm import LLMBackend, get_default_llm
+from .llm import LLMBackend, OpenAIBackend, OllamaBackend, get_default_llm
+from .parser import ProofBlock, extract_proof, extract_proofs
+from .proof import ProofTranslation, translate_proof_block, translate_source
 
-__all__ = ["LLMBackend", "get_default_llm"]
+__all__ = [
+    "LLMBackend",
+    "OpenAIBackend",
+    "OllamaBackend",
+    "get_default_llm",
+    "ProofBlock",
+    "extract_proof",
+    "extract_proofs",
+    "ProofTranslation",
+    "translate_proof_block",
+    "translate_source",
+]

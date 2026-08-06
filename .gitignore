@@ -27,3 +27,6 @@ htmlcov/
 lean_packages/
 *.olean
 *.ilean
+
+# VerboseZH (Lean)
+lean/VerboseZH/.lake/
