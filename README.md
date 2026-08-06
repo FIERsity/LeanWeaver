@@ -42,9 +42,9 @@ $ leanweaver explain --lang zh "type mismatch ..."
 | ① Error Explainer · rules | error classification + templates (EN core / ZH plugin) | 🚧 in progress |
 | ①+ Error Explainer · LLM fallback | model fallback for unmatched errors (OpenAI / Ollama) | ⬜ |
 | ①+ VS Code / MCP integration | inline explanations in the editor diagnostics | ⬜ |
-| ② Proof Translator · v1 (**main line**) | formal proof → readable natural-language proof | ⬜ |
+| ② Proof Translator · v1 (**main line**) | formal proof → readable natural-language proof | 🚧 v1 done (text-level) |
 | ②+ Reverse translation | natural-language proof → Lean skeleton | ⬜ |
-| Bonus | Chinese tactic aliases (a zh counterpart of verbose-lean4) | ⬜ |
+| Bonus | tactic ↔ Chinese glossary (feeds the translator; see `docs/lean-chinese-support.md`) | ⬜ |
 
 ## Design principles
 

@@ -1,4 +1,4 @@
-import Verbose.Chinese.All
+import VerboseZH.Chinese.All
 
 /-!
 # 中文战术示例
@@ -6,7 +6,7 @@ import Verbose.Chinese.All
 每个示例对照一段"论文式中文证明"，展示中文战术的用法。
 -/
 
-namespace Verbose.Chinese.Examples
+namespace VerboseZH.Chinese.Examples
 
 example (P Q : Prop) (h : P ∧ Q) : Q := by
   -- 证明：由 h 我们得到 Q。
@@ -31,7 +31,7 @@ example (P Q R : Prop) (h : P → R → Q) (hP : P) (hR : R) : Q := by
 
 example (P Q : Prop) (h : P ∨ Q) : True := by
   -- 证明：分类讨论。
-  分类讨论 P 或 Q
+  分类讨论 P
   · 恰有 h
     平凡
   · 平凡
@@ -41,12 +41,12 @@ example (P : Prop) (h : P) : P := by
   恰有 h
 
 example (a b : Nat) : a + b = b + a := by
-  -- 证明：直接计算。
-  我们计算
+  -- 证明：改写（使用加法交换律）。
+  我们改写 Nat.add_comm
 
 example (P : Prop) : P → P := by
   -- 证明：固定 h，恰有 h。
   固定 h
   恰有 h
 
-end Verbose.Chinese.Examples
+end VerboseZH.Chinese.Examples

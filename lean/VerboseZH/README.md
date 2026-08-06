@@ -1,8 +1,8 @@
-# VerboseZH — Verbose Lean 中文语言层
+# VerboseZH — Verbose Lean 中文语言层（已暂停，见下）
 
-> 用中文自然语言写 Lean 证明。
-> 基于 [verbose-lean4](https://github.com/PatrickMassot/verbose-lean4) 的多语言机制，
-> 提供**中文战术词表**（v0.1 精选子集）。
+> ⚠️ **重要更新（2026-08-06）**：实测确认 **Lean 4.31 不支持中文字符作为 tactic 关键词**
+> （详见 [docs/lean-chinese-support.md](../docs/lean-chinese-support.md)）。
+> "中文 tactic 词表"（本子项目原始目标）在当前 Lean 版本下**不可行**，方向已重新定位。
 
 ## 为什么做这个
 
@@ -10,12 +10,36 @@ verbose-lean4 的目标是"让 Lean 代码更容易转化成传统论文证明"�
 （`By h we get`、`It suffices to prove`）把证明步骤变成可读的句子。作者明确表示
 不维护自己不懂的语言，欢迎社区做其他语言版本。**中文版目前是空白**。
 
-这个子项目就是 LeanWeaver 彩蛋方向的落地：`Verbose/Chinese/` 语言层。
+## 调研结论（关键）
+
+实测 Lean 4.31：
+- ❌ tactic 关键词（`elab "平凡" : tactic`）不支持中文
+- ❌ 中文标识符（定义名/变量名/定理名）不支持
+- ✅ term 级 `notation` 支持中文（`notation "真" => True`）
+
+**结论**：中文 tactic 词表在当前 Lean 版本不可行——是词法限制，不是实现问题。
+
+## 方向调整
+
+1. **战术↔中文术语对照表**（数据层）→ 喂给 LeanWeaver 证明翻译器提升质量
+2. **中文教学文档**：verbose-lean4 示例的中文对照阅读
+3. **中文 notation**：为常用数学概念定义中文 term 记号（有限可用）
+4. 若 Lean 未来支持 CJK 标识符（lean4-unicode-basic 等探索中），本源码可重启
+
+## 保留的源码（已验证可编译）
+
+- `VerboseZH/Chinese/Common.lean`：中文语法类别设计
+- `VerboseZH/Chinese/Tactics.lean`：中文战术定义（编译通过，但运行时 Lean 不识别中文关键词）
+- `VerboseZH/Chinese/All.lean`：中文错误信息（`implement_endpoint (lang := zh)`）
+- `VerboseZH/Chinese/Examples.lean`：示例
+
+> 技术验证价值：确认了 `syntax`/`elab` 机制与 `implement_endpoint (lang := zh)` 多语言机制
+> 在中文下的边界——对将来支持 CJK 的 Lean 版本有直接参考价值。
 
 ## 架构
 
 ```
-Verbose/Chinese/
+VerboseZH/Chinese/
 ├── Common.lean    # 中文语法类别（maybeAppliedZH / newStuffZH / factsZH）
 ├── Tactics.lean   # 中文战术定义（我们由...得到 / 只需证明 / 恰有 ...）
 ├── All.lean       # 中文错误信息（implement_endpoint lang := zh）
@@ -30,7 +54,7 @@ Verbose/Chinese/
 ## 中文词表示例
 
 ```lean
-import Verbose.Chinese.All
+import VerboseZH.Chinese.All
 
 -- 分解合取假设
 example (P Q : Prop) (h : P ∧ Q) : Q := by

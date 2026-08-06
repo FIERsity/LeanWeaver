@@ -1,11 +1,11 @@
-import Verbose.Chinese.Tactics
+import VerboseZH.Chinese.Tactics
 
 /-!
 # Verbose Lean 中文语言层汇总入口
 
 用法：
 ```lean
-import Verbose.Chinese.All
+import VerboseZH.Chinese.All
 
 example (P Q : Prop) (h : P ∧ Q) : Q := by
   我们由 h 得到 (hQ : Q)
@@ -13,7 +13,7 @@ example (P Q : Prop) (h : P ∧ Q) : Q := by
 ```
 -/
 
-namespace Verbose.Chinese
+namespace VerboseZH.Chinese
 
 open Lean
 
@@ -49,4 +49,4 @@ implement_endpoint (lang := zh) cannotConclude : CoreM String :=
 implement_endpoint (lang := zh) nameAlreadyUsed (n : Name) : CoreM String :=
   pure s!"名称 {n} 已被使用"
 
-end Verbose.Chinese
+end VerboseZH.Chinese
