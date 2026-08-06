@@ -15,15 +15,21 @@ import sys
 
 def _cmd_explain(args: argparse.Namespace) -> int:
     from .errors.explain import explain
+    from .errors.templates import available_languages
 
     message = args.message
     if not message and not sys.stdin.isatty():
         message = sys.stdin.read().strip()
     if not message:
-        print("错误：缺少要解释的报错文本。用法：leanweaver explain \"<报错>\"", file=sys.stderr)
+        print('Error: missing error message. Usage: leanweaver explain "<error>"', file=sys.stderr)
         return 2
 
-    result = explain(message, code=args.code, use_llm=args.llm)
+    try:
+        result = explain(message, code=args.code, use_llm=args.llm, lang=args.lang)
+    except KeyError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        print(f"Available languages: {available_languages()}", file=sys.stderr)
+        return 2
     print(result.pretty())
     return 0
 
@@ -54,10 +60,11 @@ def main(argv: list[str] | None = None) -> int:
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p_explain = sub.add_parser("explain", help="解释一条 Lean 报错（中文）")
-    p_explain.add_argument("message", nargs="?", help="Lean 报错文本（缺省时读 stdin）")
-    p_explain.add_argument("--code", help="可选的出错代码片段")
-    p_explain.add_argument("--llm", action="store_true", help="规则未命中时用 LLM 兜底")
+    p_explain = sub.add_parser("explain", help="Explain a Lean error message")
+    p_explain.add_argument("message", nargs="?", help="Lean error text (reads stdin if omitted)")
+    p_explain.add_argument("--code", help="optional snippet of the offending code")
+    p_explain.add_argument("--lang", default="en", choices=["en", "zh"], help="explanation language (default: en)")
+    p_explain.add_argument("--llm", action="store_true", help="fall back to LLM when rules miss")
     p_explain.set_defaults(func=_cmd_explain)
 
     p_translate = sub.add_parser("translate", help="翻译形式化证明（开发中）")

@@ -26,8 +26,8 @@ class LLMBackend(ABC):
     provider: str = "base"
 
     @abstractmethod
-    def explain_error(self, message: str, code: str | None = None) -> str:
-        """解释一条规则层未覆盖的 Lean 报错（返回中文解释）。"""
+    def explain_error(self, message: str, code: str | None = None, lang: str = "en") -> str:
+        """解释一条规则层未覆盖的 Lean 报错（返回指定语言的解释）。"""
 
     @abstractmethod
     def translate_proof(self, lean_proof: str, target_lang: str = "zh") -> str:
@@ -58,15 +58,24 @@ class OpenAIBackend(LLMBackend):
         )
         self._model = model or os.environ.get("LEANWEAVER_MODEL", "gpt-4o-mini")
 
-    def explain_error(self, message: str, code: str | None = None) -> str:
-        sys = (
-            "你是 Lean 4 定理证明器的中文导师。用户会给你一条英文报错。"
-            "请用通俗中文解释：1) 这个错误是什么意思 2) 常见原因 3) 修复建议。"
-            "语言要平实，面向数学/编程背景的初学者。"
-        )
-        user = f"Lean 报错：\n{message}"
+    def explain_error(self, message: str, code: str | None = None, lang: str = "en") -> str:
+        if lang == "zh":
+            sys = (
+                "你是 Lean 4 定理证明器的中文导师。用户会给你一条英文报错。"
+                "请用通俗中文解释：1) 这个错误是什么意思 2) 常见原因 3) 修复建议。"
+                "语言要平实，面向数学/编程背景的初学者。"
+            )
+            user = f"Lean 报错：\n{message}"
+        else:
+            sys = (
+                "You are a friendly tutor for the Lean 4 theorem prover. "
+                "The user will give you an English error message. "
+                "Explain in plain language: 1) what this error means 2) common causes "
+                "3) how to fix it. Be concise and beginner-friendly."
+            )
+            user = f"Lean error:\n{message}"
         if code:
-            user += f"\n\n出错代码：\n{code}"
+            user += f"\n\nOffending code:\n{code}"
         resp = self._client.chat.completions.create(
             model=self._model,
             messages=[
@@ -92,18 +101,26 @@ class OllamaBackend(LLMBackend):
         )
         self._model = model or os.environ.get("LEANWEAVER_MODEL", "qwen2.5-coder:7b")
 
-    def explain_error(self, message: str, code: str | None = None) -> str:
+    def explain_error(self, message: str, code: str | None = None, lang: str = "en") -> str:
         # Ollama 原生 HTTP API，无需额外依赖
         import json
         import urllib.request
 
-        sys = (
-            "你是 Lean 4 定理证明器的中文导师。用通俗中文解释下面的 Lean 报错："
-            "1) 意思 2) 常见原因 3) 修复建议。"
-        )
-        user = f"Lean 报错：\n{message}"
+        if lang == "zh":
+            sys = (
+                "你是 Lean 4 定理证明器的中文导师。用通俗中文解释下面的 Lean 报错："
+                "1) 意思 2) 常见原因 3) 修复建议。"
+            )
+            user = f"Lean 报错：\n{message}"
+        else:
+            sys = (
+                "You are a friendly tutor for the Lean 4 theorem prover. "
+                "Explain the following Lean error in plain English: "
+                "1) what it means 2) common causes 3) how to fix it."
+            )
+            user = f"Lean error:\n{message}"
         if code:
-            user += f"\n\n出错代码：\n{code}"
+            user += f"\n\nOffending code:\n{code}"
         payload = json.dumps(
             {
                 "model": self._model,

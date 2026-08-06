@@ -31,6 +31,7 @@ class ExplainResult:
     example: Optional[str] = None    # 示例
     matched_keyword: Optional[str] = None
     used_llm: bool = False           # 是否走了 LLM 兜底
+    lang: str = "en"
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -42,21 +43,28 @@ class ExplainResult:
             "example": self.example,
             "matched_keyword": self.matched_keyword,
             "used_llm": self.used_llm,
+            "lang": self.lang,
         }
 
     def pretty(self) -> str:
-        """人类可读的中文输出（CLI 用）。"""
-        lines = [f"【{self.title}】", "", self.what]
+        """Human-readable output for the CLI (locale-aware labels)."""
+        if self.lang == "zh":
+            why_label, fix_label, example_label = "常见原因", "修复建议", "示例"
+            matched_label = "命中关键词"
+        else:
+            why_label, fix_label, example_label = "Common causes", "Fixes", "Example"
+            matched_label = "matched keyword"
+        lines = [f"[{self.title}]", "", self.what]
         if self.why:
-            lines += ["", "常见原因："]
+            lines += ["", f"{why_label}:"]
             lines += [f"  - {w}" for w in self.why]
         if self.fix:
-            lines += ["", "修复建议："]
+            lines += ["", f"{fix_label}:"]
             lines += [f"  - {f}" for f in self.fix]
         if self.example:
-            lines += ["", "示例：", f"  {self.example}"]
+            lines += ["", f"{example_label}:", f"  {self.example}"]
         if self.matched_keyword:
-            lines += ["", f"(命中关键词: {self.matched_keyword})"]
+            lines += ["", f"({matched_label}: {self.matched_keyword})"]
         return "\n".join(lines)
 
 
@@ -65,6 +73,7 @@ def explain(
     code: str | None = None,
     use_llm: bool = False,
     llm=None,
+    lang: str = "en",
 ) -> ExplainResult:
     """解释一条 Lean 报错。
 
@@ -73,12 +82,13 @@ def explain(
         code: 可选的出错代码片段，用于增强解释。
         use_llm: 规则未命中时是否用 LLM 兜底（默认关闭）。
         llm: 可选的 LLM 适配器实例（见 translate.llm），use_llm=True 时需要。
+        lang: 解释语言（默认 en；zh 为可选插件）。
 
     Returns:
         ExplainResult。
     """
     info: ErrorInfo = classify_error(message)
-    rendered = render(info.category, code=code)
+    rendered = render(info.category, code=code, lang=lang)
 
     result = ExplainResult(
         category=info.category,
@@ -89,6 +99,7 @@ def explain(
         fix=rendered["fix"],
         example=rendered.get("example"),
         matched_keyword=info.matched_keyword,
+        lang=lang,
     )
 
     # 规则未命中 → 可选 LLM 兜底
@@ -99,7 +110,7 @@ def explain(
             llm = get_default_llm()
         if llm is not None:
             try:
-                text = llm.explain_error(message, code=code)
+                text = llm.explain_error(message, code=code, lang=lang)
                 result.used_llm = True
                 result.what = text
                 result.why = []

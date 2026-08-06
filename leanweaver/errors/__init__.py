@@ -6,5 +6,6 @@
 
 from .classify import classify_error, ErrorCategory
 from .explain import explain, ExplainResult
+from .templates import available_languages
 
-__all__ = ["classify_error", "ErrorCategory", "explain", "ExplainResult"]
+__all__ = ["classify_error", "ErrorCategory", "explain", "ExplainResult", "available_languages"]
