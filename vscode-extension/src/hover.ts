@@ -26,13 +26,6 @@ function setCached(message: string, html: string) {
   cache.set(message, { html, ts: Date.now() });
 }
 
-/** 把解释文本转成 HTML 片段（简单转义 + 换行）。 */
-function toHtml(text: string): string {
-  const esc = (s: string) =>
-    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  // 去掉首行【标题】的方括号，保留结构
-  return esc(text).replace(/\n/g, "<br>");
-}
 
 export function registerHoverProvider(context: vscode.ExtensionContext) {
   const provider = vscode.languages.registerHoverProvider("lean", {
@@ -49,7 +42,7 @@ export function registerHoverProvider(context: vscode.ExtensionContext) {
       const cached = getCached(diag.message);
       if (cached) {
         return new vscode.Hover(
-          new vscode.MarkdownString(`**LeanWeaver 解释**\n\n${cached}`, true),
+          new vscode.MarkdownString(cached, true),
           diag.range
         );
       }
@@ -57,15 +50,10 @@ export function registerHoverProvider(context: vscode.ExtensionContext) {
       // 3. 调用 leanweaver（规则层快，异常时静默降级为不显示）
       try {
         const explanation = await explainError(diag.message);
-        const html = toHtml(explanation);
-        setCached(diag.message, html);
-        return new vscode.Hover(
-          new vscode.MarkdownString(
-            `**LeanWeaver 中文解释**\n\n${html}`,
-            true
-          ),
-          diag.range
-        );
+        // 直接存原始文本，让 MarkdownString 原生渲染（自动适配主题）
+        const md = `**LeanWeaver 解释**\n\n${explanation.trim()}`;
+        setCached(diag.message, md);
+        return new vscode.Hover(new vscode.MarkdownString(md, true), diag.range);
       } catch (e) {
         // 不打断用户：leanweaver 不可用时保持 VS Code 原始 hover
         return undefined;
