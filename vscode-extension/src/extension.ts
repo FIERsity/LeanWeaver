@@ -5,6 +5,7 @@ import { registerCodeLens } from "./codelens";
 import { showOutput, closePanel } from "./webview";
 import { updateStatusBar, disposeStatusBar } from "./statusbar";
 import { translateFile, translateSelection, checkFile, suggestNext } from "./leanweaver";
+import { registerInlineCompletion } from "./inline";
 
 /**
  * LeanWeaver VS Code 扩展主入口。
@@ -210,9 +211,10 @@ export LEANWEAVER_MODEL=deepseek-chat
     showOutput("LeanWeaver · 安装指引", md.value);
   });
 
-  // ---------- 注册 hover / codelens / 状态栏 ----------
+  // ---------- 注册 hover / codelens / 内联补全 / 状态栏 ----------
   registerHoverProvider(context);
   registerCodeLens(context);
+  registerInlineCompletion(context);
   context.subscriptions.push(suggestCmd, translateCmd, translateSelCmd, translateAtCmd, checkCmd, openCmd, settingsCmd, setupCmd);
 
   // 启动时检测环境 + 首次引导

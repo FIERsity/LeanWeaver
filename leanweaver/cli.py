@@ -34,6 +34,37 @@ def _cmd_explain(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_complete(args: argparse.Namespace) -> int:
+    from .translate.parser import extract_proof
+    from .translate.complete import complete
+
+    from pathlib import Path
+
+    try:
+        source = Path(args.message).read_text(encoding="utf-8")
+    except OSError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
+
+    block = extract_proof(source, args.theorem)
+    if block is None:
+        print("Error: 未找到证明块", file=sys.stderr)
+        return 1
+
+    full_decl = f"theorem {block.theorem_name} {block.theorem_stmt}"
+    result = complete(
+        full_decl,
+        block.tactics,
+        num_lines=args.lines,
+        verify=not args.no_verify,
+    )
+    if result.error:
+        print(f"提示: {result.error}", file=sys.stderr)
+        return 1
+    print(result.text)
+    return 0
+
+
 def _cmd_suggest(args: argparse.Namespace) -> int:
     from .translate.parser import extract_proof
     from .translate.suggest import suggest_next
@@ -173,6 +204,13 @@ def main(argv: list[str] | None = None) -> int:
     p_explain.add_argument("--lang", default="en", choices=["en", "zh"], help="explanation language (default: en)")
     p_explain.add_argument("--llm", action="store_true", help="fall back to LLM when rules miss")
     p_explain.set_defaults(func=_cmd_explain)
+
+    p_complete = sub.add_parser("complete", help="Inline completion: next n lines of proof (Copilot-style)")
+    p_complete.add_argument("message", help="path to a .lean file")
+    p_complete.add_argument("--theorem", help="theorem name (default: first)")
+    p_complete.add_argument("--lines", type=int, default=3, help="number of lines to generate")
+    p_complete.add_argument("--no-verify", action="store_true", help="skip Lean verification")
+    p_complete.set_defaults(func=_cmd_complete)
 
     p_suggest = sub.add_parser("suggest", help="Suggest next proof step (verified by Lean)")
     p_suggest.add_argument("message", help="path to a .lean file")

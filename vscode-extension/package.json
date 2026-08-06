@@ -2,7 +2,7 @@
   "name": "leanweaver",
   "displayName": "LeanWeaver",
   "description": "让 Lean 4 形式化证明对人类可读——报错中文解释 + 证明翻译。Make Lean 4 formal proofs readable: explain errors & translate proofs.",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "publisher": "fiersity",
   "license": "MIT",
   "engines": {
@@ -125,6 +125,13 @@
           "type": "boolean",
           "default": false,
           "description": "Use LLM fallback when rules can't classify an error (slower, costs API)."
+        },
+        "leanweaver.completeLines": {
+          "type": "number",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Number of lines to generate for inline completion (ghost text)."
         },
         "leanweaver.setupPromptDismissed": {
           "type": "boolean",
