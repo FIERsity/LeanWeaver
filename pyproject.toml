@@ -30,5 +30,8 @@ leanweaver = "leanweaver.cli:main"
 [tool.setuptools.packages.find]
 include = ["leanweaver*"]
 
+[tool.setuptools.package-data]
+leanweaver = ["data/*.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
