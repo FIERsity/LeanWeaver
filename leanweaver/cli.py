@@ -34,6 +34,29 @@ def _cmd_explain(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_check(args: argparse.Namespace) -> int:
+    from .check import check_file
+
+    try:
+        result = check_file(args.path, use_llm=args.llm, lang=args.lang)
+    except RuntimeError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
+
+    if not result.diagnostics:
+        print(f"✓ {args.path}: no diagnostics")
+        return 0
+
+    print(f"{args.path}: {result.error_count} error(s), {result.warning_count} warning(s)\n")
+    for diag, exp in zip(result.diagnostics, result.explanations):
+        loc = f"{diag.line}:{diag.column}"
+        print(f"── {loc} [{diag.severity}] ──")
+        print(diag.data.splitlines()[0])
+        print(exp.pretty())
+        print()
+    return 0 if result.error_count == 0 else 1
+
+
 def _cmd_translate(args: argparse.Namespace) -> int:
     from .translate.llm import get_default_llm
 
@@ -66,6 +89,12 @@ def main(argv: list[str] | None = None) -> int:
     p_explain.add_argument("--lang", default="en", choices=["en", "zh"], help="explanation language (default: en)")
     p_explain.add_argument("--llm", action="store_true", help="fall back to LLM when rules miss")
     p_explain.set_defaults(func=_cmd_explain)
+
+    p_check = sub.add_parser("check", help="Analyze a .lean file and explain all diagnostics")
+    p_check.add_argument("path", help="path to .lean file")
+    p_check.add_argument("--lang", default="en", choices=["en", "zh"], help="explanation language (default: en)")
+    p_check.add_argument("--llm", action="store_true", help="fall back to LLM when rules miss")
+    p_check.set_defaults(func=_cmd_check)
 
     p_translate = sub.add_parser("translate", help="翻译形式化证明（开发中）")
     p_translate.add_argument("message", help="Lean 证明文本")
