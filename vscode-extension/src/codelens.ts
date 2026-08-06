@@ -31,6 +31,7 @@ export function registerCodeLens(context: vscode.ExtensionContext) {
       for (let i = 0; i < lines.length; i++) {
         const m = DECL_RE.exec(lines[i]);
         if (!m) continue;
+        console.log(`[LeanWeaver CodeLens] 行 ${i + 1}: 找到 ${m[1]} ${m[2] || ""}`.trim());
         const name = m[2] || m[1];
         const line = document.lineAt(i);
         const range = line.range;

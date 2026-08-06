@@ -30,12 +30,23 @@ function execCheck(cmd: string): Promise<boolean> {
 export async function checkCli(): Promise<{ ok: boolean; error?: string }> {
   const cfg = vscode.workspace.getConfiguration("leanweaver");
   const cli = cfg.get<string>("leanweaverCli", "python3 -m leanweaver");
-  try {
-    const ok = await execCheck(`${cli} --help`);
-    return { ok };
-  } catch (e: any) {
-    return { ok: false, error: e.message };
+
+  // 候选命令：用户配置的 + 常见 fallback
+  const candidates = [cli];
+  if (cli === "python3 -m leanweaver") {
+    candidates.push("leanweaver --help");
+    candidates.push("python -m leanweaver --help");
   }
+
+  for (const c of candidates) {
+    try {
+      const ok = await execCheck(c);
+      if (ok) return { ok: true };
+    } catch (e: any) {
+      // 继续尝试下一个
+    }
+  }
+  return { ok: false, error: "未找到 leanweaver CLI" };
 }
 
 /** 检测 lean 工具链 */

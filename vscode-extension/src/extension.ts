@@ -67,7 +67,17 @@ async function runWithProgress(title: string, fn: () => Promise<void>) {
   );
 }
 
+// 诊断输出通道（可在 VS Code「输出」面板查看 LeanWeaver 日志）
+export const output = vscode.window.createOutputChannel("LeanWeaver");
+
+function log(msg: string) {
+  output.appendLine(`[${new Date().toLocaleTimeString()}] ${msg}`);
+}
+
 export function activate(context: vscode.ExtensionContext) {
+  log("LeanWeaver 扩展已激活");
+  log(`CLI 配置: ${vscode.workspace.getConfiguration("leanweaver").get("leanweaverCli", "python3 -m leanweaver")}`);
+
   // ---------- 命令：翻译当前文件 ----------
   const translateCmd = vscode.commands.registerCommand("leanweaver.translate", async () => {
     const src = currentLeanSource();
@@ -180,7 +190,11 @@ export LEANWEAVER_MODEL=deepseek-chat
   context.subscriptions.push(translateCmd, translateSelCmd, translateAtCmd, checkCmd, openCmd, settingsCmd, setupCmd);
 
   // 启动时检测环境 + 首次引导
+  refreshEnvironment().then(() => {
+    log(`环境检测完成: CLI=${envStatus.cli} Lean=${envStatus.lean} LLM=${envStatus.llm}`);
+  });
   maybeShowSetup();
+  log("LeanWeaver 扩展初始化完成（hover/CodeLens/命令已注册）");
 }
 
 export function deactivate() {

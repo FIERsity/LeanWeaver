@@ -43,6 +43,7 @@ export function registerHoverProvider(context: vscode.ExtensionContext) {
         return d.range.contains(position) && d.severity === vscode.DiagnosticSeverity.Error;
       });
       if (!diag || !diag.message) return undefined;
+      console.log(`[LeanWeaver hover] 命中诊断: ${diag.message.split("\n")[0].slice(0, 60)}`);
 
       // 2. 尝试缓存
       const cached = getCached(diag.message);

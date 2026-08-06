@@ -2,7 +2,7 @@
   "name": "leanweaver",
   "displayName": "LeanWeaver",
   "description": "让 Lean 4 形式化证明对人类可读——报错中文解释 + 证明翻译。Make Lean 4 formal proofs readable: explain errors & translate proofs.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "fiersity",
   "license": "MIT",
   "engines": {
@@ -23,6 +23,7 @@
   ],
   "activationEvents": [
     "onLanguage:lean",
+    "onStartupFinished",
     "onCommand:leanweaver.translate",
     "onCommand:leanweaver.translateSelection",
     "onCommand:leanweaver.check",
@@ -32,6 +33,18 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "languages": [
+      {
+        "id": "lean",
+        "extensions": [
+          ".lean"
+        ],
+        "aliases": [
+          "Lean",
+          "lean"
+        ]
+      }
+    ],
     "commands": [
       {
         "command": "leanweaver.translate",
@@ -90,7 +103,10 @@
         },
         "leanweaver.lang": {
           "type": "string",
-          "enum": ["zh", "en"],
+          "enum": [
+            "zh",
+            "en"
+          ],
           "default": "zh",
           "description": "Output language (zh=Chinese, en=English)."
         },
@@ -111,12 +127,17 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "package": "vsce package --no-dependencies"
+    "package": "vsce package --no-dependencies",
+    "test": "tsc -p ./ && node ./dist/test/runTest.js"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.10",
     "@types/node": "^20.11.0",
     "@types/vscode": "^1.85.0",
-    "typescript": "^5.4.0",
-    "@vscode/vsce": "^2.24.0"
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^2.24.0",
+    "glob": "^13.0.6",
+    "mocha": "^11.8.0",
+    "typescript": "^5.4.0"
   }
 }

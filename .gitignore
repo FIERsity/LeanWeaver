@@ -42,3 +42,4 @@ vscode-extension/node_modules/
 vscode-extension/dist/
 vscode-extension/*.vsix
 vscode-extension/.tmp/
+vscode-extension/.vscode-test/
