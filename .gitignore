@@ -43,3 +43,4 @@ vscode-extension/dist/
 vscode-extension/*.vsix
 vscode-extension/.tmp/
 vscode-extension/.vscode-test/
+vscode-extension/.tmp_demo.lean
