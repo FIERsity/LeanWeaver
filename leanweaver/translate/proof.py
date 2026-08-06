@@ -16,11 +16,29 @@ v1 定位：不接 Pantograph，不做 proof-state 级解析。
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Optional
 
 from .llm import LLMBackend, get_default_llm
 from .parser import ProofBlock, extract_proof, extract_proofs
+
+
+# 战术 ↔ 中文术语对照表（数据层，供翻译器提升中文质量）
+_GLOSSARY_PATH = Path(__file__).resolve().parent.parent / "data" / "tactic_glossary.json"
+
+
+def _load_glossary() -> str:
+    """加载术语表，返回适合注入 prompt 的文本。"""
+    try:
+        data = json.loads(_GLOSSARY_PATH.read_text(encoding="utf-8"))
+        lines = []
+        for item in data.get("tactics", []):
+            lines.append(f"- {item['tactic']}: 中文 [{item['zh']}] —— {item['meaning']}")
+        return "\n".join(lines)
+    except Exception:
+        return ""
 
 # 让 LLM 解释单个 tactic 的 system prompt
 _TACTIC_SYSTEM = """You are a Lean 4 theorem prover tutor. You will be given:
@@ -29,6 +47,12 @@ _TACTIC_SYSTEM = """You are a Lean 4 theorem prover tutor. You will be given:
 
 Explain in plain {lang} what this step does and WHY it makes sense.
 Keep it concise (2-4 sentences). Focus on the mathematical idea, not the syntax.
+"""
+
+# 术语表（仅中文时注入，帮助对齐数学术语）
+_GLOSSARY_HINT = """
+参考资料（Lean 战术的中文标准译法，翻译时优先采用）：
+{glossary}
 """
 
 # 生成完整可读证明的 system prompt
@@ -93,6 +117,10 @@ def translate_tactic(
     """解释单个 tactic（用于逐步解释）。"""
     lang = "中文" if _lang_zh(target_lang) else "English"
     sys = _TACTIC_SYSTEM.format(lang=lang)
+    if _lang_zh(target_lang):
+        gl = _load_glossary()
+        if gl:
+            sys += "\n" + _GLOSSARY_HINT.format(glossary=gl)
     user = f"Theorem:\n{theorem_stmt}\n\nProof step:\n{tactic}"
     return llm.complete(sys, user)
 
@@ -112,6 +140,12 @@ def translate_proof_block(
         )
 
     lang = "中文" if _lang_zh(target_lang) else "English"
+    # 整篇可读证明的 system prompt 也注入术语表（中文时）
+    sys_proof = _PROOF_SYSTEM.format(lang=lang)
+    if _lang_zh(target_lang):
+        gl = _load_glossary()
+        if gl:
+            sys_proof += "\n" + _GLOSSARY_HINT.format(glossary=gl)
     result = ProofTranslation(
         theorem_name=block.theorem_name,
         theorem_stmt=block.theorem_stmt,
@@ -128,13 +162,12 @@ def translate_proof_block(
             result.line_by_line.append({"tactic": tactic, "explanation": f"（失败：{exc}）"})
 
     # 2. 连贯可读证明（一次生成整篇）
-    sys = _PROOF_SYSTEM.format(lang=lang)
     user = (
         f"Theorem:\n{block.theorem_stmt}\n\n"
         f"Proof (tactics):\n" + "\n".join(f"  {i+1}. {t}" for i, t in enumerate(block.tactics))
     )
     try:
-        result.full_proof = llm.complete(sys, user)
+        result.full_proof = llm.complete(sys_proof, user)
     except Exception as exc:
         result.full_proof = f"（生成失败：{exc}）"
 
