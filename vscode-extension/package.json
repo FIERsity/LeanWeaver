@@ -2,7 +2,7 @@
   "name": "leanweaver",
   "displayName": "LeanWeaver",
   "description": "让 Lean 4 形式化证明对人类可读——报错中文解释 + 证明翻译。Make Lean 4 formal proofs readable: explain errors & translate proofs.",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publisher": "fiersity",
   "license": "MIT",
   "engines": {
@@ -24,6 +24,7 @@
   "activationEvents": [
     "onLanguage:lean",
     "onStartupFinished",
+    "onCommand:leanweaver.suggest",
     "onCommand:leanweaver.translate",
     "onCommand:leanweaver.translateSelection",
     "onCommand:leanweaver.check",
@@ -46,6 +47,11 @@
       }
     ],
     "commands": [
+      {
+        "command": "leanweaver.suggest",
+        "title": "LeanWeaver: 建议下一步 / Suggest next step",
+        "icon": "$(lightbulb)"
+      },
       {
         "command": "leanweaver.translate",
         "title": "LeanWeaver: 翻译当前文件证明 / Translate proofs",
@@ -77,9 +83,14 @@
     "menus": {
       "editor/context": [
         {
-          "command": "leanweaver.translate",
+          "command": "leanweaver.suggest",
           "when": "editorLangId == lean",
           "group": "leanweaver@1"
+        },
+        {
+          "command": "leanweaver.translate",
+          "when": "editorLangId == lean",
+          "group": "leanweaver@2"
         },
         {
           "command": "leanweaver.translateSelection",

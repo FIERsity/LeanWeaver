@@ -4,7 +4,7 @@ import { registerHoverProvider } from "./hover";
 import { registerCodeLens } from "./codelens";
 import { showOutput, closePanel } from "./webview";
 import { updateStatusBar, disposeStatusBar } from "./statusbar";
-import { translateFile, translateSelection, checkFile } from "./leanweaver";
+import { translateFile, translateSelection, checkFile, suggestNext } from "./leanweaver";
 
 /**
  * LeanWeaver VS Code 扩展主入口。
@@ -77,6 +77,32 @@ function log(msg: string) {
 export function activate(context: vscode.ExtensionContext) {
   log("LeanWeaver 扩展已激活");
   log(`CLI 配置: ${vscode.workspace.getConfiguration("leanweaver").get("leanweaverCli", "python3 -m leanweaver")}`);
+
+  // ---------- 命令：建议下一步（卡住时的教练） ----------
+  const suggestCmd = vscode.commands.registerCommand("leanweaver.suggest", async () => {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) return;
+    const source = editor.document.getText();
+    // 找光标所在位置的定理名（粗定位：向上找最近 theorem/lemma/example/def 行）
+    const cursorLine = editor.selection.active.line;
+    const lines = source.split("\n");
+    let theorem: string | undefined;
+    for (let i = cursorLine; i >= 0; i--) {
+      const m = /\b(theorem|lemma|example|def)\s+([A-Za-z_][A-Za-z0-9_']*)?/.exec(lines[i]);
+      if (m && m[2]) {
+        theorem = m[2];
+        break;
+      }
+    }
+    await runWithProgress("LeanWeaver 正在分析下一步…", async () => {
+      try {
+        const out = await suggestNext(source, theorem);
+        showOutput("LeanWeaver · 下一步建议", out);
+      } catch (e: any) {
+        vscode.window.showErrorMessage(`LeanWeaver 建议失败：${e.message}`);
+      }
+    });
+  });
 
   // ---------- 命令：翻译当前文件 ----------
   const translateCmd = vscode.commands.registerCommand("leanweaver.translate", async () => {
@@ -187,7 +213,7 @@ export LEANWEAVER_MODEL=deepseek-chat
   // ---------- 注册 hover / codelens / 状态栏 ----------
   registerHoverProvider(context);
   registerCodeLens(context);
-  context.subscriptions.push(translateCmd, translateSelCmd, translateAtCmd, checkCmd, openCmd, settingsCmd, setupCmd);
+  context.subscriptions.push(suggestCmd, translateCmd, translateSelCmd, translateAtCmd, checkCmd, openCmd, settingsCmd, setupCmd);
 
   // 启动时检测环境 + 首次引导
   refreshEnvironment().then(() => {

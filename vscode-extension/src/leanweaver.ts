@@ -101,3 +101,15 @@ export async function translateSelection(selection: string): Promise<string> {
     cleanup(f);
   }
 }
+
+/** 为当前文件的证明建议下一步（含验证层）。返回 CLI 原始输出。 */
+export async function suggestNext(source: string, theorem?: string): Promise<string> {
+  const f = writeTemp(source);
+  try {
+    const args = [`suggest "${f}"`, `--lang ${getLang()}`];
+    if (theorem) args.push(`--theorem "${theorem}"`);
+    return await runCli(args, 120000);
+  } finally {
+    cleanup(f);
+  }
+}

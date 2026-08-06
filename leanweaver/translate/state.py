@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Optional
 
 
@@ -86,13 +87,29 @@ def extract_state_trace(
             error="未安装 lean-interact，请执行 pip install lean-interact",
         )
 
+    # 确保 lean/lake 可被找到：~/.elan/bin 通常不在 VS Code 扩展进程的 PATH 里
+    import os as _os
+
+    _elan_bin = Path.home() / ".elan" / "bin"
+    if _elan_bin.exists():
+        _os.environ["PATH"] = f"{_elan_bin}:{_os.environ.get('PATH', '')}"
+        lake_candidate = _elan_bin / "lake"
+        lean_candidate = _elan_bin / "lean"
+    else:
+        lake_candidate = None
+        lean_candidate = None
+
     # 构造带 sorry 的定理，拿到初始 proof state
     sorry_stmt = f"{theorem} := by\n  sorry"
     if header:
         sorry_stmt = f"{header}\n{sorry_stmt}"
 
     try:
-        config = LeanREPLConfig(verbose=verbose)
+        # 显式传 lake 路径（lean-interact 默认只查 PATH）
+        config = LeanREPLConfig(
+            verbose=verbose,
+            lake_path=str(lake_candidate) if lake_candidate and lake_candidate.exists() else "lake",
+        )
         server = LeanServer(config)
     except Exception as exc:
         return ProofTrace(
