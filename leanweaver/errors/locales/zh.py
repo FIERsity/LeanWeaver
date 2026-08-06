@@ -275,6 +275,6 @@ TEMPLATES_ZH: dict[ErrorCategory, dict[str, Any]] = {
             "如果它经常出现，欢迎到仓库提 issue，我们会补充模板。"
         ),
         "why": [],
-        "fix": ["也可以手动打开 LLM 兜底模式（见 README）"],
+        "fix": ["如果它经常出现，欢迎到仓库提 issue，我们会补充模板。"],
     },
 }

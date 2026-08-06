@@ -304,7 +304,7 @@ TEMPLATES_EN: dict[ErrorCategory, dict[str, Any]] = {
         ),
         "why": [],
         "fix": [
-            "You can also enable the optional LLM fallback (see README)",
+            "If it appears often, open an issue and we will add a template.",
         ],
     },
 }

@@ -1,10 +1,11 @@
 """LeanWeaver 命令行入口。
 
+纯规则、零 LLM 依赖。只有一个功能：解释 Lean 报错。
+
 用法：
     leanweaver explain "<lean error message>"        # 解释一条报错
-    leanweaver explain --code "..." "<msg>"           # 带出错代码
+    leanweaver explain --lang zh "<msg>"             # 中文解释
     echo "<msg>" | leanweaver explain                 # 从 stdin 读取
-    leanweaver translate "<lean proof>"               # (开发中) 翻译证明
 """
 
 from __future__ import annotations
@@ -25,7 +26,7 @@ def _cmd_explain(args: argparse.Namespace) -> int:
         return 2
 
     try:
-        result = explain(message, code=args.code, use_llm=args.llm, lang=args.lang)
+        result = explain(message, code=args.code, lang=args.lang)
     except KeyError as exc:
         print(f"Error: {exc}", file=sys.stderr)
         print(f"Available languages: {available_languages()}", file=sys.stderr)
@@ -34,208 +35,18 @@ def _cmd_explain(args: argparse.Namespace) -> int:
     return 0
 
 
-def _cmd_complete(args: argparse.Namespace) -> int:
-    from .translate.parser import extract_proof
-    from .translate.complete import complete
-
-    from pathlib import Path
-
-    try:
-        source = Path(args.message).read_text(encoding="utf-8")
-    except OSError as exc:
-        print(f"Error: {exc}", file=sys.stderr)
-        return 1
-
-    block = extract_proof(source, args.theorem)
-    if block is None:
-        print("Error: 未找到证明块", file=sys.stderr)
-        return 1
-
-    full_decl = f"theorem {block.theorem_name} {block.theorem_stmt}"
-    result = complete(
-        full_decl,
-        block.tactics,
-        num_lines=args.lines,
-        verify=not args.no_verify,
-    )
-    if result.error:
-        print(f"提示: {result.error}", file=sys.stderr)
-        return 1
-    print(result.text)
-    return 0
-
-
-def _cmd_suggest(args: argparse.Namespace) -> int:
-    from .translate.parser import extract_proof
-    from .translate.suggest import suggest_next
-
-    from pathlib import Path
-
-    try:
-        source = Path(args.message).read_text(encoding="utf-8")
-    except OSError as exc:
-        print(f"Error: {exc}", file=sys.stderr)
-        return 1
-
-    block = extract_proof(source, args.theorem)
-    if block is None:
-        print("Error: 未找到证明块", file=sys.stderr)
-        return 1
-
-    full_decl = f"theorem {block.theorem_name} {block.theorem_stmt}"
-    print(f"定理: {block.theorem_name}")
-    print(f"已写步骤: {block.tactics}")
-    print()
-
-    result = suggest_next(
-        full_decl,
-        block.tactics,
-        num_candidates=args.candidates,
-        target_lang=args.lang,
-        verify=not args.no_verify,
-    )
-    if result["error"]:
-        print(f"提示: {result['error']}")
-        return 1
-
-    print("当前目标:")
-    print(result["state"])
-    print()
-    print("下一步建议（均经 Lean 验证）:")
-    for i, s in enumerate(result["suggestions"], 1):
-        tag = "✅ 可直接完成" if s.completes else "🔹 可推进"
-        print(f"  {i}. {tag} `{s.tactic}`")
-        if s.explanation:
-            print(f"     ↳ {s.explanation}")
-    return 0
-
-
-def _cmd_check(args: argparse.Namespace) -> int:
-    from .check import check_file
-
-    try:
-        result = check_file(args.path, use_llm=args.llm, lang=args.lang)
-    except RuntimeError as exc:
-        print(f"Error: {exc}", file=sys.stderr)
-        return 1
-
-    if not result.diagnostics:
-        print(f"✓ {args.path}: no diagnostics")
-        return 0
-
-    print(f"{args.path}: {result.error_count} error(s), {result.warning_count} warning(s)\n")
-    for diag, exp in zip(result.diagnostics, result.explanations):
-        loc = f"{diag.line}:{diag.column}"
-        print(f"── {loc} [{diag.severity}] ──")
-        print(diag.data.splitlines()[0])
-        print(exp.pretty())
-        print()
-    return 0 if result.error_count == 0 else 1
-
-
-def _cmd_translate(args: argparse.Namespace) -> int:
-    from .translate.llm import get_default_llm
-    from .translate.proof import translate_source
-
-    llm = get_default_llm()
-    if llm is None:
-        print(
-            "未配置 LLM。证明翻译器需要模型。\n"
-            "设置环境变量：\n"
-            "  LEANWEAVER_LLM_PROVIDER=openai  +  OPENAI_API_KEY=...\n"
-            "  或 LEANWEAVER_LLM_PROVIDER=ollama（本地 Ollama）",
-            file=sys.stderr,
-        )
-        return 1
-
-    # 支持从文件读取：leanweaver translate <file.lean> [--theorem NAME]
-    source = args.message
-    if args.message.endswith(".lean"):
-        from pathlib import Path
-
-        try:
-            source = Path(args.message).read_text(encoding="utf-8")
-        except OSError as exc:
-            print(f"Error: {exc}", file=sys.stderr)
-            return 1
-
-    # 采样参数（CLI > 环境变量 > 默认）
-    sampling = {}
-    if getattr(args, "temperature", None) is not None:
-        sampling["temperature"] = args.temperature
-    if getattr(args, "max_tokens", None) is not None:
-        sampling["max_tokens"] = args.max_tokens
-    if getattr(args, "top_p", None) is not None:
-        sampling["top_p"] = args.top_p
-    if getattr(args, "seed", None) is not None:
-        sampling["seed"] = args.seed
-    if sampling:
-        llm.sampling.update(sampling)
-
-    try:
-        results = translate_source(
-            source, theorem_name=args.theorem, target_lang=args.lang, llm=llm
-        )
-    except (ValueError, RuntimeError) as e:
-        print(f"Error: {e}", file=sys.stderr)
-        return 1
-
-    if not results:
-        print("（未找到证明块）", file=sys.stderr)
-        return 1
-    # 注释模式默认开启；--no-commented 关闭
-    include_commented = not getattr(args, "no_commented", False)
-    for r in results:
-        print(r.pretty(include_commented=include_commented))
-        print("\n" + "=" * 60 + "\n")
-    return 0
-
-
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="leanweaver",
-        description="让形式化证明对人类可读 —— Lean 4 中文错误解释器 + 证明翻译器",
+        description="纯规则、零 LLM 的 Lean 4 报错解释器",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p_explain = sub.add_parser("explain", help="Explain a Lean error message")
+    p_explain = sub.add_parser("explain", help="Explain a Lean error message (rule-based)")
     p_explain.add_argument("message", nargs="?", help="Lean error text (reads stdin if omitted)")
     p_explain.add_argument("--code", help="optional snippet of the offending code")
     p_explain.add_argument("--lang", default="en", choices=["en", "zh"], help="explanation language (default: en)")
-    p_explain.add_argument("--llm", action="store_true", help="fall back to LLM when rules miss")
     p_explain.set_defaults(func=_cmd_explain)
-
-    p_complete = sub.add_parser("complete", help="Inline completion: next n lines of proof (Copilot-style)")
-    p_complete.add_argument("message", help="path to a .lean file")
-    p_complete.add_argument("--theorem", help="theorem name (default: first)")
-    p_complete.add_argument("--lines", type=int, default=3, help="number of lines to generate")
-    p_complete.add_argument("--no-verify", action="store_true", help="skip Lean verification")
-    p_complete.set_defaults(func=_cmd_complete)
-
-    p_suggest = sub.add_parser("suggest", help="Suggest next proof step (verified by Lean)")
-    p_suggest.add_argument("message", help="path to a .lean file")
-    p_suggest.add_argument("--theorem", help="theorem name to suggest for (default: first)")
-    p_suggest.add_argument("--lang", default="zh", choices=["zh", "en"], help="explanation language")
-    p_suggest.add_argument("--candidates", type=int, default=6, help="number of candidates to generate")
-    p_suggest.add_argument("--no-verify", action="store_true", help="skip Lean verification (not recommended)")
-    p_suggest.set_defaults(func=_cmd_suggest)
-
-    p_check = sub.add_parser("check", help="Analyze a .lean file and explain all diagnostics")
-    p_check.add_argument("path", help="path to .lean file")
-    p_check.add_argument("--lang", default="en", choices=["en", "zh"], help="explanation language (default: en)")
-    p_check.add_argument("--llm", action="store_true", help="fall back to LLM when rules miss")
-    p_check.set_defaults(func=_cmd_check)
-
-    p_translate = sub.add_parser("translate", help="Translate a formal proof into readable prose (needs LLM)")
-    p_translate.add_argument("message", help="Lean source text or path to a .lean file")
-    p_translate.add_argument("--theorem", help="only translate this theorem (default: all)")
-    p_translate.add_argument("--lang", default="zh", choices=["zh", "en"], help="target language (default: zh)")
-    p_translate.add_argument("--no-commented", action="store_true", help="disable line-by-line annotated proof (default: on)")
-    p_translate.add_argument("--temperature", type=float, help="sampling temperature")
-    p_translate.add_argument("--max-tokens", type=int, help="max output tokens")
-    p_translate.add_argument("--top-p", type=float, help="nucleus sampling top-p")
-    p_translate.add_argument("--seed", type=int, help="random seed for reproducibility")
-    p_translate.set_defaults(func=_cmd_translate)
 
     args = parser.parse_args(argv)
     return args.func(args)

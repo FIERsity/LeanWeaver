@@ -26,11 +26,10 @@ def test_explain_zh_plugin():
     assert len(result.fix) > 0
 
 
-def test_explain_unknown_without_llm():
-    # 未识别错误：默认不走 LLM，返回"未能识别"
+def test_explain_unknown():
+    # 未识别错误：确定性返回"未能识别"（无 LLM 兜底）
     result = explain("some brand new exotic error")
     assert result.category is ErrorCategory.UNKNOWN
-    assert not result.used_llm
     assert "Unrecognized" in result.title
 
 

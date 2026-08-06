@@ -1,73 +1,85 @@
 # LeanWeaver
 
-> Make formal proofs readable to humans.
+> 纯规则、零 LLM 的 Lean 4 报错解释器。
+> Rule-based, zero-LLM Lean 4 error explainer — deterministic, offline, free.
 
-**LeanWeaver** is an AI4Math toolchain for the **Lean 4 theorem prover**, built around one idea: the math community's biggest complaint about AI-generated formal proofs is that *"it's proved, but humans can't read it"* (see the MathOverflow debate on AI-generated Lean proofs). LeanWeaver weaves a bridge between **formal proofs and natural language**.
+Lean 4 的报错对新手极其不友好（`type mismatch`、`motive is not type correct`、`invalid 'calc' step`……全是英文晦涩术语）。**LeanWeaver 把报错翻译成人话**——用确定性规则，不用任何大模型。
 
-Built primarily for the English-speaking formal-math community (mathlib, LeanDojo, MathOverflow), with **Chinese available as an optional locale plugin**.
+## 为什么不用 LLM
 
-## Current feature (v0.1: Error Explainer · rule-based)
+- **确定性**：同一个报错，永远得到同一个解释。可复现、无幻觉。
+- **离线**：不需要网络、不需要 API key。
+- **免费**：零成本，毫秒级返回。
+- **可信**：Lean 社区信任"编译器验证"，不信任 AI 猜。
 
-Lean 4's error messages are notoriously opaque to newcomers (`type mismatch`, `motive is not type correct`, `unsolved goals`...). LeanWeaver provides a plain-language **error explainer**:
-
-- **Pure rule engine — no LLM required**: 20+ categories of frequent Lean errors with clear explanations. Millisecond latency, works offline.
-- Input = Lean LSP structured diagnostics (range + message), output = plain-language explanation + common causes + fixes.
-- Optional LLM fallback when rules miss (disabled by default).
+## 快速开始
 
 ```bash
-$ leanweaver explain "type mismatch
+pip install -e .
+leanweaver explain --lang zh "type mismatch
   term
     a + b
   has type
     Nat
   but is expected to have type
     String"
-
-# → 【Type mismatch】
-#   Lean is a strongly-typed system. It found that an expression you wrote
-#   has a type that does not match the type it expected at that position...
 ```
 
-**Chinese plugin**: pass `--lang zh` (or `explain(..., lang="zh")`) for Chinese explanations:
+或者从 stdin：
 
 ```bash
-$ leanweaver explain --lang zh "type mismatch ..."
-# → 【类型不匹配（type mismatch）】...
+echo "unsolved goals
+⊢ a + b = b + a" | leanweaver explain --lang zh
 ```
 
-## Roadmap
+## 支持的错误类别（20+）
 
-| Stage | Content | Status |
-|---|---|---|
-| ① Error Explainer · rules | error classification + templates (EN core / ZH plugin) | 🚧 in progress |
-| ①+ Error Explainer · LLM fallback | model fallback for unmatched errors (OpenAI / Ollama) | ⬜ |
-| ①+ VS Code / MCP integration | inline explanations in the editor diagnostics | ⬜ |
-| ② Proof Translator · v1 (**main line**) | formal proof → readable natural-language proof | 🚧 v1 done (text-level) |
-| ②+ Reverse translation | natural-language proof → Lean skeleton | ⬜ |
-| Bonus | tactic ↔ Chinese glossary (feeds the translator; see `docs/lean-chinese-support.md`) | ⬜ |
+| 类别 | 示例报错 |
+|---|---|
+| `type_mismatch` | `Type mismatch ... has type Nat but is expected to have type String` |
+| `app_type_mismatch` | `Application type mismatch: The argument "hello" has type String but is expected to have type Nat` |
+| `unknown_identifier` | `Unknown identifier \`foo\`` |
+| `unsolved_goals` | `unsolved goals ... ⊢ c + (a + b) = c + b + a` |
+| `no_goals` | `No goals to be solved` |
+| `failed_to_synthesize` | `failed to synthesize instance of type class HAdd Nat String String` |
+| `invalid_target` | `Invalid target: Target (or one of its indices) occurs more than once` |
+| `calc_error` | `invalid 'calc' step, right-hand side is ... but is expected to be ...` |
+| `recursive_failed` | `fail to show termination for ... failed to infer structural recursion` |
+| `invalid_field` | `Invalid field \`z\` ... does not have field` |
+| `function_expected` | `Function expected at ... but this term has type Nat` |
+| `motive_not_correct` | `motive is not type correct` |
+| `missing_import` | `unknown module prefix` |
+| … | 更多见 `leanweaver/errors/classify.py` |
 
-## Design principles
+每个类别都有中英双语解释：**含义 + 常见原因 + 可操作修复**。
 
-1. **Trust first**: in math, LLM hallucination is the most costly failure. Anything that can be explained deterministically should not be left to a model to guess.
-2. **Layered architecture**: rule layer (fast / free / offline) → LLM fallback layer (slow / per-call). ~80% of errors are handled by rules.
-3. **Pluggable models**: OpenAI-compatible APIs and local Ollama behind one interface.
-4. **Localization as plugins**: English is the default locale; other languages (zh) are optional plugins — easy to add more.
+## 架构
 
-## Quick start
-
-```bash
-pip install -e .
-# or run directly
-python -m leanweaver explain "paste lean error message here"
-python -m leanweaver explain --lang zh "paste lean error message here"
+```
+leanweaver/
+├── errors/
+│   ├── classify.py     # 确定性分类（error code + 文本模式）
+│   ├── templates.py    # 语言注册表 + 缺失回退
+│   ├── explain.py      # 解释器入口（纯规则）
+│   └── locales/
+│       ├── en.py       # 英文模板（默认）
+│       └── zh.py       # 中文模板（插件）
+└── cli.py              # leanweaver explain
 ```
 
-Run tests:
+设计原则：
+- **机制与语言分离**：分类逻辑与文案完全解耦，加语言只需加一个 locale 文件
+- **优先 error code**：Lean 诊断里的 `error(lean.xxx)` 比文本匹配更可靠
+- **版本演进可维护**：报错文本随 Lean 版本变化，规则库按版本维护
+
+## 测试
 
 ```bash
 pip install -e ".[dev]" && pytest
 ```
 
-## License
+包含 15+ 个真实 Lean 报错样本（从本机 `lean` 实际运行收集）。
+
+## 许可
 
 MIT

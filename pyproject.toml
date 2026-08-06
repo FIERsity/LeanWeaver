@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "leanweaver"
-version = "0.1.0"
-description = "Make formal proofs readable to humans — Lean 4 Chinese error explainer & proof translator"
+version = "0.4.0"
+description = "纯规则、零 LLM 的 Lean 4 报错解释器。Rule-based, zero-LLM Lean 4 error explainer."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "FIERsity" }]
-keywords = ["lean4", "theorem-proving", "formal-math", "ai4math", "chinese", "proof-assistant"]
+keywords = ["lean4", "theorem-proving", "formal-math", "proof-assistant", "error-explainer"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -21,8 +21,6 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-llm = ["openai>=1.0"]
-repl = ["lean-interact>=0.1"]
 dev = ["pytest>=7", "ruff>=0.4"]
 
 [project.scripts]
@@ -30,9 +28,6 @@ leanweaver = "leanweaver.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["leanweaver*"]
-
-[tool.setuptools.package-data]
-leanweaver = ["data/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

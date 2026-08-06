@@ -1,8 +1,8 @@
 {
   "name": "leanweaver",
   "displayName": "LeanWeaver",
-  "description": "让 Lean 4 形式化证明对人类可读——报错中文解释 + 证明翻译。Make Lean 4 formal proofs readable: explain errors & translate proofs.",
-  "version": "0.3.0",
+  "description": "纯规则、零 LLM 的 Lean 4 报错解释 —— 悬停报错即看中文解释。Rule-based Lean 4 error explainer: hover errors to get clear explanations.",
+  "version": "0.4.0",
   "publisher": "fiersity",
   "license": "MIT",
   "engines": {
@@ -10,100 +10,34 @@
   },
   "categories": [
     "Programming Languages",
-    "Formal Languages",
-    "Machine Learning"
+    "Formal Languages"
   ],
   "keywords": [
     "lean",
     "lean4",
     "theorem-proving",
     "formal-math",
-    "ai4math",
-    "mathlib"
+    "error-explainer"
   ],
   "activationEvents": [
     "onLanguage:lean",
-    "onStartupFinished",
-    "onCommand:leanweaver.suggest",
-    "onCommand:leanweaver.translate",
-    "onCommand:leanweaver.translateSelection",
-    "onCommand:leanweaver.check",
-    "onCommand:leanweaver.openPanel",
-    "onCommand:leanweaver.openSetup",
-    "onCommand:leanweaver.openSettings"
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "languages": [
       {
         "id": "lean",
-        "extensions": [
-          ".lean"
-        ],
-        "aliases": [
-          "Lean",
-          "lean"
-        ]
+        "extensions": [".lean"],
+        "aliases": ["Lean", "lean"]
       }
     ],
     "commands": [
-      {
-        "command": "leanweaver.suggest",
-        "title": "LeanWeaver: 建议下一步 / Suggest next step",
-        "icon": "$(lightbulb)"
-      },
-      {
-        "command": "leanweaver.translate",
-        "title": "LeanWeaver: 翻译当前文件证明 / Translate proofs",
-        "icon": "$(book)"
-      },
-      {
-        "command": "leanweaver.translateSelection",
-        "title": "LeanWeaver: 翻译选中代码 / Translate selection",
-        "icon": "$(book)"
-      },
-      {
-        "command": "leanweaver.check",
-        "title": "LeanWeaver: 解释当前文件报错 / Explain errors",
-        "icon": "$(wrench)"
-      },
-      {
-        "command": "leanweaver.openPanel",
-        "title": "LeanWeaver: 打开输出面板 / Open panel"
-      },
-      {
-        "command": "leanweaver.openSetup",
-        "title": "LeanWeaver: 安装指引 / Setup guide"
-      },
       {
         "command": "leanweaver.openSettings",
         "title": "LeanWeaver: 打开设置 / Open settings"
       }
     ],
-    "menus": {
-      "editor/context": [
-        {
-          "command": "leanweaver.suggest",
-          "when": "editorLangId == lean",
-          "group": "leanweaver@1"
-        },
-        {
-          "command": "leanweaver.translate",
-          "when": "editorLangId == lean",
-          "group": "leanweaver@2"
-        },
-        {
-          "command": "leanweaver.translateSelection",
-          "when": "editorLangId == lean && editorHasSelection",
-          "group": "leanweaver@2"
-        },
-        {
-          "command": "leanweaver.check",
-          "when": "editorLangId == lean",
-          "group": "leanweaver@3"
-        }
-      ]
-    },
     "configuration": {
       "title": "LeanWeaver",
       "properties": {
@@ -114,29 +48,9 @@
         },
         "leanweaver.lang": {
           "type": "string",
-          "enum": [
-            "zh",
-            "en"
-          ],
+          "enum": ["zh", "en"],
           "default": "zh",
-          "description": "Output language (zh=Chinese, en=English)."
-        },
-        "leanweaver.llmFallback": {
-          "type": "boolean",
-          "default": false,
-          "description": "Use LLM fallback when rules can't classify an error (slower, costs API)."
-        },
-        "leanweaver.completeLines": {
-          "type": "number",
-          "default": 3,
-          "minimum": 1,
-          "maximum": 10,
-          "description": "Number of lines to generate for inline completion (ghost text)."
-        },
-        "leanweaver.setupPromptDismissed": {
-          "type": "boolean",
-          "default": false,
-          "description": "Internal: whether the setup prompt has been dismissed."
+          "description": "Explanation language (zh=Chinese, en=English)."
         }
       }
     }
@@ -149,13 +63,11 @@
     "test": "tsc -p ./ && node ./dist/test/runTest.js"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.10",
     "@types/node": "^20.11.0",
     "@types/vscode": "^1.85.0",
-    "@vscode/test-electron": "^3.1.0",
+    "typescript": "^5.4.0",
     "@vscode/vsce": "^2.24.0",
-    "glob": "^13.0.6",
-    "mocha": "^11.8.0",
-    "typescript": "^5.4.0"
+    "mocha": "^10.4.0",
+    "@types/mocha": "^10.0.6"
   }
 }
