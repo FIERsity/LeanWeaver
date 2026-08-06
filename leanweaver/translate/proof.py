@@ -105,6 +105,7 @@ Produce a READABLE, COHERENT natural-language proof in {lang}, written the way
 a mathematician would write it in a paper. Structure it with paragraphs or bullet points.
 For each major step, briefly note which tactic implements it (e.g. "（`rw [h]`）").
 Do NOT just translate the tactics literally — write real mathematical prose.
+Output ONLY the proof itself, without any preamble, "here is..." intro, or code fences.
 """
 
 # 注释翻译模式（commented）：输出逐行中文注释的证明（Herald commented_proof 风格）
