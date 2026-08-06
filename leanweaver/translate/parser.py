@@ -77,25 +77,47 @@ def _find_by_block(source: str, start: int) -> tuple[Optional[str], int]:
 def _split_tactics(block_body: str) -> list[str]:
     """把 by 块体按策略切分。
 
-    启发式：按行切，保留缩进（· 分支用前缀标记）。空行和注释剔除。
+    策略：
+    - 去掉首行的 `by`
+    - 按「相对缩进」切分：基准缩进 = 第一个非空行的缩进。
+      与基准同缩进的每行是一个新 tactic 的开头；
+      更深缩进（如 `·` 分支、续行）属于上一个 tactic；
+      更浅缩进结束当前块。
+    - 空行和注释剔除。
     """
+    # 去掉首行的 `by`
     lines = block_body.splitlines()
+    if lines and lines[0].strip() == "by":
+        lines = lines[1:]
+    while lines and not lines[0].strip():
+        lines = lines[1:]
+
+    # 基准缩进 = 第一个非空行的缩进
+    if not lines:
+        return []
+    base_indent = len(lines[0]) - len(lines[0].lstrip())
+
     tactics: list[str] = []
     current: list[str] = []
     for line in lines:
         stripped = line.strip()
         if not stripped or stripped.startswith("--") or stripped.startswith("/-"):
             continue
-        # 续行：以 "(" 或 "," 结尾，或行首有缩进（非顶格）
         indent = len(line) - len(line.lstrip())
-        if current and (indent > 0 or current[-1].rstrip().endswith((",", "("))):
-            current.append(line)
-            continue
-        if current:
-            tactics.append("\n".join(current))
-            current = []
-        # 新 tactic
-        current.append(line.strip())
+        if indent == base_indent:
+            # 新 tactic
+            if current:
+                tactics.append("\n".join(current))
+            current = [stripped]
+        elif indent > base_indent:
+            # 续行 / · 分支（属于上一个 tactic）
+            if current:
+                current.append(line)
+            else:
+                current.append(stripped)
+        else:
+            # 更浅缩进：块结束
+            break
     if current:
         tactics.append("\n".join(current))
     return tactics
@@ -119,8 +141,8 @@ def extract_proofs(source: str) -> list[ProofBlock]:
         body, _ = _find_by_block(source, m.end())
         if body is None:
             continue
-        # 去掉 "by " 前缀
-        body_content = body[2:].strip()
+        # 直接传原始 body（含 by 前缀），由 _split_tactics 处理首行
+        body_content = body.strip()
         if not body_content:
             continue
         tactics = _split_tactics(body_content)

@@ -23,6 +23,7 @@ from typing import Any, Optional
 
 from .llm import LLMBackend, get_default_llm
 from .parser import ProofBlock, extract_proof, extract_proofs
+from .state import ProofTrace, StateStep, extract_state_trace
 
 
 # 战术 ↔ 中文术语对照表（数据层，供翻译器提升中文质量）
@@ -44,9 +45,24 @@ def _load_glossary() -> str:
 _TACTIC_SYSTEM = """You are a Lean 4 theorem prover tutor. You will be given:
 - a theorem statement (in Lean)
 - one proof step (a tactic) from a proof
+- the proof state BEFORE this step
+- the proof state AFTER this step
 
 Explain in plain {lang} what this step does and WHY it makes sense.
 Keep it concise (2-4 sentences). Focus on the mathematical idea, not the syntax.
+"""
+
+# 让 LLM 解释单个 tactic（带状态）的 user prompt 模板
+_TACTIC_STATE_USER = """Theorem:
+{theorem}
+
+Before this step:
+{before}
+
+Tactic: {tactic}
+
+After this step:
+{after}
 """
 
 # 术语表（仅中文时注入，帮助对齐数学术语）
@@ -113,15 +129,26 @@ def translate_tactic(
     theorem_stmt: str,
     tactic: str,
     target_lang: str = "zh",
+    before: str | None = None,
+    after: str | None = None,
 ) -> str:
-    """解释单个 tactic（用于逐步解释）。"""
+    """解释单个 tactic（用于逐步解释）。
+
+    有真实状态（before/after）时用状态差解释，更可靠；
+    无状态时回退到纯文本（v1 行为）。
+    """
     lang = "中文" if _lang_zh(target_lang) else "English"
     sys = _TACTIC_SYSTEM.format(lang=lang)
     if _lang_zh(target_lang):
         gl = _load_glossary()
         if gl:
             sys += "\n" + _GLOSSARY_HINT.format(glossary=gl)
-    user = f"Theorem:\n{theorem_stmt}\n\nProof step:\n{tactic}"
+    if before is not None and after is not None:
+        user = _TACTIC_STATE_USER.format(
+            theorem=theorem_stmt, before=before, tactic=tactic, after=after or "(无剩余目标，证明完成)"
+        )
+    else:
+        user = f"Theorem:\n{theorem_stmt}\n\nProof step:\n{tactic}"
     return llm.complete(sys, user)
 
 
@@ -153,19 +180,37 @@ def translate_proof_block(
         target_lang=target_lang,
     )
 
-    # 1. 逐步解释（每个 tactic 单独问）
-    for tactic in block.tactics:
+    # 1. 尝试用 LeanREPL 提取真实状态轨迹（v2）
+    # 需要完整的 `theorem <name> <sig>` 声明（不是只有 sig 部分）
+    full_decl = f"theorem {block.theorem_name} {block.theorem_stmt}"
+    trace = extract_state_trace(full_decl, block.tactics)
+    has_state = trace.steps and not trace.error
+
+    # 2. 逐步解释（有状态用状态差，无状态回退纯文本）
+    for i, tactic in enumerate(block.tactics):
+        before = trace.steps[i].before if has_state and i < len(trace.steps) else None
+        after = trace.steps[i].after if has_state and i < len(trace.steps) else None
         try:
-            exp = translate_tactic(llm, block.theorem_stmt, tactic, target_lang)
+            exp = translate_tactic(
+                llm, block.theorem_stmt, tactic, target_lang,
+                before=before, after=after,
+            )
             result.line_by_line.append({"tactic": tactic, "explanation": exp})
         except Exception as exc:
             result.line_by_line.append({"tactic": tactic, "explanation": f"（失败：{exc}）"})
 
     # 2. 连贯可读证明（一次生成整篇）
-    user = (
-        f"Theorem:\n{block.theorem_stmt}\n\n"
-        f"Proof (tactics):\n" + "\n".join(f"  {i+1}. {t}" for i, t in enumerate(block.tactics))
-    )
+    # 3. 连贯可读证明（有状态时也注入状态轨迹）
+    user_parts = [f"Theorem:\n{block.theorem_stmt}", "Proof:"]
+    if has_state:
+        for i, step in enumerate(trace.steps):
+            user_parts.append(
+                f"  {i+1}. `{step.tactic}`  [before: {step.before.splitlines()[-1][:80]} → after: {(step.after or 'done').splitlines()[-1][:80]}]".replace("\n", " ")
+            )
+    else:
+        for i, t in enumerate(block.tactics):
+            user_parts.append(f"  {i+1}. {t}")
+    user = "\n".join(user_parts)
     try:
         result.full_proof = llm.complete(sys_proof, user)
     except Exception as exc:
