@@ -1,153 +1,189 @@
 import * as vscode from "vscode";
-import { exec } from "child_process";
-import * as path from "path";
+import { detectEnvironment, type EnvironmentStatus } from "./env";
+import { registerHoverProvider } from "./hover";
+import { registerCodeLens } from "./codelens";
+import { showOutput, closePanel } from "./webview";
+import { updateStatusBar, disposeStatusBar } from "./statusbar";
+import { translateFile, translateSelection, checkFile } from "./leanweaver";
 
 /**
- * LeanWeaver VS Code extension.
+ * LeanWeaver VS Code 扩展主入口。
  *
- * 核心思路：复用 Python CLI（leanweaver），把输出渲染到 Webview 面板。
- * - translate: 翻译当前 Lean 文件中的证明（中文可读 + 逐行注释）
- * - check:     解释当前文件的所有报错
- *
- * 需要本机已安装 leanweaver（pip install leanweaver）和 lean（elan）。
+ * 能力：
+ *  - 报错悬停中文解释（hover，规则层毫秒级）
+ *  - 定理行 CodeLens「翻译证明」
+ *  - 命令：翻译当前文件/选中、解释报错
+ *  - 状态栏环境检测 + 首次激活引导
  */
 
-let panel: vscode.WebviewPanel | undefined;
+let envStatus: EnvironmentStatus = { cli: false, lean: false, llm: false };
 
-function getConfig(): { cli: string; lang: string } {
+async function refreshEnvironment() {
+  envStatus = await detectEnvironment();
+  updateStatusBar(envStatus);
+  return envStatus;
+}
+
+/** 首次激活引导：缺依赖时提示。 */
+async function maybeShowSetup() {
+  const status = await refreshEnvironment();
+  if (status.cli && status.lean) return; // 环境 OK
+
   const cfg = vscode.workspace.getConfiguration("leanweaver");
-  return {
-    cli: cfg.get<string>("leanweaverCli", "python3 -m leanweaver"),
-    lang: cfg.get<string>("lang", "zh"),
-  };
-}
+  const alreadyDismissed = cfg.get<boolean>("setupPromptDismissed", false);
+  if (alreadyDismissed) return;
 
-/** 执行 leanweaver 命令，返回 stdout。 */
-function runLeanweaver(args: string[]): Promise<string> {
-  const { cli } = getConfig();
-  const cmd = `${cli} ${args.join(" ")}`;
-  return new Promise((resolve, reject) => {
-    exec(cmd, { cwd: vscode.workspace.rootPath ?? undefined, timeout: 120000 }, (err, stdout, stderr) => {
-      if (err) {
-        // 非零退出码（如 check 有错误）也可能是正常结果，stdout 里有内容就返回
-        if (stdout && stdout.trim()) {
-          resolve(stdout);
-        } else {
-          reject(new Error(stderr || err.message));
-        }
-        return;
-      }
-      resolve(stdout);
-    });
-  });
-}
+  const missing: string[] = [];
+  if (!status.lean) missing.push("Lean 工具链 (elan)");
+  if (!status.cli) missing.push("leanweaver CLI");
 
-/** 把纯文本转成 HTML 展示（简单转义）。 */
-function textToHtml(text: string): string {
-  const esc = (s: string) =>
-    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  return esc(text).replace(/\n/g, "<br>");
-}
-
-function ensurePanel(): vscode.WebviewPanel {
-  if (panel) {
-    panel.reveal();
-    return panel;
-  }
-  panel = vscode.window.createWebviewPanel(
-    "leanweaver",
-    "LeanWeaver",
-    vscode.ViewColumn.Beside,
-    { enableScripts: false }
+  const action = await vscode.window.showWarningMessage(
+    `LeanWeaver：检测到缺少 ${missing.join("、")}。报错解释需要它们。是否查看安装指引？`,
+    "查看指引",
+    "暂时不用"
   );
-  panel.onDidDispose(() => {
-    panel = undefined;
-  });
-  return panel;
+  if (action === "查看指引") {
+    vscode.commands.executeCommand("leanweaver.openSetup");
+  } else if (action === "暂时不用") {
+    await cfg.update("setupPromptDismissed", true, vscode.ConfigurationTarget.Global);
+  }
 }
 
-function renderResult(title: string, content: string): void {
-  const p = ensurePanel();
-  p.title = title;
-  p.webview.html = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; padding: 16px; }
-    pre { background: #1e1e1e; color: #d4d4d4; padding: 12px; border-radius: 6px; white-space: pre-wrap; word-wrap: break-word; }
-    h3 { color: #569cd6; }
-  </style>
-</head>
-<body>
-  <h3>${title}</h3>
-  <pre>${textToHtml(content)}</pre>
-</body>
-</html>`;
-}
-
-/** 收集当前文件的证明相关源码（整文件传给 CLI 由 parser 提取）。 */
-async function currentDocument(): Promise<string | undefined> {
+function currentLeanSource(): { editor: vscode.TextEditor; text: string } | undefined {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
-    vscode.window.showWarningMessage("LeanWeaver: 请先打开一个 .lean 文件");
+    vscode.window.showWarningMessage("LeanWeaver：请先打开一个 .lean 文件");
     return undefined;
   }
-  return editor.document.getText();
+  return { editor, text: editor.document.getText() };
+}
+
+async function runWithProgress(title: string, fn: () => Promise<void>) {
+  await vscode.window.withProgress(
+    { location: vscode.ProgressLocation.Notification, title },
+    async () => {
+      await fn();
+    }
+  );
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  // translate: 翻译证明
+  // ---------- 命令：翻译当前文件 ----------
   const translateCmd = vscode.commands.registerCommand("leanweaver.translate", async () => {
-    const src = await currentDocument();
-    if (src === undefined) return;
-    const { lang } = getConfig();
-    const tmp = path.join(context.extensionPath, ".tmp");
-    const { writeFileSync, mkdirSync } = require("fs");
-    mkdirSync(tmp, { recursive: true });
-    const f = path.join(tmp, "input.lean");
-    writeFileSync(f, src);
-    vscode.window.withProgress(
-      { location: vscode.ProgressLocation.Notification, title: "LeanWeaver 正在翻译证明…" },
-      async () => {
-        try {
-          const out = await runLeanweaver([`translate "${f}"`, `--lang ${lang}`]);
-          renderResult("LeanWeaver · 证明翻译", out);
-        } catch (e: any) {
-          vscode.window.showErrorMessage(`LeanWeaver 翻译失败: ${e.message}`);
-        }
+    const src = currentLeanSource();
+    if (!src) return;
+    await runWithProgress("LeanWeaver 正在翻译证明…", async () => {
+      try {
+        const out = await translateFile(src.text);
+        showOutput("LeanWeaver · 证明翻译", out);
+      } catch (e: any) {
+        vscode.window.showErrorMessage(`LeanWeaver 翻译失败：${e.message}`);
       }
-    );
+    });
   });
 
-  // check: 解释报错
+  // ---------- 命令：翻译选中的证明片段 ----------
+  const translateSelCmd = vscode.commands.registerCommand("leanweaver.translateSelection", async () => {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) return;
+    const sel = editor.selection;
+    if (sel.isEmpty) {
+      vscode.window.showWarningMessage("LeanWeaver：请先选中要翻译的 Lean 代码");
+      return;
+    }
+    const text = editor.document.getText(sel);
+    await runWithProgress("LeanWeaver 正在翻译选中内容…", async () => {
+      try {
+        const out = await translateSelection(text);
+        showOutput("LeanWeaver · 选中翻译", out);
+      } catch (e: any) {
+        vscode.window.showErrorMessage(`LeanWeaver 翻译失败：${e.message}`);
+      }
+    });
+  });
+
+  // ---------- 命令：翻译某个定理（CodeLens 调用） ----------
+  const translateAtCmd = vscode.commands.registerCommand("leanweaver.translateAt", async (arg: { text: string }) => {
+    const src = currentLeanSource();
+    if (!src || !arg) return;
+    await runWithProgress("LeanWeaver 正在翻译该定理…", async () => {
+      try {
+        // 提取定理名（简化：从 arg.text 正则）
+        const m = /(?:theorem|lemma|example|def)\s+([A-Za-z_][A-Za-z0-9_']*)?/.exec(arg.text);
+        const name = m && m[1];
+        const out = await translateFile(src.text, name || undefined);
+        showOutput(`LeanWeaver · ${name || "定理"}翻译`, out);
+      } catch (e: any) {
+        vscode.window.showErrorMessage(`LeanWeaver 翻译失败：${e.message}`);
+      }
+    });
+  });
+
+  // ---------- 命令：解释当前文件报错 ----------
   const checkCmd = vscode.commands.registerCommand("leanweaver.check", async () => {
-    const src = await currentDocument();
-    if (src === undefined) return;
-    const { lang } = getConfig();
-    const tmp = path.join(context.extensionPath, ".tmp");
-    const { writeFileSync, mkdirSync } = require("fs");
-    mkdirSync(tmp, { recursive: true });
-    const f = path.join(tmp, "input.lean");
-    writeFileSync(f, src);
-    vscode.window.withProgress(
-      { location: vscode.ProgressLocation.Notification, title: "LeanWeaver 正在分析报错…" },
-      async () => {
-        try {
-          const out = await runLeanweaver([`check "${f}"`, `--lang ${lang}`]);
-          renderResult("LeanWeaver · 报错解释", out);
-        } catch (e: any) {
-          vscode.window.showErrorMessage(`LeanWeaver 检查失败: ${e.message}`);
-        }
+    const src = currentLeanSource();
+    if (!src) return;
+    await runWithProgress("LeanWeaver 正在分析报错…", async () => {
+      try {
+        const out = await checkFile(src.text);
+        showOutput("LeanWeaver · 报错解释", out);
+      } catch (e: any) {
+        vscode.window.showErrorMessage(`LeanWeaver 检查失败：${e.message}`);
       }
-    );
+    });
   });
 
+  // ---------- 命令：打开输出面板 ----------
   const openCmd = vscode.commands.registerCommand("leanweaver.openPanel", () => {
-    ensurePanel();
+    showOutput("LeanWeaver", "打开一个 Lean 文件，然后：\n\n- 悬停报错 → 中文解释\n- 定理行点击「翻译证明」\n- 右键 → 翻译 / 检查");
   });
 
-  context.subscriptions.push(translateCmd, checkCmd, openCmd);
+  // ---------- 命令：打开设置 ----------
+  const settingsCmd = vscode.commands.registerCommand("leanweaver.openSettings", () => {
+    vscode.commands.executeCommand("workbench.action.openSettings", "@ext:fiersity.leanweaver");
+  });
+
+  // ---------- 命令：安装指引 ----------
+  const setupCmd = vscode.commands.registerCommand("leanweaver.openSetup", () => {
+    const md = new vscode.MarkdownString(`# LeanWeaver 安装指引
+
+LeanWeaver 需要以下组件：
+
+### 1. Lean 工具链（报错解释、证明分析需要）
+\`\`\`bash
+curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
+\`\`\`
+
+### 2. leanweaver CLI
+\`\`\`bash
+pip install leanweaver
+# 或从源码:
+# pip install -e /path/to/LeanWeaver
+\`\`\`
+
+### 3. LLM API（翻译功能需要；报错解释不需要）
+在设置里配置 \`leanweaver\`，或设置环境变量：
+\`\`\`bash
+export OPENAI_API_KEY=sk-xxx
+export OPENAI_BASE_URL=https://api.deepseek.com/v1   # 以 DeepSeek 为例
+export LEANWEAVER_MODEL=deepseek-chat
+\`\`\`
+
+> 提示：只想要报错解释（免费、离线、秒出）的话，装好 1 和 2 即可。`);
+    vscode.window.showInformationMessage("LeanWeaver 安装指引（详见输出面板）", { modal: false });
+    showOutput("LeanWeaver · 安装指引", md.value);
+  });
+
+  // ---------- 注册 hover / codelens / 状态栏 ----------
+  registerHoverProvider(context);
+  registerCodeLens(context);
+  context.subscriptions.push(translateCmd, translateSelCmd, translateAtCmd, checkCmd, openCmd, settingsCmd, setupCmd);
+
+  // 启动时检测环境 + 首次引导
+  maybeShowSetup();
 }
 
-export function deactivate() {}
+export function deactivate() {
+  closePanel();
+  disposeStatusBar();
+}

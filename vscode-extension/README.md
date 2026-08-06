@@ -1,58 +1,71 @@
 # LeanWeaver VS Code 扩展
 
-> 让 Lean 4 形式化证明对人类可读——证明翻译 + 报错解释。
-> Make Lean 4 formal proofs readable to humans.
+> 让 Lean 4 形式化证明对人类可读——报错中文解释 + 证明翻译。
 
-## 功能
+## 核心能力
 
-在 `.lean` 文件里右键或命令面板：
+| 能力 | 触发方式 | 说明 |
+|---|---|---|
+| **🖱️ 报错悬停解释** | 鼠标悬停在红波浪线上 | 秒出中文解释（规则层，免费离线） |
+| **🔍 定理行翻译按钮** | 定理上方 CodeLens「翻译证明」 | 逐定理精确翻译 |
+| **📖 翻译当前文件** | 右键 / 命令面板 | 中文可读证明 + 逐行注释 |
+| **✂️ 翻译选中代码** | 选中后右键 | 翻译一段证明片段 |
+| **🔧 解释报错** | 右键 / 命令面板 | 列出文件所有报错的中文解释 |
+| **📊 状态栏** | 左下角 | 环境状态（CLI/Lean/LLM） |
 
-| 命令 | 功能 |
-|---|---|
-| **LeanWeaver: 翻译当前证明** | 把文件里的证明翻译成中文可读证明 + 逐行注释（Herald 风格） |
-| **LeanWeaver: 解释当前文件报错** | 把文件的每个报错翻译成中文人话 + 修复建议 |
-
-输出显示在侧边 Webview 面板。
-
-## 依赖（需先装好）
+## 安装
 
 ```bash
 # 1. LeanWeaver CLI
-pip install leanweaver        # 或从源码: pip install -e /path/to/LeanWeaver
+pip install leanweaver
 
 # 2. Lean 工具链
 curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
 
-# 3. LLM（翻译需要）— 配置 OpenAI 兼容 API（如 DeepSeek）
-export LEANWEAVER_LLM_PROVIDER=openai
-export OPENAI_API_KEY=sk-xxx
-export OPENAI_BASE_URL=https://api.deepseek.com/v1
-export LEANWEAVER_MODEL=deepseek-chat
+# 3. 安装扩展
+code --install-extension leanweaver-0.2.0.vsix
+# 或从扩展市场安装（发布后）
 ```
 
-## 配置项
+## 配置
 
-在 VS Code 设置里搜索 `leanweaver`：
+VS Code 设置搜索 `leanweaver`：
 
 | 设置 | 默认 | 说明 |
 |---|---|---|
 | `leanweaver.leanweaverCli` | `python3 -m leanweaver` | CLI 调用命令 |
 | `leanweaver.lang` | `zh` | 输出语言（zh/en） |
+| `leanweaver.llmFallback` | `false` | 规则未命中时用 LLM 兜底 |
 
-## 开发
+## LLM 配置（翻译需要；报错解释不需要）
 
 ```bash
-cd vscode-extension
-npm install
-npm run compile     # 编译 TypeScript → dist/
-# 在 VS Code 里 F5 启动调试宿主
+export OPENAI_API_KEY=sk-xxx
+export OPENAI_BASE_URL=https://api.deepseek.com/v1   # DeepSeek 示例
+export LEANWEAVER_MODEL=deepseek-chat
 ```
 
-## 发布（打包 vsix）
+## 架构
+
+```
+src/
+├── extension.ts   # 入口：命令注册 + 激活引导
+├── env.ts         # 环境检测（CLI/Lean/LLM）
+├── leanweaver.ts  # CLI 调用封装
+├── hover.ts       # 报错悬停解释（规则层，带缓存）
+├── codelens.ts    # 定理行「翻译证明」按钮
+├── webview.ts     # 输出面板（Markdown 渲染）
+└── statusbar.ts   # 状态栏
+```
+
+设计原则：**所有功能复用 Python CLI**（单一实现源），TypeScript 层只做 UI 集成。
+
+## 开发 / 打包
 
 ```bash
-npm install -g @vscode/vsce
-vsce package        # 生成 .vsix，可离线安装或上传扩展市场
+npm install
+npm run compile     # 编译 TS
+npx @vscode/vsce package --no-dependencies   # 打包 vsix
 ```
 
 ## 许可
