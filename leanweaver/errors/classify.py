@@ -34,6 +34,8 @@ class ErrorCategory(str, Enum):
     DECLARATION_USES_SORRY = "uses_sorry"    # 使用了 sorry
     MISSING_IMPORT = "missing_import"        # 缺失导入
     SYNTAX_ERROR = "syntax_error"            # 语法错误（通用）
+    INVALID_TARGET = "invalid_target"        # motive/归纳目标无效（依赖类型疑难）
+    CALC_ERROR = "calc_error"                # calc 块错误
     UNKNOWN = "unknown"                      # 未识别
 
 
@@ -76,6 +78,13 @@ _RULES: list[tuple[str, ErrorCategory]] = [
     ("expected type", ErrorCategory.TYPE_MISMATCH),
     ("is not definitionally equal to", ErrorCategory.TYPE_MISMATCH),
     ("of sort", ErrorCategory.TYPE_MISMATCH),
+    # motive/归纳目标无效（难：induction 时索引出现多次）
+    ("invalid target", ErrorCategory.INVALID_TARGET),
+    ("occurs more than once", ErrorCategory.INVALID_TARGET),
+    # calc 专用（必须先于通用 type mismatch / unsolved goals）
+    ("invalid 'calc' step", ErrorCategory.CALC_ERROR),
+    ("invalid calc", ErrorCategory.CALC_ERROR),
+    ("calc step", ErrorCategory.CALC_ERROR),
     # 未知标识符（Lean 4.32："Unknown identifier `bar`"）
     ("unknown identifier", ErrorCategory.UNKNOWN_IDENTIFIER),
     ("unknown constant", ErrorCategory.UNKNOWN_IDENTIFIER),

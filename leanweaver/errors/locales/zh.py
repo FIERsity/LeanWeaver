@@ -224,6 +224,43 @@ TEMPLATES_ZH: dict[ErrorCategory, dict[str, Any]] = {
         "fix": ["用真实的证明替换 `sorry`", "提交前用 `grep sorry` 检查全仓库"],
     },
 
+    ErrorCategory.INVALID_TARGET: {
+        "title": "归纳目标无效（索引出现多次）",
+        "what": (
+            "使用 `induction`（或依赖模式匹配）时，Lean 需要对目标做「泛化」。"
+            "这个错误表示你要归纳的变量在目标（或其他假设的类型）中出现了多次，"
+            "导致 Lean 无法干净地泛化它。这是初学者最容易懵的 Lean 报错之一。"
+        ),
+        "why": [
+            "归纳变量在目标中出现了不止一次",
+            "要归纳的假设带有索引，且该索引在其他地方也出现",
+            "其实需要依赖模式匹配，但你用了普通的 `induction`/`cases`",
+        ],
+        "fix": [
+            "先对出问题的变量用 `generalize`，或 `revert` 其他提到它的假设",
+            "试试给 `induction` 显式指定 motive",
+            "有时用 `rcases` / 直接对构造子做模式匹配，比 `induction` 更有效",
+        ],
+    },
+
+    ErrorCategory.CALC_ERROR: {
+        "title": "calc 步骤无效",
+        "what": (
+            "在 `calc` 块中，每一步的右侧必须与链式推导要求的值定义相等。"
+            "Lean 发现你写的这一步没有正确衔接上链条（步与步之间类型不匹配）。"
+        ),
+        "why": [
+            "`calc` 中间表达式与链条要求的不一致",
+            "某一步 `by ...` 的证明其实证的是另一个等式",
+            "链条期望的值（来自上一步）和你声称的不一样",
+        ],
+        "fix": [
+            "看报错的 'right-hand side is'（你写的）vs 'but is expected to be'（链条需要的）",
+            "检查每一步的左侧是否等于上一步的右侧",
+            "确保 `:=` 后面的证明恰好证明显示的那个等式",
+        ],
+    },
+
     ErrorCategory.MISSING_IMPORT: {
         "title": "缺失导入（missing import / unknown module）",
         "what": "你要导入的模块不存在，或路径写错。",

@@ -242,6 +242,46 @@ TEMPLATES_EN: dict[ErrorCategory, dict[str, Any]] = {
         ],
     },
 
+    ErrorCategory.INVALID_TARGET: {
+        "title": "Invalid induction target (index occurs more than once)",
+        "what": (
+            "When you use `induction` (or dependent pattern matching) on a hypothesis, "
+            "Lean needs to 'generalize' the target. This error means the variable you are "
+            "inducting on appears multiple times in the target (or in the type of another "
+            "hypothesis), so Lean cannot generalize it cleanly. This is one of the hardest "
+            "Lean errors for beginners."
+        ),
+        "why": [
+            "The induction variable appears more than once in the goal or in an index of the type",
+            "The hypothesis you're inducting on has an index that also occurs elsewhere",
+            "You need dependent pattern matching but wrote plain `induction`/`cases`",
+        ],
+        "fix": [
+            "Try `generalize` on the problematic variable first, or revert other hypotheses that mention it",
+            "Use `induction` with an explicit motive, or try `revert` on hypotheses mentioning the index",
+            "Sometimes `rcases` / pattern matching on the actual constructor works better than `induction`",
+        ],
+    },
+
+    ErrorCategory.CALC_ERROR: {
+        "title": "Invalid calc step",
+        "what": (
+            "In a `calc` block, each line's right-hand side must be definitionally equal to "
+            "the expected value from the chain. Lean found that what you wrote does not "
+            "continue the chain correctly (type mismatch between steps)."
+        ),
+        "why": [
+            "The intermediate expression in a `calc` line doesn't match what the chain requires",
+            "A `by ...` proof for one step actually proves a different equality",
+            "The chain's expected value (from the previous step) differs from what you claimed",
+        ],
+        "fix": [
+            "Look at 'right-hand side is' (what you wrote) vs 'but is expected to be' (what the chain needs)",
+            "Check that each step's left-hand side equals the previous step's right-hand side",
+            "Make sure the proof after `:=` proves exactly the equality shown",
+        ],
+    },
+
     ErrorCategory.MISSING_IMPORT: {
         "title": "Missing import / unknown module",
         "what": "The module you are importing does not exist, or the path is wrong.",

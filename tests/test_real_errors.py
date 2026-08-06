@@ -94,3 +94,43 @@ def test_real_motive_invalid_with_code():
     # 真实场景中 motive 错误常伴随 error(lean.invalidMotive)
     msg = "error(lean.invalidMotive): invalid motive"
     assert classify_error(msg).category is ErrorCategory.MOTIVE_NOT_CORRECT
+
+
+def test_hard_invalid_target_motive():
+    # 真实难例：induction 时索引出现多次
+    msg = "Invalid target: Target (or one of its indices) occurs more than once\n  n"
+    info = classify_error(msg)
+    assert info.category is ErrorCategory.INVALID_TARGET
+
+
+def test_hard_calc_error():
+    # 真实难例：calc 步类型不匹配
+    msg = """invalid 'calc' step, right-hand side is
+  n - n : Nat
+but is expected to be
+  1 : Nat"""
+    info = classify_error(msg)
+    assert info.category is ErrorCategory.CALC_ERROR
+
+
+def test_hard_calc_zh_explanation():
+    from leanweaver.errors.explain import explain
+
+    result = explain(
+        "invalid 'calc' step, right-hand side is\n  n - n : Nat\nbut is expected to be\n  1 : Nat",
+        lang="zh",
+    )
+    assert "calc" in result.title
+    assert len(result.fix) > 0
+    assert "right-hand side" in result.what or "链条" in result.what
+
+
+def test_hard_motive_zh_explanation():
+    from leanweaver.errors.explain import explain
+
+    result = explain(
+        "Invalid target: Target (or one of its indices) occurs more than once\n  n",
+        lang="zh",
+    )
+    assert "归纳" in result.title or "索引" in result.what
+    assert len(result.fix) > 0
