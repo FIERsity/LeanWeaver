@@ -12,15 +12,14 @@ export function updateStatusBar(status: EnvironmentStatus) {
 
   const isZh = vscode.workspace.getConfiguration("leanweaver").get<string>("lang", "en") === "zh";
 
-  if (status.cli && status.lean && status.officialLean) {
+  if (status.lean && status.officialLean) {
     item.text = "$(check) LeanWeaver";
-    item.tooltip = isZh ? "就绪：纯规则报错解释（离线、免费）" : "Ready: rule-based error explainer (offline, free)";
+    item.tooltip = isZh ? "就绪：纯规则报错解释（离线、零依赖）" : "Ready: rule-based error explainer (offline)";
     item.backgroundColor = undefined;
   } else {
     const missing = [
       !status.officialLean ? (isZh ? "Lean扩展" : "Lean ext") : "",
       !status.lean ? "Lean" : "",
-      !status.cli ? (isZh ? "CLI" : "CLI") : "",
     ].filter(Boolean);
     item.text = `$(warning) LeanWeaver: ${missing.join(" / ")}`;
     item.tooltip = isZh

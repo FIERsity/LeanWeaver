@@ -2,7 +2,7 @@
   "name": "leanweaver",
   "displayName": "LeanWeaver",
   "description": "Rule-based Lean 4 error explainer — hover errors to get clear explanations. 纯规则 Lean 报错解释：悬停即懂，英语优先，中英可切。",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "publisher": "fiersity",
   "license": "MIT",
   "engines": {
@@ -56,11 +56,6 @@
           "enum": ["en", "zh"],
           "default": "en",
           "description": "Explanation language (en default / zh 中文)."
-        },
-        "leanweaver.leanweaverCli": {
-          "type": "string",
-          "default": "",
-          "description": "Command to invoke leanweaver. Empty = auto-detect (project venv, then python3)."
         }
       }
     }

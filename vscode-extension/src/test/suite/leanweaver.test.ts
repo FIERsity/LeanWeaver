@@ -1,27 +1,16 @@
 import * as vscode from "vscode";
 import * as assert from "assert";
-import * as fs from "fs";
-import { exec } from "child_process";
+import { classify, explain, pretty } from "../../engine";
 
 /**
- * LeanWeaver 扩展集成测试 —— 纯规则，零 LLM。
+ * LeanWeaver 扩展集成测试 —— 纯规则引擎内嵌，零 CLI 依赖。
  */
 
-function run(cmd: string, timeout = 30000): Promise<string> {
-  return new Promise((resolve, reject) => {
-    exec(cmd, { timeout }, (err, stdout, stderr) => {
-      if (err && !stdout) return reject(new Error(stderr || err.message));
-      resolve(stdout || stderr);
-    });
-  });
-}
-
-suite("LeanWeaver 集成测试（纯规则）", () => {
-  test("扩展已激活", async () => {
+suite("LeanWeaver 集成测试（内置引擎）", () => {
+  test("扩展已激活，无 CLI 命令残留", async () => {
     const cmds = await vscode.commands.getCommands();
-    // 不应有 LLM 命令（已砍掉）
+    assert.ok(!cmds.includes("leanweaver.diagnose"), "diagnose 应已移除");
     assert.ok(!cmds.includes("leanweaver.translate"), "translate 应已移除");
-    assert.ok(!cmds.includes("leanweaver.suggest"), "suggest 应已移除");
   });
 
   test("hover provider 可调用（不抛异常）", async () => {
@@ -39,24 +28,48 @@ suite("LeanWeaver 集成测试（纯规则）", () => {
     assert.ok(Array.isArray(hovers), "hover provider 应可调用");
   });
 
-  test("CLI explain 返回中文解释（纯规则）", async function () {
-    this.timeout(30000);
-    const py = fs.existsSync("/Volumes/DataHub/Dev/LeanWeaver/.venv/bin/python3")
-      ? "/Volumes/DataHub/Dev/LeanWeaver/.venv/bin/python3"
-      : "python3";
-    const out = await run(
-      `${py} -m leanweaver explain --lang zh "Type mismatch\\n  s\\nhas type\\n  String\\nbut is expected to have type\\n  Nat"`
+  test("内置引擎：type mismatch 分类正确", () => {
+    const r = classify(
+      "Type mismatch\n  s\nhas type\n  String\nbut is expected to have type\n  Nat"
     );
-    assert.ok(out.includes("类型不匹配") || out.includes("Type mismatch"), `应包含解释: ${out.slice(0, 60)}`);
-    assert.ok(out.includes("修复") || out.includes("Fixes"), "应有修复建议");
+    assert.strictEqual(r.category, "type_mismatch");
   });
-});
 
-test("detectEnvironment 检测 CLI（诊断状态栏问题）", async () => {
-  const { detectEnvironment } = await import("../../env.js") as typeof import("../../env");
-  const env = await detectEnvironment();
-  // 打印诊断（测试输出可见）
-  console.log("[diagnose] cli =", env.cli, "lean =", env.lean, "officialLean =", env.officialLean);
-  // 至少 CLI 检测逻辑不抛异常
-  assert.ok(typeof env.cli === "boolean");
+  test("内置引擎：error code 优先", () => {
+    const r = classify("error(lean.invalidField): Invalid field `z`");
+    assert.strictEqual(r.category, "invalid_field");
+  });
+
+  test("内置引擎：中文解释（默认 en，可切 zh）", () => {
+    const en = explain(
+      "Unknown identifier `foo`",
+      "en"
+    );
+    assert.ok(en.title.includes("Unknown") || en.title.includes("unknown"));
+
+    const zh = explain(
+      "Unknown identifier `foo`",
+      "zh"
+    );
+    assert.ok(zh.title.includes("未知标识符") || zh.title.includes("未知"));
+    assert.ok(zh.fix.length > 0);
+    assert.ok(pretty(zh).includes("修复"));
+  });
+
+  test("内置引擎：motive 难报错可解释", () => {
+    const zh = explain(
+      "Invalid target: Target (or one of its indices) occurs more than once\n  n",
+      "zh"
+    );
+    assert.notStrictEqual(zh.category, "unknown");
+    assert.ok(zh.fix.length > 0);
+  });
+
+  test("内置引擎：calc 报错可解释", () => {
+    const zh = explain(
+      "invalid 'calc' step, right-hand side is\n  n - n : Nat\nbut is expected to be\n  1 : Nat",
+      "zh"
+    );
+    assert.strictEqual(zh.category, "calc_error");
+  });
 });
