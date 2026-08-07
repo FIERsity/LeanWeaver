@@ -1,15 +1,15 @@
 # LeanWeaver
 
 > Rule-based Lean 4 error explainer — hover any error, get a clear explanation.
-> 纯规则 Lean 4 报错解释器 —— 悬停报错，秒懂修复。
+> Lean 4 报错解释器 —— 悬停报错，秒懂修复。
 
-**LeanWeaver** is a VS Code extension that explains Lean 4 error messages in plain language. Hover over any red squiggle, and LeanWeaver tells you what the error means, why it happened, and how to fix it — **without any LLM, fully offline, free, and deterministic.**
+**LeanWeaver** is a VS Code extension that explains Lean 4 error messages in plain language. Hover over any red squiggle, and LeanWeaver tells you what the error means, why it happened, and how to fix it — **fully offline, free, and instant.**
 
 ## Features
 
 - 🖱️ **Hover to explain** — point at any Lean error, get a clear explanation
 - 🌍 **English first, 中文可切** — default English, switch to Chinese in settings
-- ⚡ **Instant & offline** — pure rule engine in the extension, no network, no API key
+- ⚡ **Instant & offline** — explanations appear instantly, no network needed
 - 🔒 **Deterministic** — same error always gets the same explanation
 - 🎓 **Beginner-friendly** — each error gets: what it means + common causes + how to fix
 

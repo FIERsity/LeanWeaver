@@ -5,11 +5,11 @@
 # LeanWeaver
 
 > Rule-based Lean 4 error explainer — hover any error, get a clear explanation.
-> 纯规则 Lean 4 报错解释器 —— 悬停报错，秒懂修复。
+> Lean 4 报错解释器 —— 悬停报错，秒懂修复。
 
 [![CI](https://github.com/FIERsity/LeanWeaver/actions/workflows/ci.yml/badge.svg)](https://github.com/FIERsity/LeanWeaver/actions/workflows/ci.yml)
 
-LeanWeaver explains Lean 4 error messages in plain language. Hover over any red squiggle in a `.lean` file, and LeanWeaver tells you **what the error means, why it happened, and how to fix it** — built entirely on a deterministic rule engine, with **no LLM, no network, no API key, fully offline.**
+LeanWeaver explains Lean 4 error messages in plain language. Hover over any red squiggle in a `.lean` file, and LeanWeaver tells you **what the error means, why it happened, and how to fix it** — instantly, fully offline, free.
 
 ## 核心形态 / Primary Form
 
@@ -19,8 +19,8 @@ LeanWeaver explains Lean 4 error messages in plain language. Hover over any red 
 
 - 🖱️ **Hover to explain** — point at any Lean error/warning, get a plain-language explanation
 - 🌍 **English first, 中文可切** — default English, switch to Chinese in one setting
-- ⚡ **Instant & offline** — pure rule engine embedded in the extension
-- 🔒 **Deterministic** — the same error always gets the same explanation (no hallucination)
+- ⚡ **Instant & offline** — explanations appear instantly, no network needed
+- 🔒 **Deterministic** — the same error always gets the same explanation
 - 🎓 **Actionable** — every explanation includes: what it means + common causes + how to fix
 
 ## Quick Start
@@ -71,7 +71,7 @@ Fixes:
 | `decreasing_failed` | `could not find a decreasing measure` |
 | … | 29 categories total, each with en/zh explanations |
 
-**Measured coverage**: 78.4% of user-facing errors in the official corpus are recognized (the rest are long-tail / internal errors).
+**Coverage**: 78.4% of user-facing errors in the official corpus are recognized (the rest are long-tail / internal errors).
 
 ## Compatibility / 版本兼容
 
@@ -107,7 +107,7 @@ The **Python package** (`leanweaver/`) is the **single source of truth** for the
 python -m leanweaver.gen_rules_ts --out vscode-extension/src/generated/rules.ts
 ```
 
-Corpus pipeline (all data from official Lean sources, not LLM-generated):
+Corpus pipeline (all data from official Lean sources):
 
 ```
 lean4 official tests (tests/elab, tests/elab_fail)

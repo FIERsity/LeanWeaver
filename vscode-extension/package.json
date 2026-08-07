@@ -1,7 +1,7 @@
 {
   "name": "leanweaver",
   "displayName": "LeanWeaver",
-  "description": "Rule-based Lean 4 error explainer — hover errors to get clear explanations. 纯规则 Lean 报错解释：悬停即懂，英语优先，中英可切。",
+  "description": "Rule-based Lean 4 error explainer — hover errors to get clear explanations. 悬停报错即懂：英语优先，可切中文。",
   "version": "1.0.0",
   "publisher": "fiersity",
   "license": "MIT",
