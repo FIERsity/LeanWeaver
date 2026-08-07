@@ -1,0 +1,10 @@
+.vscode/**
+.vscode-test/**
+.tmp_demo.lean
+src/**
+dist/test/**
+**/*.map
+**/*.ts
+tsconfig.json
+node_modules/**
+*.vsix

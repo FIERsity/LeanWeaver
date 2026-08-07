@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>LeanWeaver</title>
+
+  <!-- User-provided Lean mark, used unchanged. -->
+  <image href="lean-mark.png" x="16" y="16" width="224" height="224"/>
+
+  <!-- LeanWeaver: the Lean diagnostic being explained. -->
+  <path
+    d="M28 194c10-13 20-13 30 0s20 13 30 0 20-13 30 0 20 13 30 0 20-13 30 0 20 13 30 0 20-13 30 0"
+    fill="none"
+    stroke="#E5484D"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

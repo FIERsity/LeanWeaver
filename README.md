@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/icon-128.png" width="96" height="96" alt="LeanWeaver icon">
+</p>
+
 # LeanWeaver
 
 > Rule-based Lean 4 error explainer — hover any error, get a clear explanation.
@@ -111,9 +115,13 @@ lean4 official tests (tests/elab, tests/elab_fail)
 │   ├── collect_issues.py
 │   └── extract_official.py
 ├── data/official_corpus.json  # 691 official verified errors
+├── assets/                 # icon source (icon.svg) + build-icon.sh
 ├── docs/                   # methodology & real error samples
 └── tests/                  # 34 tests
 ```
+
+The icon lives in `assets/icon.svg` as the single source; `assets/build-icon.sh` rasterises it
+to `assets/icon-{128,256}.png` and copies the 256px variant to `vscode-extension/icon.png`.
 
 ## Commands
 

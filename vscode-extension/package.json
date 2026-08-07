@@ -5,6 +5,11 @@
   "version": "0.7.0",
   "publisher": "fiersity",
   "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#F5F5F5",
+    "theme": "light"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
