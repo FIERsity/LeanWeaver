@@ -2,9 +2,13 @@
   "name": "leanweaver",
   "displayName": "LeanWeaver",
   "description": "Rule-based Lean 4 error explainer — hover errors to get clear explanations. 纯规则 Lean 报错解释：悬停即懂，英语优先，中英可切。",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "publisher": "fiersity",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FIERsity/LeanWeaver.git"
+  },
   "icon": "icon.png",
   "galleryBanner": {
     "color": "#F5F5F5",
@@ -58,7 +62,10 @@
       "properties": {
         "leanweaver.lang": {
           "type": "string",
-          "enum": ["en", "zh"],
+          "enum": [
+            "en",
+            "zh"
+          ],
           "default": "en",
           "description": "Explanation language (en default / zh 中文)."
         }
@@ -73,11 +80,12 @@
     "test": "tsc -p ./ && node ./dist/test/runTest.js"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.6",
     "@types/node": "^20.11.0",
     "@types/vscode": "^1.85.0",
-    "typescript": "^5.4.0",
+    "@vscode/test-electron": "^3.1.0",
     "@vscode/vsce": "^2.24.0",
     "mocha": "^10.4.0",
-    "@types/mocha": "^10.0.6"
+    "typescript": "^5.4.0"
   }
 }

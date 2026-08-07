@@ -7,6 +7,8 @@
 > Rule-based Lean 4 error explainer — hover any error, get a clear explanation.
 > 纯规则 Lean 4 报错解释器 —— 悬停报错，秒懂修复。
 
+[![CI](https://github.com/FIERsity/LeanWeaver/actions/workflows/ci.yml/badge.svg)](https://github.com/FIERsity/LeanWeaver/actions/workflows/ci.yml)
+
 LeanWeaver explains Lean 4 error messages in plain language. Hover over any red squiggle in a `.lean` file, and LeanWeaver tells you **what the error means, why it happened, and how to fix it** — built entirely on a deterministic rule engine, with **no LLM, no network, no API key, fully offline.**
 
 ## 核心形态 / Primary Form
@@ -70,6 +72,15 @@ Fixes:
 | … | 29 categories total, each with en/zh explanations |
 
 **Measured coverage**: 78.4% of user-facing errors in the official corpus are recognized (the rest are long-tail / internal errors).
+
+## Compatibility / 版本兼容
+
+The rule library is built and validated against the **official Lean test corpus (Lean 4.32.2)**.
+Lean changes its error wording between versions:
+
+- **error-code-based rules** (e.g. `type mismatch`, `unknown identifier`) are the stable core — they rarely change between versions;
+- **exact-wording rules** may drift on newer Lean versions;
+- anything unrecognized falls back to showing the raw error unchanged — LeanWeaver **never guesses**.
 
 ## Language
 

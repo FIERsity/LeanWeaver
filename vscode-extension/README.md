@@ -76,6 +76,14 @@ Type mismatch, unknown identifier, unsolved goals, no goals, failed to synthesiz
 | `LeanWeaver: Setup` | Check environment & guide installation of missing pieces |
 | `LeanWeaver: Settings` | Open extension settings |
 
+## Compatibility
+
+The rule library is built and validated against the **official Lean test corpus (Lean 4.32.2)**. Lean changes its error wording between versions, so:
+
+- explanations keyed on **error codes** stay stable across versions;
+- wording-specific rules may drift on newer Lean versions;
+- anything unrecognized falls back to showing the raw error unchanged — LeanWeaver never guesses.
+
 ## License
 
 MIT
