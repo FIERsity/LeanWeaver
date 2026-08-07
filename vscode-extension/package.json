@@ -18,8 +18,7 @@
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Programming Languages",
-    "Formal Languages"
+    "Programming Languages"
   ],
   "keywords": [
     "lean",

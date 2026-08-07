@@ -15,7 +15,7 @@
 
 ## Installation
 
-1. Install **LeanWeaver** from the VS Code Marketplace.
+1. Install **LeanWeaver** from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=fiersity.leanweaver).
 2. Install the **official Lean extension** ([leanprover.lean4](https://marketplace.visualstudio.com/items?itemName=leanprover.lean4)) — it provides the red squiggles that LeanWeaver explains. LeanWeaver will prompt you if it's missing.
 3. Open a `.lean` file. That's it.
 

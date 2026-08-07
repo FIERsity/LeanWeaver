@@ -25,7 +25,7 @@ LeanWeaver explains Lean 4 error messages in plain language. Hover over any red 
 
 ## Quick Start
 
-1. Install **LeanWeaver** from the VS Code Marketplace.
+1. Install **LeanWeaver** from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=fiersity.leanweaver).
 2. Install the **official Lean extension** (`leanprover.lean4`) — it provides the diagnostics that LeanWeaver explains. LeanWeaver prompts you if it's missing.
 3. Open a `.lean` file and hover over an error.
 
