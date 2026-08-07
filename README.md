@@ -84,7 +84,7 @@ Lean changes its error wording between versions:
 
 ## Language
 
-English by default. Switch to Chinese:
+The explanation language **follows your VS Code UI language** — a Chinese UI gets Chinese explanations, everything else gets English. Explicitly override with `leanweaver.lang`:
 
 ```json
 {

@@ -47,11 +47,13 @@ Fixes:
 
 ## Language
 
-English is the default. To switch to Chinese:
+By default the explanation language **follows your VS Code UI language** — a Chinese UI gets Chinese explanations, everything else gets English. No setup needed.
+
+To override:
 
 1. Open Settings (`Cmd+,` / `Ctrl+,`)
 2. Search for `leanweaver.lang`
-3. Set it to `zh`
+3. Set it to `en` or `zh`
 
 Or set it in `settings.json`:
 

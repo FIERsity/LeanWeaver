@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { detectEnvironment, openLeanExtension, hasOfficialLean } from "./env";
 import { registerHoverProvider } from "./hover";
 import { updateStatusBar, disposeStatusBar } from "./statusbar";
+import { getLang } from "./lang";
 
 /**
  * LeanWeaver VS Code 扩展 —— 纯规则、自包含、零 CLI 依赖。
@@ -9,10 +10,6 @@ import { updateStatusBar, disposeStatusBar } from "./statusbar";
  * 内置规则引擎（TypeScript），装扩展即用，无需 Python。
  * 依赖：官方 Lean 扩展 (leanprover.lean4) 提供红线/诊断。
  */
-
-function getLang(): string {
-  return vscode.workspace.getConfiguration("leanweaver").get<string>("lang", "en");
-}
 
 /** 安装引导：检测缺失项，QuickPick 分步引导。 */
 async function showSetup() {

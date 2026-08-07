@@ -2,7 +2,7 @@
   "name": "leanweaver",
   "displayName": "LeanWeaver",
   "description": "Rule-based Lean 4 error explainer — hover errors to get clear explanations. 悬停报错即懂：英语优先，可切中文。",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "fiersity",
   "license": "MIT",
   "repository": {
@@ -66,7 +66,7 @@
             "zh"
           ],
           "default": "en",
-          "description": "Explanation language (en default / zh 中文)."
+          "description": "Explanation language. Unset: follows VS Code UI language (zh UI → 中文). 未设置时跟随 VS Code 界面语言。"
         }
       }
     }

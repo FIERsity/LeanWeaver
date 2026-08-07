@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { explain, pretty } from "./engine";
+import { getLang } from "./lang";
 
 /**
  * 报错悬停解释（核心 UX）—— 纯规则引擎内嵌，零 CLI 依赖。
@@ -21,10 +22,6 @@ function getCached(message: string): string | undefined {
 
 function setCached(message: string, text: string) {
   cache.set(message, { text, ts: Date.now() });
-}
-
-function getLang(): string {
-  return vscode.workspace.getConfiguration("leanweaver").get<string>("lang", "en");
 }
 
 export function registerHoverProvider(context: vscode.ExtensionContext) {

@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import type { EnvironmentStatus } from "./env";
+import { getLang } from "./lang";
 
 let item: vscode.StatusBarItem | undefined;
 
@@ -10,7 +11,7 @@ export function updateStatusBar(status: EnvironmentStatus) {
     item.show();
   }
 
-  const isZh = vscode.workspace.getConfiguration("leanweaver").get<string>("lang", "en") === "zh";
+  const isZh = getLang() === "zh";
 
   if (status.lean && status.officialLean) {
     item.text = "$(check) LeanWeaver";

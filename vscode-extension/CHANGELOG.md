@@ -2,6 +2,14 @@
 
 All notable changes to LeanWeaver. Kept in sync with `vscode-extension/CHANGELOG.md`.
 
+## [1.0.1] - 2026-08-07
+
+### Added
+- **Language auto-detection** — when `leanweaver.lang` is not set, explanations follow the VS Code UI language (a Chinese UI gets Chinese explanations; everything else gets English). An explicit setting still always wins.
+
+### Changed
+- Marketplace copy updated (README/description): describes current capabilities only, no LLM comparisons.
+
 ## [1.0.0] - 2026-08-07
 
 First stable release.
